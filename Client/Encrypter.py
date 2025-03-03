@@ -30,4 +30,11 @@ def Generate_Prime_Numbers():
 
 
 def is_prime(num):
-    pass
+    if num % 2 == 0 or num <= 1:
+        return False
+    return True
+
+Generate_Prime_Numbers()
+
+print(p, q)
+print(p%2, q%2)
