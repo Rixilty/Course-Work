@@ -47,9 +47,12 @@ def Get_Factors():
             phi_Factors.append(i)
 
 def Get_e():
+    global e
     for i in range(2, n+1):
         if not is_factor_of_n(i) and not is_factor_of_phi(i):
             e.append(i)
+            e = int(e[0])
+            break
 
 def is_factor_of_n(num):
     for i in range(len(n_Factors)):
