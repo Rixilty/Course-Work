@@ -46,3 +46,10 @@ def Get_Factors_Of_n():
         if n % i == 0 and i != 1:
             n_Factors.append(i)
     print("n_Factors:",n_Factors)
+    Get_Factors_Of_phi()
+
+def Get_Factors_Of_phi():
+    for i in range(1, phi+1):
+        if phi%i == 0 and i != 1:
+            phi_Factors.append(i)
+    print("phi_Factors:",phi_Factors)
