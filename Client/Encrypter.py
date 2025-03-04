@@ -21,7 +21,7 @@ def ready():
     Get_Non_Coprime_Numbers()
 
 def Generate_Prime_Numbers():
-    global p, q
+    global p, q, n, phi
     for i in range(2):
         num = random.randint(1000, 9999)
         while is_prime(num) == False:
