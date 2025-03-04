@@ -10,22 +10,21 @@ d = 0
 n_Factors = []
 phi_Factors = []
 
-Lock = 0
+Lock = []
 Key = 0
 
 def ready():
     Generate_Prime_Numbers()
+    Get_Factors()
     Get_e()
-    Get_Factors_Of_n()
-    Get_Factors_Of_phi()
-    Get_Non_Coprime_Numbers()
+    print(e)
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
     for i in range(2):
-        num = random.randint(1000, 9999)
+        num = random.randint(100, 1000)
         while is_prime(num) == False:
-            num = random.randint(1000, 9999)
+            num = random.randint(100, 1000)
         if p == 0:
             p = num
         else:
@@ -39,31 +38,29 @@ def is_prime(num):
         return False
     return True
 
-def Get_e():
-    for i in range(2, phi+1):
-        e.append(i)
-    print("e:",e)
-
-def Get_Factors_Of_n():
-    for i in range(1, n+1):
+def Get_Factors():
+    for i in range(1, n + 1):
         if n % i == 0 and i != 1:
             n_Factors.append(i)
-    print("n_Factors:",n_Factors)
-
-def Get_Factors_Of_phi():
-    for i in range(1, phi+1):
-        if phi%i == 0 and i != 1:
+    for i in range(1, phi + 1):
+        if phi % i == 0 and i != 1:
             phi_Factors.append(i)
-    print("phi_Factors:",phi_Factors)
 
-def Get_Non_Coprime_Numbers():
-    for i in range(len(e)):
-       for j in range(len(n_Factors)):
-          if e[i] % n_Factors[j] == 0:
-              e.remove(e[i])
-       for j in range(len(phi_Factors)):
-           if e[i] % phi_Factors[j] == 0:
-               e.remove(e[i])
-    print("e:",e)
+def Get_e():
+    for i in range(2, n+1):
+        if not is_factor_of_n(i) and not is_factor_of_phi(i):
+            e.append(i)
+
+def is_factor_of_n(num):
+    for i in range(len(n_Factors)):
+        if num % n_Factors[i] == 0 and num != 1:
+            return True
+    return False
+
+def is_factor_of_phi(num):
+    for i in range(len(phi_Factors)):
+        if num % phi_Factors[i] == 0 and num != 1:
+            return True
+    return False
 
 ready()
