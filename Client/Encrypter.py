@@ -7,8 +7,6 @@ phi = 0
 e = []
 d = 0
 
-Prime_Numbers = []
-
 n_Factors = []
 phi_Factors = []
 
@@ -27,6 +25,8 @@ def Generate_Prime_Numbers():
             q = num
     n = p * q
     phi = (p - 1) * (q - 1)
+    print("p:",p, "q:",q, "n:",n, "phi:",phi)
+    Get_e()
 
 
 def is_prime(num):
@@ -34,7 +34,8 @@ def is_prime(num):
         return False
     return True
 
-Generate_Prime_Numbers()
 
-print(p, q)
-print(p%2, q%2)
+def Get_e():
+    for i in range(2, phi+1):
+        e.append(i)
+    print("e:",e)
