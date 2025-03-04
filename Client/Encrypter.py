@@ -39,3 +39,10 @@ def Get_e():
     for i in range(2, phi+1):
         e.append(i)
     print("e:",e)
+    Get_Factors_Of_n()
+
+def Get_Factors_Of_n():
+    for i in range(1, n+1):
+        if n % i == 0 and i != 1:
+            n_Factors.append(i)
+    print("n_Factors:",n_Factors)
