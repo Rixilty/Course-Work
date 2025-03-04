@@ -53,3 +53,14 @@ def Get_Factors_Of_phi():
         if phi%i == 0 and i != 1:
             phi_Factors.append(i)
     print("phi_Factors:",phi_Factors)
+    Get_Non_Coprime_Numbers()
+
+def Get_Non_Coprime_Numbers():
+    for i in range(len(e)):
+       for j in range(len(n_Factors)):
+          if e[i] % n_Factors[j] == 0:
+              e.remove(e[i])
+       for j in range(len(phi_Factors)):
+           if e[i] % phi_Factors[j] == 0:
+               e.remove(e[i])
+    print("e:",e)
