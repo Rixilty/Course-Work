@@ -21,11 +21,12 @@ def ready():
     print(Lock)
     print(Key)
     num = 5
-    enc = (num**e)%n
-    dec  = (enc**d)%n
+    enc = (num ** e) % n
+    dec = (enc ** d) % n
     print(num)
-    print("Encrypted:",enc)
-    print("Decrypted:",dec)
+    print("Encrypted:", enc)
+    print("Decrypted:", dec)
+
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
@@ -37,15 +38,14 @@ def Generate_Prime_Numbers():
             p = num
         else:
             q = num
-    p = 2
-    q = 7
     n = p * q
     phi = (p - 1) * (q - 1)
     print("p:",p, "q:",q, "n:",n, "phi:",phi)
 
 def is_prime(num):
-    if num % 2 == 0 or num <= 1:
-        return False
+    for i in range(2, (num//2)):
+        if num % i == 0:
+            return False
     return True
 
 def Get_Factors():
@@ -62,6 +62,7 @@ def Get_e():
         if not is_factor_of_n(i) and not is_factor_of_phi(i):
             e.append(i)
             e = int(e[0])
+            print("e:",e)
             Lock = [e, n]
             break
 
@@ -80,7 +81,7 @@ def is_factor_of_phi(num):
 def Get_d():
     global d, Key
     count = 0
-    for i in range(n):
+    for i in range(n**2):
         if (i*e)%phi == 1:
             count += 1
             if count == 2:
