@@ -17,7 +17,15 @@ def ready():
     Generate_Prime_Numbers()
     Get_Factors()
     Get_e()
+    Get_d()
     print(Lock)
+    print(Key)
+    num = 5
+    enc = (num**e)%n
+    dec  = (enc**d)%n
+    print(num)
+    print("Encrypted:",enc)
+    print("Decrypted:",dec)
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
@@ -29,6 +37,8 @@ def Generate_Prime_Numbers():
             p = num
         else:
             q = num
+    p = 2
+    q = 7
     n = p * q
     phi = (p - 1) * (q - 1)
     print("p:",p, "q:",q, "n:",n, "phi:",phi)
@@ -66,5 +76,16 @@ def is_factor_of_phi(num):
         if num % phi_Factors[i] == 0 and num != 1:
             return True
     return False
+
+def Get_d():
+    global d, Key
+    count = 0
+    for i in range(n):
+        if (i*e)%phi == 1:
+            count += 1
+            if count == 2:
+                d = i
+                Key = [d, n]
+                break
 
 ready()
