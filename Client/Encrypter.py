@@ -11,13 +11,13 @@ n_Factors = []
 phi_Factors = []
 
 Lock = []
-Key = 0
+Key = []
 
 def ready():
     Generate_Prime_Numbers()
     Get_Factors()
     Get_e()
-    print(e)
+    print(Lock)
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
@@ -47,11 +47,12 @@ def Get_Factors():
             phi_Factors.append(i)
 
 def Get_e():
-    global e
+    global e, Lock
     for i in range(2, n+1):
         if not is_factor_of_n(i) and not is_factor_of_phi(i):
             e.append(i)
             e = int(e[0])
+            Lock = [e, n]
             break
 
 def is_factor_of_n(num):
