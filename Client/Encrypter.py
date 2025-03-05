@@ -13,20 +13,16 @@ phi_Factors = []
 Lock = []
 Key = []
 
+Text = []
+
 def ready():
     Generate_Prime_Numbers()
     Get_Factors()
     Get_e()
     Get_d()
-    print(Lock)
-    print(Key)
-    num = 5
-    enc = (num ** e) % n
-    dec = (enc ** d) % n
-    print(num)
-    print("Encrypted:", enc)
-    print("Decrypted:", dec)
-
+    Message()
+    Encrypt(Text)
+    Decrypt(Text)
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
@@ -88,5 +84,25 @@ def Get_d():
                 d = i
                 Key = [d, n]
                 break
+
+def Message():
+    Message = input("Enter a message: ")
+    message_to_ascii(Message)
+
+def message_to_ascii(Message):
+    global Text
+    for char in Message:
+        Text.append(ord(char))
+
+def Encrypt(Text):
+    for i in range(len(Text)):
+        Text[i] = (Text[i] ** e) % n
+    print(Text)
+
+def Decrypt(Text):
+    for i in range(len(Text)):
+        Text[i] = chr((Text[i] ** d) % n)
+    Text = ''.join(Text)
+    print(Text)
 
 ready()
