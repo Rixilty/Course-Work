@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Course-Work.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Course-Work.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Encrypter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Encrypter.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +52,6 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.13" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Client" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
@@ -93,6 +93,9 @@
       <workItem from="1741167734527" duration="970000" />
       <workItem from="1741172706001" duration="1072000" />
       <workItem from="1741177686686" duration="3489000" />
+      <workItem from="1741198000360" duration="2023000" />
+      <workItem from="1741212510196" duration="316000" />
+      <workItem from="1741213032052" duration="2665000" />
     </task>
     <servers />
   </component>
@@ -100,6 +103,6 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1741181256957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1741218858754" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
   </component>
 </project>

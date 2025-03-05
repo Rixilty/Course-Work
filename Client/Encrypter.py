@@ -33,6 +33,8 @@ def Generate_Prime_Numbers():
         if p == 0:
             p = num
         else:
+            while num == p:
+                num = random.randint(100, 1000)
             q = num
     n = p * q
     phi = (p - 1) * (q - 1)
