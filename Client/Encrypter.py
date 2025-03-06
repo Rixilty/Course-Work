@@ -1,4 +1,5 @@
 import random
+import time
 
 p = 0
 q = 0
@@ -7,7 +8,6 @@ phi = 0
 e = []
 d = 0
 
-n_Factors = []
 phi_Factors = []
 
 Lock = []
@@ -16,6 +16,8 @@ Key = []
 Text = []
 
 def ready():
+    start_time = time.time()
+
     Generate_Prime_Numbers()
     Get_Factors()
     Get_e()
@@ -23,6 +25,11 @@ def ready():
     Message()
     Encrypt(Text)
     Decrypt(Text)
+
+    end_time = time.time()
+
+    execution_time = end_time - start_time
+    print(f"Execution Time: {execution_time:.6f} seconds")
 
 def Generate_Prime_Numbers():
     global p, q, n, phi
@@ -47,9 +54,6 @@ def is_prime(num):
     return True
 
 def Get_Factors():
-    for i in range(1, n + 1):
-        if n % i == 0 and i != 1:
-            n_Factors.append(i)
     for i in range(1, phi + 1):
         if phi % i == 0 and i != 1:
             phi_Factors.append(i)
@@ -57,18 +61,12 @@ def Get_Factors():
 def Get_e():
     global e, Lock
     for i in range(2, n+1):
-        if not is_factor_of_n(i) and not is_factor_of_phi(i):
+        if not is_factor_of_phi(i):
             e.append(i)
             e = int(e[0])
             print("e:",e)
             Lock = [e, n]
             break
-
-def is_factor_of_n(num):
-    for i in range(len(n_Factors)):
-        if num % n_Factors[i] == 0 and num != 1:
-            return True
-    return False
 
 def is_factor_of_phi(num):
     for i in range(len(phi_Factors)):
@@ -78,20 +76,17 @@ def is_factor_of_phi(num):
 
 def Get_d():
     global d, Key
-    count = 0
-    for i in range(n**2):
-        if (i*e)%phi == 1:
-            count += 1
-            if count == 2:
-                d = i
-                Key = [d, n]
-                break
+    for i in range(n ** 2):
+        if (i * e) % phi == 1:
+            d = i
+            Key = [d, n]
+            break
 
 def Message():
-    Message = input("Enter a message: ")
-    message_to_ascii(Message)
+    Message = "Hello World!!! привет как дела!!! 안녕하세요 مرحبا كيف حالك" #input("Enter a message: ")
+    message_to_unicode(Message)
 
-def message_to_ascii(Message):
+def message_to_unicode(Message):
     global Text
     for char in Message:
         Text.append(ord(char))
