@@ -76,7 +76,7 @@ def is_factor_of_phi(num):
 
 def Get_d():
     global d, Key
-    for i in range(n ** 2):
+    for i in range(n):
         if (i * e) % phi == 1:
             d = i
             Key = [d, n]
@@ -93,12 +93,12 @@ def message_to_unicode(Message):
 
 def Encrypt(Text):
     for i in range(len(Text)):
-        Text[i] = (Text[i] ** e) % n
+        Text[i] = pow(Text[i], e, n)
     print(Text)
 
 def Decrypt(Text):
     for i in range(len(Text)):
-        Text[i] = chr((Text[i] ** d) % n)
+        Text[i] = chr(pow(Text[i], d, n))
     Text = ''.join(Text)
     print(Text)
 
