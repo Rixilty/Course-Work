@@ -31,7 +31,6 @@ class Login_GUI:
         elif (len(Password) < 8) or (len(Password) > 16):
             messagebox.showerror("Error", "Password length invalid! (8-16)")
         else:
-            self.Validate_password(Password)
             if self.Validate_password(Password):
                 messagebox.showinfo("Success", "Login Successful")
 
@@ -48,13 +47,17 @@ class Login_GUI:
                 Validity[3] = True
 
         if not Validity[0]:
-            return messagebox.showerror("Error", "Password must contain at least 1 uppercase letter!")
+            messagebox.showerror("Error", "Password must contain at least 1 uppercase letter!")
+            return False
         elif not Validity[1]:
-            return messagebox.showerror("Error", "Password must contain at lest 1 lowercase letter!")
+            messagebox.showerror("Error", "Password must contain at lest 1 lowercase letter!")
+            return False
         elif not Validity[2]:
-            return messagebox.showerror("Error", "Password must contain at least 1 number!")
+            messagebox.showerror("Error", "Password must contain at least 1 number!")
+            return False
         elif not Validity[3]:
-            return messagebox.showerror("Error", "Password must contain at least 1 symbol!")
+            messagebox.showerror("Error", "Password must contain at least 1 symbol!")
+            return False
         else:
             return True
 
