@@ -38,9 +38,9 @@ class Login_GUI:
     def Validate_password(self, password):
         Validity = [False, False, False, False]
         for char in password:
-            if char == char.upper(): # Checks for uppercase letters
+            if char.isalpha() and (char == char.upper()): # Checks for uppercase letters
                 Validity[0] = True
-            if char == char.lower(): # Checks for lowercase letters
+            if char.isalpha() and (char == char.lower()): # Checks for lowercase letters
                 Validity[1] = True
             if char.isdigit(): # Checks for numbers
                 Validity[2] = True
