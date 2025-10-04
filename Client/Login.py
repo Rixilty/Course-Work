@@ -44,7 +44,7 @@ class Login_GUI:
                 Validity[1] = True
             if char.isdigit(): # Checks for numbers
                 Validity[2] = True
-            if (char != char.isalpha()) and (char != char.isdigit()): # Checks for symbols
+            if (not char.isalpha()) and (not char.isdigit()): # Checks for symbols
                 Validity[3] = True
 
         if not Validity[0]:
