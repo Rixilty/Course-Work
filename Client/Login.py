@@ -16,9 +16,21 @@ class Login_GUI:
         self.Username_entry.pack()
         self.Password_entry = tk.Entry(self.root, text="Password")
         self.Password_entry.pack()
-        self.Login_button = tk.Button(self.root, text="Login")
+        self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
         self.Login_button.pack()
 
         self.root.mainloop()
+
+    def Login(self):
+        Username = self.Username_entry.get()
+        Password = self.Password_entry.get()
+        if (Username == "") or (Password == ""):
+            messagebox.showerror("Error", "Fill in all fields")
+        elif (len(Username) < 3):
+            messagebox.showerror("Error", "Username is too short")
+        elif (len(Password) < 8) or (len(Password) > 16):
+            messagebox.showerror("Error", "Password length invalid! (8-16)")
+        else:
+            messagebox.showinfo("Success", "Login Successful")
 
 Login_GUI()
