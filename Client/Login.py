@@ -33,13 +33,13 @@ class Login_GUI:
         self.Username_label = tk.Label(self.main_frame, text="Username:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e")
 
-        self.Username_entry = ctk.CTkEntry(self.main_frame, width=31, font=("Arial", 12), placeholder_text="Username:", fg="white", bg="#1c1c1c")
+        self.Username_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), placeholder_text="Username", fg_color="white", text_color="grey")
         self.Username_entry.grid(row=1, column=1)
 
         self.Password_label = tk.Label(self.main_frame, text="Password:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
         self.Password_label.grid(row=2, column=0, sticky="e")
 
-        self.Password_entry = ctk.CTkEntry(self.main_frame, width=31, font=("Arial", 12), show="*", placeholder_text="Password")
+        self.Password_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), show="*", placeholder_text="Password", fg_color="white", text_color="grey")
         self.Password_entry.grid(row=2, column=1)
 
         button_border = tk.Frame(self.main_frame, bg="#424242")
