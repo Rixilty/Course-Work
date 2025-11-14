@@ -30,6 +30,17 @@ class Login_GUI:
         self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
         self.Login_button.grid(row=3, column=0, columnspan=2, padx=15)
 
+        bottom_frame = tk.Frame(self.root, bg=self.root["bg"])
+        bottom_frame.grid(row=4, column=0, columnspan=2, pady=20)
+
+        self.not_signed_label = tk.Label(bottom_frame, text="Dont't have an account?")
+        self.not_signed_label.grid(row=0, column=0)
+
+        self.signup_link = tk.Label(bottom_frame, text="Sign up.", fg="blue", cursor="hand2")
+        self.signup_link.grid(row=0, column=1, padx=0)
+
+        self.signup_link.bind("<Button-1>", self.on_signup_click)
+
         self.root.mainloop()
 
     def Login(self):
@@ -94,5 +105,8 @@ class Login_GUI:
 
         entry.bind("<FocusIn>", on_focus_in)
         entry.bind("<FocusOut>", on_focus_out)
+
+    def on_signup_click(self, event):
+        pass
 
 Login_GUI()
