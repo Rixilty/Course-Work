@@ -1,5 +1,6 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, ttk
+
 
 class Login_GUI:
 
@@ -20,27 +21,32 @@ class Login_GUI:
         self.root.title("Login")
         self.root.configure(bg="#1c1c1c")
 
-        self.Title = tk.Label(self.root, text="Login", font=("Arial", 16), fg="white", bg="#1c1c1c")
+        self.main_frame = tk.Frame(self.root, bg="#1c1c1c")
+        self.main_frame.place(relx=0.5, rely=0.5, anchor="center")
+        self.main_frame.grid_columnconfigure(0, weight=1)
+        self.main_frame.grid_columnconfigure(1, weight=1)
+
+        self.Title = tk.Label(self.main_frame, text="Login", font=("Arial", 16), fg="white", bg="#1c1c1c")
         self.Title.grid(row=0, column=0, columnspan=2, pady=20)
 
-        self.Username_label = tk.Label(self.root, text="Username:", fg="white", bg="#1c1c1c")
+        self.Username_label = tk.Label(self.main_frame, text="Username:", fg="white", bg="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e", padx=10)
 
-        self.Username_entry = tk.Entry(self.root, width=25)
+        self.Username_entry = tk.Entry(self.main_frame, width=25)
         self.Username_entry.grid(row=1, column=1, padx=10)
         self.add_placeholder(self.Username_entry, "Username")
 
-        self.Password_label = tk.Label(self.root, text="Password:", fg="white", bg="#1c1c1c")
+        self.Password_label = tk.Label(self.main_frame, text="Password:", fg="white", bg="#1c1c1c")
         self.Password_label.grid(row=2, column=0, sticky="e", padx=10)
 
-        self.Password_entry = tk.Entry(self.root, width=25, show="*")
+        self.Password_entry = tk.Entry(self.main_frame, width=25, show="*")
         self.Password_entry.grid(row=2, column=1, padx=10)
         self.add_placeholder(self.Password_entry, "Password", is_password=True)
 
-        self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
+        self.Login_button = tk.Button(self.main_frame, text="Login", command=self.Login)
         self.Login_button.grid(row=3, column=0, columnspan=2, padx=15)
 
-        bottom_frame = tk.Frame(self.root, bg=self.root["bg"])
+        bottom_frame = tk.Frame(self.main_frame, bg=self.main_frame["bg"])
         bottom_frame.grid(row=4, column=0, columnspan=2, pady=20)
 
         self.not_signed_label = tk.Label(bottom_frame, text="Dont't have an account?", fg="white", bg="#1c1c1c")
