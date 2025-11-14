@@ -5,9 +5,18 @@ class Login_GUI:
 
     def __init__(self):
 
+        window_width = 500
+        window_height = 350
+
         self.root = tk.Tk()
 
-        self.root.geometry("400x300")
+        screen_width = self.root.winfo_screenwidth()
+        screen_height = self.root.winfo_screenheight()
+        x = int((screen_width - window_width) / 2)
+        y = int((screen_height - window_height) / 2)
+
+        self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        self.root.resizable(False, False)
         self.root.title("Login")
 
         self.Title = tk.Label(self.root, text="Login", font=("Arial", 16))
