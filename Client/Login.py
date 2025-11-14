@@ -1,3 +1,4 @@
+import customtkinter as ctk
 import tkinter as tk
 from tkinter import messagebox
 
@@ -32,17 +33,14 @@ class Login_GUI:
         self.Username_label = tk.Label(self.main_frame, text="Username:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e")
 
-        self.Username_entry = tk.Entry(self.main_frame, width=31, font=("Arial", 12))
+        self.Username_entry = ctk.CTkEntry(self.main_frame, width=31, font=("Arial", 12), placeholder_text="Username:", fg="white", bg="#1c1c1c")
         self.Username_entry.grid(row=1, column=1)
-        self.add_placeholder(self.Username_entry, "Username")
 
         self.Password_label = tk.Label(self.main_frame, text="Password:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
         self.Password_label.grid(row=2, column=0, sticky="e")
 
-        self.Password_entry = tk.Entry(self.main_frame, width=31, font=("Arial", 12), show="*")
+        self.Password_entry = ctk.CTkEntry(self.main_frame, width=31, font=("Arial", 12), show="*", placeholder_text="Password")
         self.Password_entry.grid(row=2, column=1)
-        self.add_placeholder(self.Password_entry, "Password", is_password=True)
-
 
         button_border = tk.Frame(self.main_frame, bg="#424242")
         button_border.grid(row=3, column=0, columnspan=2, pady=10)
@@ -69,7 +67,7 @@ class Login_GUI:
         Username = self.Username_entry.get()
         Password = self.Password_entry.get()
         self.error_label.config(text="")
-        if (Username == "") or (Password == ""):
+        if Username in ("", "Username") or Password in ("", "Password"):
             self.error_label.config(text="Fill in all fields")
         elif (len(Username) < 3):
             self.error_label.config(text="Username is too short")
@@ -105,29 +103,6 @@ class Login_GUI:
             return False
         else:
             return True
-
-    def add_placeholder(self, entry, placeholder_text, is_password=False):
-        entry.insert(0, placeholder_text)
-        entry.config(fg="grey")
-        if is_password:
-            entry.config(show="")
-
-        def on_focus_in(event):
-            if entry.get() == placeholder_text:
-                entry.delete(0, "end")
-                entry.config(fg="black")
-                if is_password:
-                    entry.config(show="*")
-
-        def on_focus_out(event):
-            if entry.get() == "":
-                entry.insert(0, placeholder_text)
-                entry.config(fg="grey")
-                if is_password:
-                    entry.config(show="")
-
-        entry.bind("<FocusIn>", on_focus_in)
-        entry.bind("<FocusOut>", on_focus_out)
 
     def on_signup_click(self, event):
         pass
