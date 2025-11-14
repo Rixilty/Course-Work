@@ -53,7 +53,7 @@ class Login_GUI:
         self.error_label.grid(row=4, column=0, columnspan=2, pady=(10,0))
 
         bottom_frame = tk.Frame(self.main_frame, bg=self.main_frame["bg"])
-        bottom_frame.grid(row=4, column=0, columnspan=2, pady=20)
+        bottom_frame.grid(row=5, column=0, columnspan=2, pady=20)
 
         self.not_signed_label = tk.Label(bottom_frame, text="Don't have an account?", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
         self.not_signed_label.grid(row=0, column=0)
