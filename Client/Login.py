@@ -10,7 +10,7 @@ class Login_GUI:
         window_width = 500
         window_height = 350
 
-        self.root = tk.Tk()
+        self.root = ctk.CTk()
 
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
@@ -20,43 +20,41 @@ class Login_GUI:
         self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
         self.root.resizable(False, False)
         self.root.title("Login")
-        self.root.configure(bg="#1c1c1c")
+        self.root.configure(fg_color="#1c1c1c")
 
-        self.main_frame = tk.Frame(self.root, bg="#1c1c1c")
+        self.main_frame = ctk.CTkFrame(self.root, fg_color="#1c1c1c")
         self.main_frame.place(relx=0.5, rely=0.5, anchor="center")
         self.main_frame.grid_columnconfigure(0, weight=1)
         self.main_frame.grid_columnconfigure(1, weight=1)
 
-        self.Title = tk.Label(self.main_frame, text="Login", font=("Arial", 31, "bold"), fg="white", bg="#1c1c1c")
+        self.Title = ctk.CTkLabel(self.main_frame, text="Login", font=("Arial", 31, "bold"), text_color="white", fg_color="#1c1c1c")
         self.Title.grid(row=0, column=0, columnspan=2, pady=20)
 
-        self.Username_label = tk.Label(self.main_frame, text="Username:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
+        self.Username_label = ctk.CTkLabel(self.main_frame, text="Username:", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e")
 
-        self.Username_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), placeholder_text="Username", fg_color="white", text_color="grey")
+        self.Username_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), placeholder_text="Username", fg_color="white", text_color="black", placeholder_text_color="grey")
         self.Username_entry.grid(row=1, column=1)
 
-        self.Password_label = tk.Label(self.main_frame, text="Password:", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
+        self.Password_label = ctk.CTkLabel(self.main_frame, text="Password:", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
         self.Password_label.grid(row=2, column=0, sticky="e")
 
-        self.Password_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), show="*", placeholder_text="Password", fg_color="white", text_color="grey")
+        self.Password_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), show="*", placeholder_text="Password", fg_color="white", text_color="black", placeholder_text_color="grey")
         self.Password_entry.grid(row=2, column=1)
 
-        button_border = tk.Frame(self.main_frame, bg="#424242")
-        button_border.grid(row=3, column=0, columnspan=2, pady=10)
-        self.Login_button = tk.Button(button_border, text="Login", bg="#1c1c1c", fg="white", activebackground="#282828", activeforeground="white", borderwidth=0, font=("Arial", 14, "bold"), command=self.Login)
-        self.Login_button.grid(row=0, column=0, padx=1, pady=1)
+        self.Login_button = ctk.CTkButton(self.main_frame, text="Login", fg_color="#1c1c1c", text_color="white", hover_color="#282828", border_width=1, border_color="#424242", font=("Arial", 14, "bold"), command=self.Login)
+        self.Login_button.grid(row=3, column=0, columnspan=2, pady=10)
 
-        self.error_label = tk.Label(self.main_frame, text="", fg="red", bg="#1c1c1c", font=("Arial", 14, "bold"))
+        self.error_label = ctk.CTkLabel(self.main_frame, text="", text_color="red", fg_color="#1c1c1c", font=("Arial", 14, "bold"))
         self.error_label.grid(row=4, column=0, columnspan=2, pady=(10,0))
 
-        bottom_frame = tk.Frame(self.main_frame, bg=self.main_frame["bg"])
+        bottom_frame = ctk.CTkFrame(self.main_frame, fg_color=self.main_frame.cget("fg_color"))
         bottom_frame.grid(row=5, column=0, columnspan=2, pady=20)
 
-        self.not_signed_label = tk.Label(bottom_frame, text="Don't have an account?", font=("Arial",13, "bold"), fg="white", bg="#1c1c1c")
+        self.not_signed_label = ctk.CTkLabel(bottom_frame, text="Don't have an account?", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
         self.not_signed_label.grid(row=0, column=0)
 
-        self.signup_link = tk.Label(bottom_frame, text="Sign up.", font=("Arial",13, "bold underline"), fg="#001eff", bg="#1c1c1c", cursor="hand2")
+        self.signup_link = ctk.CTkLabel(bottom_frame, text="Sign up.", font=("Arial",13, "bold", "underline"), text_color="#001eff", fg_color="#1c1c1c", cursor="hand2")
         self.signup_link.grid(row=0, column=1, padx=0)
 
         self.signup_link.bind("<Button-1>", self.on_signup_click)
@@ -66,16 +64,16 @@ class Login_GUI:
     def Login(self):
         Username = self.Username_entry.get()
         Password = self.Password_entry.get()
-        self.error_label.config(text="")
-        if Username in ("", "Username") or Password in ("", "Password"):
-            self.error_label.config(text="Fill in all fields")
+        self.error_label.configure(text="")
+        if Username == "" or Password == "":
+            self.error_label.configure(text="Fill in all fields")
         elif (len(Username) < 3):
-            self.error_label.config(text="Username is too short")
+            self.error_label.configure(text="Username is too short")
         elif (len(Password) < 8) or (len(Password) > 16):
-            self.error_label.config(text="Password length invalid! (8-16)")
+            self.error_label.configure(text="Password length invalid! (8-16)")
         else:
             if self.Validate_password(Password):
-                self.error_label.config(text="Login Successful")
+                self.error_label.configure(text="Login Successful")
 
     def Validate_password(self, password):
         Validity = [False, False, False, False]
@@ -90,16 +88,16 @@ class Login_GUI:
                 Validity[3] = True
 
         if not Validity[0]:
-            self.error_label.config(text="Password must contain at least 1 uppercase letter!")
+            self.error_label.configure(text="Password must contain at least 1 uppercase letter!")
             return False
         elif not Validity[1]:
-            self.error_label.config(text="Password must contain at lest 1 lowercase letter!")
+            self.error_label.configure(text="Password must contain at lest 1 lowercase letter!")
             return False
         elif not Validity[2]:
-            self.error_label.config(text="Password must contain at least 1 number!")
+            self.error_label.configure(text="Password must contain at least 1 number!")
             return False
         elif not Validity[3]:
-            self.error_label.config(text="Password must contain at least 1 symbol!")
+            self.error_label.configure(text="Password must contain at least 1 symbol!")
             return False
         else:
             return True
