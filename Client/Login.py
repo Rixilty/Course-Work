@@ -49,6 +49,9 @@ class Login_GUI:
         self.Login_button = tk.Button(button_border, text="Login", bg="#1c1c1c", fg="white", activebackground="#282828", activeforeground="white", borderwidth=0, font=("Arial", 14, "bold"), command=self.Login)
         self.Login_button.grid(row=0, column=0, padx=1, pady=1)
 
+        self.error_label = tk.Label(self.main_frame, text="", fg="red", bg="#1c1c1c", font=("Arial", 14, "bold"))
+        self.error_label.grid(row=4, column=0, columnspan=2, pady=(10,0))
+
         bottom_frame = tk.Frame(self.main_frame, bg=self.main_frame["bg"])
         bottom_frame.grid(row=4, column=0, columnspan=2, pady=20)
 
@@ -65,15 +68,16 @@ class Login_GUI:
     def Login(self):
         Username = self.Username_entry.get()
         Password = self.Password_entry.get()
+        self.error_label.config(text="")
         if (Username == "") or (Password == ""):
-            messagebox.showerror("Error", "Fill in all fields")
+            self.error_label.config(text="Fill in all fields")
         elif (len(Username) < 3):
-            messagebox.showerror("Error", "Username is too short")
+            self.error_label.config(text="Username is too short")
         elif (len(Password) < 8) or (len(Password) > 16):
-            messagebox.showerror("Error", "Password length invalid! (8-16)")
+            self.error_label.config(text="Password length invalid! (8-16)")
         else:
             if self.Validate_password(Password):
-                messagebox.showinfo("Success", "Login Successful")
+                self.error_label.config(text="Login Successful")
 
     def Validate_password(self, password):
         Validity = [False, False, False, False]
@@ -88,16 +92,16 @@ class Login_GUI:
                 Validity[3] = True
 
         if not Validity[0]:
-            messagebox.showerror("Error", "Password must contain at least 1 uppercase letter!")
+            self.error_label.config(text="Password must contain at least 1 uppercase letter!")
             return False
         elif not Validity[1]:
-            messagebox.showerror("Error", "Password must contain at lest 1 lowercase letter!")
+            self.error_label.config(text="Password must contain at lest 1 lowercase letter!")
             return False
         elif not Validity[2]:
-            messagebox.showerror("Error", "Password must contain at least 1 number!")
+            self.error_label.config(text="Password must contain at least 1 number!")
             return False
         elif not Validity[3]:
-            messagebox.showerror("Error", "Password must contain at least 1 symbol!")
+            self.error_label.config(text="Password must contain at least 1 symbol!")
             return False
         else:
             return True
