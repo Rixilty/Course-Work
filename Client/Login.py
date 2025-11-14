@@ -10,14 +10,23 @@ class Login_GUI:
         self.root.geometry("400x300")
         self.root.title("Login")
 
-        self.Title = tk.Label(self.root, text="Login")
-        self.Title.pack()
-        self.Username_entry = tk.Entry(self.root, text="Username")
-        self.Username_entry.pack()
-        self.Password_entry = tk.Entry(self.root, text="Password")
-        self.Password_entry.pack()
+        self.Title = tk.Label(self.root, text="Login", font=("Arial", 16))
+        self.Title.grid(row=0, column=0, columnspan=2, pady=20)
+
+        self.Username_label = tk.Label(self.root, text="Username:")
+        self.Username_label.grid(row=1, column=0, sticky="e", padx=10)
+
+        self.Username_entry = tk.Entry(self.root, width=25)
+        self.Username_entry.grid(row=1, column=1, padx=10)
+
+        self.Password_label = tk.Label(self.root, text="Password:")
+        self.Password_label.grid(row=2, column=0, sticky="e", padx=10)
+
+        self.Password_entry = tk.Entry(self.root, width=25, show="*")
+        self.Password_entry.grid(row=2, column=1, padx=10)
+
         self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
-        self.Login_button.pack()
+        self.Login_button.grid(row=3, column=0, columnspan=2, padx=15)
 
         self.root.mainloop()
 

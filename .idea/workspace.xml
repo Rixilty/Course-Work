@@ -5,6 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Encrypter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Encrypter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,25 +32,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.Encrypter.executor": "Run",
-    "Python.Login.executor": "Run",
-    "Python.Translator.executor": "Run",
-    "Python.tk.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "H:/Documents/Github/Course-Work",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "vcs.Git",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.Encrypter.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Init.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Login.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Translator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.tk.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;H:/Documents/Github/Course-Work&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Encrypter" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="Course-Work" />
@@ -77,8 +80,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
-        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
+        <option value="bundled-js-predefined-d6986cc7102b-09060db00ec0-JavaScript-PY-251.26927.74" />
+        <option value="bundled-python-sdk-657d8234b839-64d779b69b7a-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-251.26927.74" />
       </set>
     </attachedChunks>
   </component>
@@ -105,6 +108,16 @@
       <workItem from="1741213032052" duration="10840000" />
       <workItem from="1741287303652" duration="1667000" />
       <workItem from="1741668872905" duration="411000" />
+      <workItem from="1760347110982" duration="84000" />
+      <workItem from="1760697029496" duration="644000" />
+      <workItem from="1761098363365" duration="81000" />
+      <workItem from="1761158467434" duration="773000" />
+      <workItem from="1761585779159" duration="603000" />
+      <workItem from="1762699995856" duration="2423000" />
+      <workItem from="1762777958181" duration="333000" />
+      <workItem from="1763029533913" duration="706000" />
+      <workItem from="1763119935059" duration="2496000" />
+      <workItem from="1763137657758" duration="1247000" />
     </task>
     <servers />
   </component>
@@ -112,9 +125,10 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1759536913692" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1763138597689" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$tk.coverage" NAME="tk Coverage Results" MODIFIED="1759538321057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1759537084680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Course_Work$Login.coverage" NAME="Login Coverage Results" MODIFIED="1759545289013" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Init.coverage" NAME="Init Coverage Results" MODIFIED="1763120706246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/Course_Work$Login.coverage" NAME="Login Coverage Results" MODIFIED="1763138688947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
   </component>
 </project>
