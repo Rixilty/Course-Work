@@ -18,18 +18,19 @@ class Login_GUI:
         self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
         self.root.resizable(False, False)
         self.root.title("Login")
+        self.root.configure(bg="#1c1c1c")
 
-        self.Title = tk.Label(self.root, text="Login", font=("Arial", 16))
+        self.Title = tk.Label(self.root, text="Login", font=("Arial", 16), fg="white", bg="#1c1c1c")
         self.Title.grid(row=0, column=0, columnspan=2, pady=20)
 
-        self.Username_label = tk.Label(self.root, text="Username:")
+        self.Username_label = tk.Label(self.root, text="Username:", fg="white", bg="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e", padx=10)
 
         self.Username_entry = tk.Entry(self.root, width=25)
         self.Username_entry.grid(row=1, column=1, padx=10)
         self.add_placeholder(self.Username_entry, "Username")
 
-        self.Password_label = tk.Label(self.root, text="Password:")
+        self.Password_label = tk.Label(self.root, text="Password:", fg="white", bg="#1c1c1c")
         self.Password_label.grid(row=2, column=0, sticky="e", padx=10)
 
         self.Password_entry = tk.Entry(self.root, width=25, show="*")
@@ -42,10 +43,10 @@ class Login_GUI:
         bottom_frame = tk.Frame(self.root, bg=self.root["bg"])
         bottom_frame.grid(row=4, column=0, columnspan=2, pady=20)
 
-        self.not_signed_label = tk.Label(bottom_frame, text="Dont't have an account?")
+        self.not_signed_label = tk.Label(bottom_frame, text="Dont't have an account?", fg="white", bg="#1c1c1c")
         self.not_signed_label.grid(row=0, column=0)
 
-        self.signup_link = tk.Label(bottom_frame, text="Sign up.", fg="blue", cursor="hand2")
+        self.signup_link = tk.Label(bottom_frame, text="Sign up.", fg="#001eff", bg="#1c1c1c", cursor="hand2")
         self.signup_link.grid(row=0, column=1, padx=0)
 
         self.signup_link.bind("<Button-1>", self.on_signup_click)
