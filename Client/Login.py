@@ -25,7 +25,7 @@ class Login_GUI:
 
         self.Password_entry = tk.Entry(self.root, width=25, show="*")
         self.Password_entry.grid(row=2, column=1, padx=10)
-        self.add_placeholder(self.Password_entry, "Password")
+        self.add_placeholder(self.Password_entry, "Password", is_password=True)
 
         self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
         self.Login_button.grid(row=3, column=0, columnspan=2, padx=15)
@@ -72,19 +72,25 @@ class Login_GUI:
         else:
             return True
 
-    def add_placeholder(self, entry, placeholder_text):
+    def add_placeholder(self, entry, placeholder_text, is_password=False):
         entry.insert(0, placeholder_text)
         entry.config(fg="grey")
+        if is_password:
+            entry.config(show="")
 
         def on_focus_in(event):
-            if event.get() == placeholder_text:
+            if entry.get() == placeholder_text:
                 entry.delete(0, "end")
                 entry.config(fg="black")
+                if is_password:
+                    entry.config(show="*")
 
         def on_focus_out(event):
-            if event.get() == "":
+            if entry.get() == "":
                 entry.insert(0, placeholder_text)
                 entry.config(fg="grey")
+                if is_password:
+                    entry.config(show="")
 
         entry.bind("<FocusIn>", on_focus_in)
         entry.bind("<FocusOut>", on_focus_out)
