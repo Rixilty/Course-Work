@@ -100,13 +100,13 @@ class Login_GUI:
     def Validate_password(self, password):
         Validity = [False, False, False, False]
         for char in password:
-            if char.isalpha() and (char == char.upper()): # Checks for uppercase letters
+            if char.isupper(): # Checks for uppercase letters
                 Validity[0] = True
-            if char.isalpha() and (char == char.lower()): # Checks for lowercase letters
+            if char.islower(): # Checks for lowercase letters
                 Validity[1] = True
             if char.isdigit(): # Checks for numbers
                 Validity[2] = True
-            if (not char.isalpha()) and (not char.isdigit()): # Checks for symbols
+            if not char.isalnum(): # Checks for symbols
                 Validity[3] = True
 
         if not Validity[0]:
@@ -134,13 +134,13 @@ class Login_GUI:
             self.length_requirement.configure(text_color="green")
 
         for i in password:
-            if i.isalpha() and (i == i.upper()):  # Checks for uppercase letters
+            if i.isupper():  # Checks for uppercase letters
                 self.uppercase_requirement.configure(text_color="green")
-            if i.isalpha() and (i == i.lower()):  # Checks for lowercase letters
+            if i.islower():  # Checks for lowercase letters
                 self.lowercase_requirement.configure(text_color="green")
             if i.isdigit():  # Checks for numbers
                 self.digit_requirement.configure(text_color="green")
-            if (not i.isalpha()) and (not i.isdigit()):  # Checks for symbols
+            if not i.isalnum():  # Checks for symbols
                 self.symbol_requirement.configure(text_color="green")
 
 
