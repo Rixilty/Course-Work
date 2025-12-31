@@ -133,7 +133,7 @@ class Login_GUI:
         if len(password) > 8 and len(password) < 16:
             self.length_requirement.configure(text_color="green")
 
-        for i in range(len(password)):
+        for i in password:
             if i.isalpha() and (i == i.upper()):  # Checks for uppercase letters
                 self.uppercase_requirement.configure(text_color="green")
             if i.isalpha() and (i == i.lower()):  # Checks for lowercase letters
