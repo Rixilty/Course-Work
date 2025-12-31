@@ -37,19 +37,19 @@ class Login_GUI:
         self.Username_entry.grid(row=1, column=1)
 
         self.Password_label = ctk.CTkLabel(self.main_frame, text="Password:", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
-        self.Password_label.grid(row=2, column=0, sticky="e")
+        self.Password_label.grid(row=3, column=0, sticky="e")
 
         self.Password_entry = ctk.CTkEntry(self.main_frame, width=250, font=("Arial", 12), show="*", placeholder_text="Password", fg_color="white", text_color="black", placeholder_text_color="grey")
-        self.Password_entry.grid(row=2, column=1)
+        self.Password_entry.grid(row=3, column=1)
 
         self.Login_button = ctk.CTkButton(self.main_frame, text="Login", fg_color="#1c1c1c", text_color="white", hover_color="#282828", border_width=1, border_color="#424242", font=("Arial", 14, "bold"), command=self.Login)
-        self.Login_button.grid(row=3, column=0, columnspan=2, pady=10)
+        self.Login_button.grid(row=5, column=0, columnspan=2, pady=10)
 
         self.error_label = ctk.CTkLabel(self.main_frame, text="", text_color="red", fg_color="#1c1c1c", font=("Arial", 14, "bold"))
-        self.error_label.grid(row=4, column=0, columnspan=2, pady=(10,0))
+        self.error_label.grid(row=6, column=0, columnspan=2, pady=(10,0))
 
         bottom_frame = ctk.CTkFrame(self.main_frame, fg_color=self.main_frame.cget("fg_color"))
-        bottom_frame.grid(row=5, column=0, columnspan=2, pady=20)
+        bottom_frame.grid(row=7, column=0, columnspan=2, pady=20)
 
         self.not_signed_label = ctk.CTkLabel(bottom_frame, text="Don't have an account?", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
         self.not_signed_label.grid(row=0, column=0)
@@ -59,25 +59,39 @@ class Login_GUI:
 
         self.signup_link.bind("<Button-1>", self.on_signup_click)
 
-        self.requirements_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
-        self.requirements_frame.grid(row=3, column=1, sticky="w", pady=(5,0))
+        self.username_requirements_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
+        self.username_requirements_frame.grid(row=2, column=1, sticky="w", pady=(5,0))
 
-        self.uppercase_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Uppercase Letter", text_color="red")
-        self.lowercase_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Lowercase Letter", text_color="red")
-        self.digit_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Number", text_color="red")
-        self.symbol_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Symbol", text_color="red")
-        self.length_requirement = ctk.CTkLabel(self.requirements_frame, text="● Password Length Must Be Between 8-16", text_color="red")
+        self.username_length_requirement = ctk.CTkLabel(self.username_requirements_frame, text="● Username Length Must Be Between 3-16", text_color="red")
+
+        self.username_length_requirement.pack(anchor="w")
+
+        self.username_requirements_frame.grid_remove()
+
+        self.Username_entry.bind("<FocusIn>", lambda e: self.username_requirements_frame.grid())
+        self.Username_entry.bind("<FocusOut>", lambda e: self.username_requirements_frame.grid_remove())
+
+        self.Username_entry.bind("<KeyRelease>", self.check_username_requirements)
+
+        self.password_requirements_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
+        self.password_requirements_frame.grid(row=4, column=1, sticky="w", pady=(5,0))
+
+        self.uppercase_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Uppercase Letter", text_color="red")
+        self.lowercase_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Lowercase Letter", text_color="red")
+        self.digit_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Number", text_color="red")
+        self.symbol_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Symbol", text_color="red")
+        self.password_length_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● Password Length Must Be Between 8-16", text_color="red")
 
         self.uppercase_requirement.pack(anchor="w")
         self.lowercase_requirement.pack(anchor="w")
         self.digit_requirement.pack(anchor="w")
         self.symbol_requirement.pack(anchor="w")
-        self.length_requirement.pack(anchor="w")
+        self.password_length_requirement.pack(anchor="w")
 
-        self.requirements_frame.grid_remove()
+        self.password_requirements_frame.grid_remove()
 
-        self.Password_entry.bind("<FocusIn>", lambda e: self.requirements_frame.grid())
-        self.Password_entry.bind("<FocusOut>", lambda e: self.requirements_frame.grid_remove())
+        self.Password_entry.bind("<FocusIn>", lambda e: self.password_requirements_frame.grid())
+        self.Password_entry.bind("<FocusOut>", lambda e: self.password_requirements_frame.grid_remove())
 
         self.Password_entry.bind("<KeyRelease>", self.check_password_requirements)
 
@@ -128,12 +142,12 @@ class Login_GUI:
         pass
 
     def check_password_requirements(self, event=None):
-        password = self.Password_entry.get()
+        Password = self.Password_entry.get()
 
-        if len(password) > 8 and len(password) < 16:
-            self.length_requirement.configure(text_color="green")
+        if len(Password) > 8 and len(Password) < 16:
+            self.password_length_requirement.configure(text_color="green")
 
-        for i in password:
+        for i in Password:
             if i.isupper():  # Checks for uppercase letters
                 self.uppercase_requirement.configure(text_color="green")
             if i.islower():  # Checks for lowercase letters
@@ -143,5 +157,10 @@ class Login_GUI:
             if not i.isalnum():  # Checks for symbols
                 self.symbol_requirement.configure(text_color="green")
 
+    def check_username_requirements(self, event=None):
+        Username = self.Username_entry.get()
+
+        if len(Username) > 3 and len(Username) < 16:
+            self.username_length_requirement.configure(text_color="green")
 
 Login_GUI()
