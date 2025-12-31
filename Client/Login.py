@@ -59,6 +59,28 @@ class Login_GUI:
 
         self.signup_link.bind("<Button-1>", self.on_signup_click)
 
+        self.requirements_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
+        self.requirements_frame.grid(row=3, column=1, sticky="w", pady=(5,0))
+
+        self.uppercase_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Uppercase Letter", text_color="red")
+        self.lowercase_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Lowercase Letter", text_color="red")
+        self.digit_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Number", text_color="red")
+        self.symbol_requirement = ctk.CTkLabel(self.requirements_frame, text="● At least 1 Symbol", text_color="red")
+        self.length_requirement = ctk.CTkLabel(self.requirements_frame, text="● Password Length Must Be Between 8-16", text_color="red")
+
+        self.uppercase_requirement.pack(anchor="w")
+        self.lowercase_requirement.pack(anchor="w")
+        self.digit_requirement.pack(anchor="w")
+        self.symbol_requirement.pack(anchor="w")
+        self.length_requirement.pack(anchor="w")
+
+        self.requirements_frame.grid_remove()
+
+        self.Password_entry.bind("<FocusIn>", lambda e: self.requirements_frame.grid())
+        self.Password_entry.bind("<FocusOut>", lambda e: self.requirements_frame.grid_remove())
+
+        self.Password_entry.bind("<KeyRelease>", self.check_password_requirements)
+
         self.root.mainloop()
 
     def Login(self):
@@ -104,5 +126,22 @@ class Login_GUI:
 
     def on_signup_click(self, event):
         pass
+
+    def check_password_requirements(self, event=None):
+        password = self.Password_entry.get()
+
+        if len(password) > 8 and len(password) < 16:
+            self.length_requirement.configure(text_color="green")
+
+        for i in range(len(password)):
+            if i.isalpha() and (i == i.upper()):  # Checks for uppercase letters
+                self.uppercase_requirement.configure(text_color="green")
+            if i.isalpha() and (i == i.lower()):  # Checks for lowercase letters
+                self.lowercase_requirement.configure(text_color="green")
+            if i.isdigit():  # Checks for numbers
+                self.digit_requirement.configure(text_color="green")
+            if (not i.isalpha()) and (not i.isdigit()):  # Checks for symbols
+                self.symbol_requirement.configure(text_color="green")
+
 
 Login_GUI()
