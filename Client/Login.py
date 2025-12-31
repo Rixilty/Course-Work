@@ -67,7 +67,7 @@ class Login_GUI:
         self.error_label.configure(text="")
         if Username == "" or Password == "":
             self.error_label.configure(text="Fill in all fields")
-        elif (len(Username) < 3):
+        elif (len(Username) < 3) or (len(Username) > 30):
             self.error_label.configure(text="Username is too short")
         elif (len(Password) < 8) or (len(Password) > 16):
             self.error_label.configure(text="Password length invalid! (8-16)")

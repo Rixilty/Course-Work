@@ -83,13 +83,14 @@ def Get_d():
             break
 
 def Message():
-    Message = "Hello World!!! привет как дела!!! 안녕하세요 مرحبا كيف حالك" #input("Enter a message: ")
+    Message = "Hello World!!! привет как дела!!! 안녕하세요 مرحبا كيف حالك"#input("Enter a message: ")
     message_to_unicode(Message)
 
 def message_to_unicode(Message):
     global Text
     for char in Message:
         Text.append(ord(char))
+    print(Text)
 
 def Encrypt(Text):
     for i in range(len(Text)):

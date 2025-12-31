@@ -5,7 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Encrypter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Encrypter.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Login.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Login.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +39,8 @@
     &quot;Python.Init.executor&quot;: &quot;Run&quot;,
     &quot;Python.Login.executor&quot;: &quot;Run&quot;,
     &quot;Python.Translator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.temp.executor&quot;: &quot;Run&quot;,
+    &quot;Python.test.executor&quot;: &quot;Run&quot;,
     &quot;Python.tk.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
@@ -117,7 +121,15 @@
       <workItem from="1763029533913" duration="706000" />
       <workItem from="1763119935059" duration="2496000" />
       <workItem from="1763137657758" duration="6164000" />
-      <workItem from="1763145591895" duration="10871000" />
+      <workItem from="1763145591895" duration="12104000" />
+      <workItem from="1763627796772" duration="48000" />
+      <workItem from="1763628085179" duration="184000" />
+      <workItem from="1763726143185" duration="2451000" />
+      <workItem from="1763743216034" duration="53000" />
+      <workItem from="1764935972713" duration="215000" />
+      <workItem from="1766155039850" duration="16728000" />
+      <workItem from="1766591405519" duration="26000" />
+      <workItem from="1767155190927" duration="319000" />
     </task>
     <servers />
   </component>
@@ -125,10 +137,12 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1763146231260" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$test.coverage" NAME="test Coverage Results" MODIFIED="1763726807059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Course_Work$temp.coverage" NAME="temp Coverage Results" MODIFIED="1766179590582" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1767155298103" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$tk.coverage" NAME="tk Coverage Results" MODIFIED="1759538321057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1759537084680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Init.coverage" NAME="Init Coverage Results" MODIFIED="1763120706246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Course_Work$Login.coverage" NAME="Login Coverage Results" MODIFIED="1763156188863" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Login.coverage" NAME="Login Coverage Results" MODIFIED="1767155308108" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
   </component>
 </project>
