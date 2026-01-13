@@ -116,43 +116,31 @@ class Login_GUI:
     def Login(self):
         Username = self.Username_entry.get()
         Password = self.Password_entry.get()
-        self.error_label.configure(text="")
+        self.error_label.configure(text="", text_color="red")
+
         if Username == "" or Password == "":
-            self.error_label.configure(text="Fill in all fields")
-        elif (len(Username) < 3) or (len(Username) > 30):
-            self.error_label.configure(text="Username is too short")
-        elif (len(Password) < 8) or (len(Password) > 16):
-            self.error_label.configure(text="Password length invalid! (8-16)")
-        else:
-            if self.Validate_password(Password):
-                self.error_label.configure(text="Login Successful")
+            self.error_label.configure(text="Fill in all fields!")
 
-    def Validate_password(self, password):
-        Validity = [False, False, False, False]
-        for char in password:
-            if char.isupper(): # Checks for uppercase letters
-                Validity[0] = True
-            if char.islower(): # Checks for lowercase letters
-                Validity[1] = True
-            if char.isdigit(): # Checks for numbers
-                Validity[2] = True
-            if not char.isalnum(): # Checks for symbols
-                Validity[3] = True
+        elif self.username_length_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Username must be 3-16 characters!")
 
-        if not Validity[0]:
-            self.error_label.configure(text="Password must contain at least 1 uppercase letter!")
-            return False
-        elif not Validity[1]:
-            self.error_label.configure(text="Password must contain at lest 1 lowercase letter!")
-            return False
-        elif not Validity[2]:
-            self.error_label.configure(text="Password must contain at least 1 number!")
-            return False
-        elif not Validity[3]:
-            self.error_label.configure(text="Password must contain at least 1 symbol!")
-            return False
+        elif self.uppercase_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Password must contain at least one uppercase letter!")
+
+        elif self.lowercase_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Password must contain at least one lowercase letter!")
+
+        elif self.digit_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Password must contain at least one number!")
+
+        elif self.symbol_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Password must contain at least one symbol!")
+
+        elif self.password_length_requirement.cget("text_color") == "red":
+            self.error_label.configure(text="Password must be 8-16 characters!")
+            
         else:
-            return True
+            self.error_label.configure(text="Login Successful!", text_color="green")
 
     def on_signup_click(self, event):
         pass
