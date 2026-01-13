@@ -10,14 +10,25 @@ class Login_GUI:
         self.root.geometry("400x300")
         self.root.title("Login")
 
-        self.Title = tk.Label(self.root, text="Login")
-        self.Title.pack()
-        self.Username_entry = tk.Entry(self.root, text="Username")
-        self.Username_entry.pack()
-        self.Password_entry = tk.Entry(self.root, text="Password")
-        self.Password_entry.pack()
+        self.Title = tk.Label(self.root, text="Login", font=("Arial", 16))
+        self.Title.grid(row=0, column=0, columnspan=2, pady=20)
+
+        self.Username_label = tk.Label(self.root, text="Username:")
+        self.Username_label.grid(row=1, column=0, sticky="e", padx=10)
+
+        self.Username_entry = tk.Entry(self.root, width=25)
+        self.Username_entry.grid(row=1, column=1, padx=10)
+        self.add_placeholder(self.Username_entry, "Username")
+
+        self.Password_label = tk.Label(self.root, text="Password:")
+        self.Password_label.grid(row=2, column=0, sticky="e", padx=10)
+
+        self.Password_entry = tk.Entry(self.root, width=25, show="*")
+        self.Password_entry.grid(row=2, column=1, padx=10)
+        self.add_placeholder(self.Password_entry, "Password", is_password=True)
+
         self.Login_button = tk.Button(self.root, text="Login", command=self.Login)
-        self.Login_button.pack()
+        self.Login_button.grid(row=3, column=0, columnspan=2, padx=15)
 
         self.root.mainloop()
 
@@ -60,5 +71,28 @@ class Login_GUI:
             return False
         else:
             return True
+
+    def add_placeholder(self, entry, placeholder_text, is_password=False):
+        entry.insert(0, placeholder_text)
+        entry.config(fg="grey")
+        if is_password:
+            entry.config(show="")
+
+        def on_focus_in(event):
+            if entry.get() == placeholder_text:
+                entry.delete(0, "end")
+                entry.config(fg="black")
+                if is_password:
+                    entry.config(show="*")
+
+        def on_focus_out(event):
+            if entry.get() == "":
+                entry.insert(0, placeholder_text)
+                entry.config(fg="grey")
+                if is_password:
+                    entry.config(show="")
+
+        entry.bind("<FocusIn>", on_focus_in)
+        entry.bind("<FocusOut>", on_focus_out)
 
 Login_GUI()
