@@ -7,17 +7,16 @@ class Login_GUI:
 
     def __init__(self):
 
-        window_width = 550
-        window_height = 420
-
         self.root = ctk.CTk()
+        self.window_width = 550
+        self.window_height = 420
 
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
-        x = int((screen_width - window_width) / 2)
-        y = int((screen_height - window_height) / 2)
+        x = int((screen_width - self.window_width) / 2)
+        y = int((screen_height - self.window_height) / 2)
 
-        self.root.geometry(f"{window_width}x{window_height}+{x}+{y}")
+        self.root.geometry(f"{self.window_width}x{self.window_height}+{x}+{y}")
         self.root.resizable(False, False)
         self.root.title("Login")
         self.root.configure(fg_color="#1c1c1c")
@@ -138,7 +137,7 @@ class Login_GUI:
 
         elif self.password_length_requirement.cget("text_color") == "red":
             self.error_label.configure(text="Password must be 8-16 characters!")
-            
+
         else:
             self.error_label.configure(text="Login Successful!", text_color="green")
 

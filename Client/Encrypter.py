@@ -26,6 +26,9 @@ def ready():
     Encrypt(Text)
     Decrypt(Text)
 
+    print("Public key:", Lock)
+    print("Private key:", Key)
+
     end_time = time.time()
 
     execution_time = end_time - start_time
