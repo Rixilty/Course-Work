@@ -228,7 +228,7 @@ class LoginGUI(ParentGUI):
 
     def __init__(self):
         super().__init__(title="Login")
-        self.auth = Authentication # Creates the client
+        self.auth = Authentication() # Creates the client
         self.window()
         self.frames()
         self.create_title("Login")
@@ -375,9 +375,9 @@ class SignupGUI(ParentGUI):
         # Handle server response
         if response["status"] == "success":
             self.error_label.configure(text="Sign up Successful!", text_color="green")
-            self.root.after(2000, self.on_login_clicked)
+            self.root.after(2000, self.on_login_clicked(None))
         else:
-            self.error_label.configure(text=["message"], text_color="red")
+            self.error_label.configure(text=response["message"], text_color="red")
 
     def on_login_clicked(self, event):
         # This runs when the login link is clicked and switches the GUI
@@ -438,7 +438,7 @@ class Authentication:
         if response.startswith("SUCCESS:"):
             return {"status": "success", "message": response[8:].strip()} # Removes SUCCESS: from the message
         elif response.startswith("ERROR:"):
-            return {"status": "error", "message": response[8:].strip()} # Removes ERROR: from the message
+            return {"status": "error", "message": response[6:].strip()} # Removes ERROR: from the message
         else:
             return {"status": "error", "message": f"Unexcpected error: {response}"}
 

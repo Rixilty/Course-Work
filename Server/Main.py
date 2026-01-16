@@ -16,7 +16,7 @@ class Server:
         try:
             data = data.strip()
 
-            if not data.startwith("/"):
+            if not data.startswith("/"):
                 return None, None, None, "Invalid format"
 
             parts = data.split(":")
@@ -86,7 +86,7 @@ class Server:
         print(f"Server listening on {self.host}:{self.port}")
 
         for user in self.users:
-            print(f"{user}: {self.user[user]}")
+            print(f"{user}: {self.users[user]}")
 
         while True:
             client_socket, address = server_socket.accept()
@@ -94,6 +94,6 @@ class Server:
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, address))
             client_thread.start()
 
-if __name__ == "main":
+if __name__ == "__main__":
     server = Server()
     server.start()
