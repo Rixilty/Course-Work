@@ -1,5 +1,5 @@
 import customtkinter as ctk
-
+import socket
 
 class ParentGUI:
 
@@ -228,6 +228,7 @@ class LoginGUI(ParentGUI):
 
     def __init__(self):
         super().__init__(title="Login")
+        self.auth = Authentication # Creates the client
         self.window()
         self.frames()
         self.create_title("Login")
@@ -241,16 +242,33 @@ class LoginGUI(ParentGUI):
     def login(self):
         # This runs when the login button is clicked
 
-        # This checks if the credentials entered are valid and returns a message
+        # Get credentials from the input fields
+        username = self.Username_entry.get()
+        password = self.Password_entry.get()
+
+        # This checks if the credentials entered are valid and returns a message (this runs locally)
         is_valid, message = self.validate_fields()
 
         # If the credentials aren't valid we return an error message
         if not is_valid:
             self.error_label.configure(text=message, text_color="red")
+            return
+
+        # Show "Logging in..." message
+        self.error_label.configure(text="Logging in...", text_color="white")
+
+        self.root.update() # This forces the GUI to update to show the message
+
+        # Send to server
+        print("Sending credentials...")
+        response = self.auth.send_login(username, password)
+
+        # Handle server respons
+        if response["status"] == "success":
+            self.error_label.configure(text="Login Successful!", text_color="green")
+            # Open main application window
         else:
-            # Here the credentials will be sent to the server to be checked against the database
-            self.error_label.configure(text=message, text_color="green")
-            # Here the user should then be able to view the main program and start messaging
+            self.error_label.configure(text="Login Failed!", text_color="red")
 
     def on_signup_clicked(self, event):
         # This runs when the signup link is clicked and switches the GUI
@@ -264,6 +282,7 @@ class SignupGUI(ParentGUI):
 
     def __init__(self):
         super().__init__(title="Sign up")
+        self.auth = Authentication() # This creates the client
         self.window_height = 450 # Slightly taller for confirm password field
         self.window()
         self.frames()
@@ -328,14 +347,37 @@ class SignupGUI(ParentGUI):
 
     def signup(self):
         # This runs when the signup button is clicked
+
+        # Get credentials
+        username = self.Username_entry.get()
+        password = self.Password_entry.get()
+        confirm_password = self.Confirm_password_entry.get()
+
+        # Validate locally
         is_valid, message = self.validate_fields()
 
         if not is_valid:
             self.error_label.configure(text=message, text_color="red")
+            return
+
+        if password != confirm_password:
+            self.error_label.configure(text="Passwords do not match!", text_color="red")
+            return
+
+        # Show "Creating account..." message
+        self.error_label.configure(text="Creating account...", text_color="white")
+        self.root.update()
+
+        # Send to server
+        print("Sending credentials...")
+        response = self.auth.send_signup(username, password)
+
+        # Handle server response
+        if response["status"] == "success":
+            self.error_label.configure(text="Sign up Successful!", text_color="green")
+            self.root.after(2000, self.on_login_clicked)
         else:
-            # Here send the credentials to the server and store in the database
-            self.error_label.configure(text="Signup Successful!", text_color="green")
-            # Signup logic after that goes here
+            self.error_label.configure(text=["message"], text_color="red")
 
     def on_login_clicked(self, event):
         # This runs when the login link is clicked and switches the GUI
@@ -344,6 +386,61 @@ class SignupGUI(ParentGUI):
 
         # open login window
         login_gui = LoginGUI()
+
+class Authentication:
+    # This handles communication with the authentication server
+
+    def __init__(self, host="localhost", port=5000):
+        self.host = host
+        self.port = port
+
+    def send_login(self, username, password):
+        # This sends login request to the server
+        return self.send_request("/l", username, password) # /l is read by the server and interpreted as a login request
+
+    def send_signup(self, username, password):
+        # This sends signup requests to server
+        return self.send_request("/s", username, password)
+
+    def send_request(self, command, username, password):
+        # This sends requests in the format /command:username:password
+        try:
+            # Create a socket connection
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client_socket.settimeout(5) # 5 second timeout
+            client_socket.connect((self.host, self.port))
+
+            # Format the request --> /command:username:password
+            request = f"{command}:{username}:{password}"
+            print(f"Sending {request} to server...") # Here for debugging
+
+            # Send the request
+            client_socket.send(request.encode("utf-8"))
+
+            #Receive response
+            response = client_socket.recv(1024).decode("utf-8")
+            client_socket.close()
+
+            print(f"Server response: {response}")
+            return self.parse_response(response)
+
+        except socket.timeout:
+            return {"status": "error", "message": "Connection timed out - server not responding"}
+        except ConnectionRefusedError:
+            return {"status": "error", "message": "Cannot connect to server"}
+        except Exception as e:
+            return {"status": "error", "message": str(e)}
+
+    def parse_response(self, response):
+        # Parse server response: SUCCESS: message or ERROR: message
+        response = response.strip()
+
+        if response.startswith("SUCCESS:"):
+            return {"status": "success", "message": response[8:].strip()} # Removes SUCCESS: from the message
+        elif response.startswith("ERROR:"):
+            return {"status": "error", "message": response[8:].strip()} # Removes ERROR: from the message
+        else:
+            return {"status": "error", "message": f"Unexcpected error: {response}"}
 
 # Start the GUI
 if __name__ == "__main__":
