@@ -63,12 +63,13 @@ class Server:
 
     def signup(self, username, password):
         # Add a user to the database
+        try:
             # Open the database
             conn = sqlite3.connect(self.database)
             cursor = conn.cursor()
 
             # Insert into table
-            cursor.execute(f"INSERT INTO users (username, password) VALUES ({username}, {password})")
+            cursor.execute(f"INSERT INTO logins (username, password) VALUES (?, ?)", (username, password))
 
             # Save changes and close the database
             conn.commit()
@@ -88,7 +89,7 @@ class Server:
             cursor = conn.cursor()
 
             # Find a match from the table
-            cursor.execute(f"SELECT * FROM users WHERE username = {username} AND password = {password}")
+            cursor.execute(f"SELECT * FROM logins WHERE username = ? AND password = ?", (username, password))
 
             user = cursor.fetchone()
             conn.close()
