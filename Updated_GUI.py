@@ -375,7 +375,7 @@ class SignupGUI(ParentGUI):
         # Handle server response
         if response["status"] == "success":
             self.error_label.configure(text="Sign up Successful!", text_color="green")
-            self.root.after(2000, self.on_login_clicked(None))
+            self.root.after(2000, lambda: self.on_login_clicked(None))
         else:
             self.error_label.configure(text=response["message"], text_color="red")
 
