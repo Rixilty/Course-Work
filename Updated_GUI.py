@@ -1,5 +1,6 @@
 import customtkinter as ctk
 import socket
+import hashlib
 
 class ParentGUI:
 
@@ -400,18 +401,21 @@ class Authentication:
 
     def send_signup(self, username, password):
         # This sends signup requests to server
-        return self.send_request("/s", username, password)
+        return self.send_request("/s", username, password) # /s is read by the server and interpreted as a signup request
 
     def send_request(self, command, username, password):
         # This sends requests in the format /command:username:password
         try:
+            # Hashing the password first
+            hashed_password = self.hash_password(password)
+
             # Create a socket connection
             client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client_socket.settimeout(5) # 5 second timeout
             client_socket.connect((self.host, self.port))
 
             # Format the request --> /command:username:password
-            request = f"{command}:{username}:{password}"
+            request = f"{command}:{username}:{hashed_password}"
             print(f"Sending {request} to server...") # Here for debugging
 
             # Send the request
@@ -441,6 +445,10 @@ class Authentication:
             return {"status": "error", "message": response[6:].strip()} # Removes ERROR: from the message
         else:
             return {"status": "error", "message": f"Unexcpected error: {response}"}
+
+    def hash_password(self, password):
+        # This converts passwords from plain text into a SHA-256 hash
+        return hashlib.sha512(password.encode("utf-8")).hexdigest()
 
 # Start the GUI
 if __name__ == "__main__":
