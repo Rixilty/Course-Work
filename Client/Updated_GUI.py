@@ -166,7 +166,7 @@ class ParentGUI:
         self.username_length_requirement.configure(text_color="red")
 
         # If the requirement is met the label colour is set to green
-        if len(Username) > 2 and len(Username) < 16:
+        if len(Username) >= 3 and len(Username) <= 16:
             self.username_length_requirement.configure(text_color="green")
 
     def check_password_requirements(self, event=None):
@@ -180,7 +180,7 @@ class ParentGUI:
             i.configure(text_color="red")
 
         # Checks if the password length is valid if so set the label colour to green
-        if len(Password) > 8 and len(Password) < 16:
+        if len(Password) >= 8 and len(Password) <= 16:
             self.password_length_requirement.configure(text_color="green")
 
         # Loops through every character in the password and checks if a unique character from each set is used if so, the corresponding label colour is set to green
@@ -264,10 +264,15 @@ class LoginGUI(ParentGUI):
         print("Sending credentials...")
         response = self.auth.send_login(username, password)
 
-        # Handle server respons
+        # Handle server response
         if response["status"] == "success":
             self.error_label.configure(text="Login Successful!", text_color="green")
-            # Open main application window
+
+            from Main import MessagingApp # Importing "main", which is the main messaging program
+
+            self.root.after(1000, self.close_window)
+            app = MessagingApp(username)
+            app.mainloop()
         else:
             self.error_label.configure(text="Login Failed!", text_color="red")
 
