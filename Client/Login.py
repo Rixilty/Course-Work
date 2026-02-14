@@ -150,7 +150,7 @@ class Login_GUI:
         for i in [self.password_length_requirement, self.uppercase_requirement, self.lowercase_requirement, self.digit_requirement, self.symbol_requirement]:
             i.configure(text_color="red")
 
-        if len(Password) > 8 and len(Password) < 16:
+        if len(Password) >= 8 and len(Password) <= 16:
             self.password_length_requirement.configure(text_color="green")
 
         for i in Password:
@@ -168,7 +168,7 @@ class Login_GUI:
 
         self.username_length_requirement.configure(text_color="red")
 
-        if len(Username) > 2 and len(Username) < 16:
+        if len(Username) >= 2 and len(Username) <= 16:
             self.username_length_requirement.configure(text_color="green")
 
 Login_GUI()

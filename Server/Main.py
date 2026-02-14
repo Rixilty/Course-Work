@@ -10,28 +10,27 @@ class Server:
         self.database = "logins.db"
 
     def parse_request(self, data):
-        # Parse /s:username:password or /l:username:password
+        # Parse /s:username:password, /l:username:password, /lo:user, /sc:user:status, /get
         try:
             data = data.strip()
             if not data.startswith("/"):
                 return None, None, None, "Invalid format"
 
             parts = data.split(":")
-            if len(parts) != 3:
-                return None, None, None, "Invalid format"
-
             command = parts[0]
-            username = parts[1]
-            password = parts[2]
 
             if command == "/s":
-                action = "signup"
+                return "signup", parts[1], parts[2], None
             elif command == "/l":
-                action = "login"
+                return "login", parts[1], parts[2], None
+            elif command == "/lo":
+                return "logout", parts[1], None, None
+            elif command == "/sc":
+                return "status_change", parts[1], parts[2], None
+            elif command == "/get":
+                return "get_status", None, None, None
             else:
                 return None, None, None, f"Unknown command: {command}"
-
-            return action, username, password, None
 
         except Exception as e:
             return None, None, None, f"Parse error: {str(e)}"
@@ -41,14 +40,20 @@ class Server:
             data = client_socket.recv(1024).decode("utf-8").strip()
             print(f"Received from {address}: {data}")
 
-            action, username, password, error = self.parse_request(data)
+            action, part1, part2, error = self.parse_request(data)
 
             if error:
                 response = f"Error: {error}"
             elif action == "signup":
-                response = self.signup(username, password)
+                response = self.signup(part1, part2)
             elif action == "login":
-                response = self.login(username, password)
+                response = self.login(part1, part2)
+            elif action == "logout":
+                response = self.logout(part1)
+            elif action == "status_change":
+                response = self.status_change(part1)
+            elif action == "get_status":
+                response = self.get_list()
             else:
                 response = "ERROR: Invalid action"
 
@@ -100,6 +105,56 @@ class Server:
             # Else if user is not found
             else:
                 return f"ERROR: Invalid username or password"
+        except Exception as e:
+            return f"ERROR: {str(e)}"
+
+    def logout(self, username):
+        # This will change the counter that tells us how many devices is logged into an account at once
+        try:
+            conn = sqlite3.connect(self.database)
+            cursor = conn.cursor()
+            # Remove 1 from devices but don't go below 0
+            cursor.execute("UPDATE logins SET login_count = MAX(0, login_count - 1) WHERE username = ?", (username,))
+
+            # Check if any devices are left
+            cursor.execute("SELECT login_count FROM logins WHERE username = ?", (username,))
+            count = cursor.fetchone()[0]
+
+            if count == 0:
+                cursor.execute("UPDATE logins SET status == 'offline' WHERE username = ?", (username,))
+
+            conn.commit()
+            conn.close()
+            return f"SUCCESS: Logout successful for {username}"
+        except Exception as e:
+            return f"ERROR: {str(e)}"
+
+    def status_change(self, username, new_status):
+        try:
+            conn = sqlite3.connect(self.database)
+            cursor = conn.cursor()
+            # Change the status column
+            cursor.execute("UPDATE logins SET status = ? WHERE username = ?", (new_status, username))
+            conn.commit()
+            conn.close()
+            return f"SUCCESS: Status updated successfully for {username} to {new_status}"
+        except Exception as e:
+            return f"ERROR: {str(e)}"
+
+    def get_list(self):
+        try:
+            conn = sqlite3.connect(self.database)
+            cursor = conn.cursor()
+            cursor.execute("SELECT username, status FROM logins")
+            rows = cursor.fetchall()
+            conn.close()
+
+            # Making a string in this format user1:online,user2:offline
+            result = ""
+            for i in rows:
+                result += f"{i[0]}: {i[1]},"
+
+                return result.strip(",") # Remove the last comma
         except Exception as e:
             return f"ERROR: {str(e)}"
 
