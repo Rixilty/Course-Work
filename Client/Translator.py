@@ -3,7 +3,7 @@ from googletrans import Translator
 
 translator = Translator()
 
-message = "Hallo Welt!"
+message = input(": ")
 destination = "en"
 
 # Define as an async function
@@ -16,7 +16,7 @@ async def translate(text):
     source = await detect_language(text)
     if source != destination:
         # await translation result
-        translated_message = await translator.translate(text, dest='en', src=source)
+        translated_message = await translator.translate(text, dest=destination, src=source)
         return translated_message.text # return translated messsage
     return text #  return the original text if it's already in the destination language
 

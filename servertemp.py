@@ -4,9 +4,9 @@ import sqlite3
 
 class Server:
 
-    def __init__(self):
-        self.host = "localhost"
-        self.port = 5000
+    def __init__(self, host="localhost", port=5000):
+        self.host = host
+        self.port = port
         self.database = "logins.db"
 
     def parse_request(self, data):

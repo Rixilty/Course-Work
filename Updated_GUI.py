@@ -389,11 +389,11 @@ class SignupGUI(ParentGUI):
         login_gui = LoginGUI()
 
 class Authentication:
-    # This handles communication with the authentication server
+    # This handles communication with the server
 
-    def __init__(self, host="localhost", port=5000):
-        self.host = host
-        self.port = port
+    def __init__(self):
+        self.host = "localhost"
+        self.port = 5000
 
     def send_login(self, username, password):
         # This sends login request to the server
@@ -448,7 +448,7 @@ class Authentication:
 
     def hash_password(self, password):
         # This converts passwords from plain text into a SHA-256 hash
-        return hashlib.sha512(password.encode("utf-8")).hexdigest()
+        return hashlib.sha256(password.encode("utf-8")).hexdigest()
 
 # Start the GUI
 if __name__ == "__main__":
