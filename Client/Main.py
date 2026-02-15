@@ -2,6 +2,7 @@ import socket
 from tkinter import mainloop
 import customtkinter as ctk
 import time
+import tkinter as tk
 
 class MessagingApp(ctk.CTk):
     def __init__(self, username):
@@ -138,7 +139,6 @@ class MessagingApp(ctk.CTk):
                         name, status = i.split(":")
                         # Create a label for each user
                         self.add_user_to_sidebar(name, status)
-                        users_list.append(name, status)
                 # Sort so that the user always appears firt
                 yourself = None
                 others = []
@@ -198,7 +198,10 @@ class MessagingApp(ctk.CTk):
 
         self.current_status = new_status
         print(f"Status changed to: {new_status}")
-        self.refresh_sidebar() # Force refresh
+
+        colors = {"online": "green", "away": "yellow", "offline": "red"}
+        if self.my_status_dot:
+            self.my_status_dot.configure(text_color=colors.get(new_status, "grey"))
 
         self.send_status_to_server(new_status)
 
@@ -226,11 +229,13 @@ class MessagingApp(ctk.CTk):
 
     def show_status_menu(self, event):
         # A popup menu to change status on right click
-        menu = ctk.CTkMenu(self, tearoff=0)
+        menu = tk.Menu(self, tearoff=0)
         menu.add_command(label="Online", command=lambda: self.update_status("online"))
         menu.add_command(label="Away", command=lambda: self.update_status("away"))
         menu.add_command(label="Offline", command=lambda: self.update_status("offline"))
+        menu.config(bg="#1c1c1c", fg="white", activebackground="#333333", activeforeground="white", font=("Arial", 12))
         menu.tk_popup(event.x_root, event.y_root)
+
 
 if __name__ == "__main__":
     app = MessagingApp("TEST")
