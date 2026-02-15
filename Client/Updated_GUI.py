@@ -2,6 +2,9 @@ import customtkinter as ctk
 import socket
 import hashlib
 
+from Client.Main import MessagingApp
+
+
 class ParentGUI:
 
     def close_window(self):
@@ -267,12 +270,8 @@ class LoginGUI(ParentGUI):
         # Handle server response
         if response["status"] == "success":
             self.error_label.configure(text="Login Successful!", text_color="green")
-
-            from Main import MessagingApp # Importing "main", which is the main messaging program
-
-            self.root.after(1000, self.close_window)
-            app = MessagingApp(username)
-            app.mainloop()
+            self.root.update()
+            self.root.after(1000, self.open_messaging_app, username)
         else:
             self.error_label.configure(text="Login Failed!", text_color="red")
 
@@ -282,6 +281,12 @@ class LoginGUI(ParentGUI):
         self.close_window()
         #open signup window
         signup_gui = SignupGUI()
+
+    def open_messaging_app(self, username):
+        self.close_window()
+        from Main import MessagingApp
+        app = MessagingApp(username)
+        app.mainloop()
 
 class SignupGUI(ParentGUI):
     # This is the Signup GUI class which inherits from the Parent GUI class}

@@ -116,7 +116,7 @@ class MessagingApp(ctk.CTk):
             print(f"Sidebar sync failes: {e}")
         finally:
             # Schedule the next refresh only after this one is completed
-            self._refresh_after_id = self.after_cancel(3000, self.refresh_sidebar)
+            self._refresh_after_id = self.after(3000, self.refresh_sidebar)
 
         # Sync every 3 seconds
         self.after(3000, self.refresh_sidebar)
