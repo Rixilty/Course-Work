@@ -8,6 +8,7 @@ class Server:
         self.host = "localhost"
         self.port = 5000
         self.database = "logins.db"
+        self.message_db = "messages.db"
 
     def parse_request(self, data):
         # Parse /s:username:password, /l:username:password, /lo:user, /sc:user:status, /get
