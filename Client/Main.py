@@ -20,6 +20,7 @@ class MessagingApp(ctk.CTk):
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing) # This tells use when the user hits the "X" to exit the program
 
+        self._refresh_after_id = None
         self.refresh_sidebar()
 
     def setup_sidebar(self):
@@ -80,6 +81,10 @@ class MessagingApp(ctk.CTk):
         self.entry_message.delete(0, "end")
 
     def refresh_sidebar(self):
+        # Cancel any previously scheduled refresh
+        if self._refresh_after_id:
+            self.after_cancel(self._refresh_after_id)
+            self._refresh_after_id = None
         # This sends the command /get to the server and updates the status for all users
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -105,7 +110,13 @@ class MessagingApp(ctk.CTk):
                         # Create a label for each user
                         self.add_user_to_sidebar(name, status)
         except Exception as e:
+            # Printing traceback fro debugging
+            import traceback
+            traceback.print_exc()
             print(f"Sidebar sync failes: {e}")
+        finally:
+            # Schedule the next refresh only after this one is completed
+            self._refresh_after_id = self.after_cancel(3000, self.refresh_sidebar)
 
         # Sync every 3 seconds
         self.after(3000, self.refresh_sidebar)
