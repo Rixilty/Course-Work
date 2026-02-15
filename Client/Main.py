@@ -23,6 +23,10 @@ class MessagingApp(ctk.CTk):
         self.status_check_interval = 30
         self.my_status_dot = None
 
+        # Message tracking
+        self.last_message_id = 0
+        self.fetch_after_id = None
+
         self.setup_sidebar()
         self.setup_chat_window()
 
@@ -30,6 +34,9 @@ class MessagingApp(ctk.CTk):
 
         self._refresh_after_id = None
         self.refresh_sidebar()
+
+        # Start fetching messages
+        self.fetch_messages()
 
         # Start idle checker
         self.check_idle_status()
@@ -98,16 +105,37 @@ class MessagingApp(ctk.CTk):
             name_label.bind("<Button-3>", self.show_status_menu)
 
     def send_action(self):
-        message = self.entry_message.get()
+        message = self.entry_message.get().strip()
+        if not message:
+            return
         print("Sending...",message)
 
-        # Temporary display logic for testing
-        self.message_display.configure(state="normal")
-        self.message_display.insert("end", f"You: {message}\n")
-        self.message_display.configure(state="disabled")
-        self.message_display.see("end")
-
+        # Display own message immediately
+        self.display_message("You", message)
         self.entry_message.delete(0, "end")
+
+        # Send to server
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("127.0.0.1", 5000))
+            command = f"/m:{self.username}:{message}"
+            client.send(command.encode())
+            response = client.recv(1024).decode("utf-8")
+            client.close()
+            if response.startswith("SUCCESS"):
+                # Extract new message ID
+                try:
+                    new_id = int(response.split(":")[1].strip())
+                    if new_id > self.last_message_id:
+                        self.last_message_id = new_id
+                except:
+                    pass
+                print("Message sent successfully")
+            else:
+                print(f"Message sent failed: {response}")
+        except Exception as e:
+            print(f"Failed to send message: {e}")
 
     def refresh_sidebar(self):
         # Cancel any previously scheduled refresh
@@ -138,7 +166,7 @@ class MessagingApp(ctk.CTk):
                     if ":" in i:
                         name, status = i.split(":")
                         # Create a label for each user
-                        self.add_user_to_sidebar(name, status)
+                        users_list.append((name, status))
                 # Sort so that the user always appears firt
                 yourself = None
                 others = []
@@ -152,6 +180,9 @@ class MessagingApp(ctk.CTk):
                 if yourself:
                     sorted_users.append(yourself)
                 sorted_users.extend(others)
+
+                for i in self.user_list_frame.winfo_children():
+                    i.destroy()
 
                 for name, status in sorted_users:
                     self.add_user_to_sidebar(name, status)
@@ -174,6 +205,8 @@ class MessagingApp(ctk.CTk):
             client.close()
         except:
             pass # Incase the server is down
+        if self._fetch_after_id:
+            self.after_cancel(self._fetch_after_id)
         self.destroy()
 
     def on_activity(self, event=None):
@@ -238,6 +271,46 @@ class MessagingApp(ctk.CTk):
         menu.config(bg="#1c1c1c", fg="white", activebackground="#333333", activeforeground="white", font=("Arial", 12))
         menu.tk_popup(event.x_root, event.y_root)
 
+    def fetch_messages(self):
+        # Fetch new messages from server and display them
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("localhost", 5000))
+            command = f"/fetch:{self.username}:{self.last_message_id}"
+            client.send(command.encode("utf-8"))
+            response = client.recv(4096).decode("utf-8")
+            client.close()
+
+            if response.startswith("SUCCESS"):
+                pass
+            elif not response.startswith("ERROR"):
+                # Parse messages format --> id:sender:message:timestamp
+                messages = response.split(",")
+                max_id = self.last_message_id
+                for i in messages:
+                    if ":" in i:
+                        parts = i.split(":", 3) # split into 4 parts
+
+                        if len(parts) >= 4:
+                            message_id = int(parts[0])
+                            sender = parts[1]
+                            message = parts[2]
+                            if sender != self.username:
+                                self.display_message(sender, message)
+                            max_id = max(max_id, message_id)
+                self.last_message_id = max_id
+        except Exception as e:
+            print(f"Fetch error: {e}")
+        finally:
+            self._fetch_after_id = self.after(3000, self.fetch_messages)
+
+    def display_message(self, sender, message):
+        # Insert a message into the chat display
+        self.message_display.configure(state="normal")
+        self.message_display.insert("end", f"{sender}:{message}\n")
+        self.message_display.configure(state="disabled")
+        self.message_display.see("end")
 
 if __name__ == "__main__":
     app = MessagingApp("TEST")

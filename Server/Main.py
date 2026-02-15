@@ -11,7 +11,7 @@ class Server:
         self.message_db = "messages.db"
 
     def parse_request(self, data):
-        # Parse /s:username:password, /l:username:password, /lo:user, /sc:user:status, /get
+        # Parse /s:username:password, /l:username:password, /lo:user, /sc:user:status, /get, /m:sender:message, /fetch:username:last_id
         try:
             data = data.strip()
             if not data.startswith("/"):
@@ -30,6 +30,21 @@ class Server:
                 return "status_change", parts[1], parts[2], None
             elif command == "/get":
                 return "get_status", None, None, None
+            elif command == "/m":
+                if len(parts) < 3:
+                    return None, None, None, "Invalid message format"
+                sender = parts[1]
+                message = ":".join(parts[2:]) # recombine message in case message has colons
+                return "message", sender, message, None
+            elif command == "/fetch":
+                if len(parts) < 3:
+                    return None, None, None, "Invalid fetch format"
+                username = parts[1]
+                try:
+                    last_id = int(parts[2])
+                except ValueError:
+                    return None, None, None, "Invalid last_id"
+                return "fetch", username, last_id, None
             else:
                 return None, None, None, f"Unknown command: {command}"
 
@@ -55,6 +70,10 @@ class Server:
                 response = self.status_change(part1, part2) # forgot part2 for new_status
             elif action == "get_status":
                 response = self.get_list()
+            elif action == "message":
+                response = self.store_message(part1, part2)
+            elif action == "fetch":
+                response = self.fetch_message(part1, part2)
             else:
                 response = "ERROR: Invalid action"
 
@@ -179,6 +198,37 @@ class Server:
             print(f"New connection from {address}")
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, address))
             client_thread.start()
+
+    def store_message(self, sender, message):
+        # Store message in messages.db
+        try:
+            conn = sqlite3.connect(self.message_db)
+            cursor = conn.cursor()
+            cursor.execute("INSERT INTO messages (sender, message) VALUES (?, ?)", (sender, message))
+            conn.commit()
+            new_id = cursor.lastrowid
+            conn.close()
+            return f"SUCCESS: {new_id}"
+        except Exception as e:
+            return f"ERROR: {str(e)}"
+
+    def fetch_message(self, username, last_id):
+        # Return all messages with id > last_id id:sender:message:timestamp
+        try:
+            conn = sqlite3.connect(self.message_db)
+            cursor = conn.cursor()
+            cursor.execute("SELECT id, sender, message, timestamp FROM messages WHERE id > ? ORDER BY id",(last_id,))
+            rows = cursor.fetchall()
+            conn.close()
+            if not rows:
+                return "SUCCESS: No messages found"
+            # Format --> id:sender:message:timestamp
+            message = []
+            for i in rows:
+                message.append(f"{i[0]}:{i[1]}:{i[2]}:{i[3]}")
+            return ",".join(message)
+        except Exception as e:
+            return f"ERROR: {str(e)}"
 
 if __name__ == "__main__":
     server = Server()
