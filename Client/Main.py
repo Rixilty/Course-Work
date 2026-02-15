@@ -89,6 +89,7 @@ class MessagingApp(ctk.CTk):
             # Send /get
             client.send("/get".encode("utf-8"))
             response = client.recv(1024).decode("utf-8")
+            print(f"DEBUG: refresh_side_bar received: {response}")
             client.close()
 
             if not response.startswith("ERROR"):

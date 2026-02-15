@@ -43,7 +43,7 @@ class Server:
             action, part1, part2, error = self.parse_request(data)
 
             if error:
-                response = f"Error: {error}"
+                response = f"ERROR: {error}"
             elif action == "signup":
                 response = self.signup(part1, part2)
             elif action == "login":
@@ -125,7 +125,7 @@ class Server:
             count = cursor.fetchone()[0]
 
             if count == 0:
-                cursor.execute("UPDATE logins SET status == 'offline' WHERE username = ?", (username,))
+                cursor.execute("UPDATE logins SET status = 'offline' WHERE username = ?", (username,))
 
             conn.commit()
             conn.close()
@@ -152,6 +152,7 @@ class Server:
             cursor.execute("SELECT username, status FROM logins")
             rows = cursor.fetchall()
             conn.close()
+            print(f"DEBUG: get_list found {len(rows)} rows")
 
             if not rows:
                 return "ERROR: No users found"
