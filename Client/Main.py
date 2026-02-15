@@ -1,7 +1,7 @@
 import socket
 from tkinter import mainloop
-
 import customtkinter as ctk
+import time
 
 class MessagingApp(ctk.CTk):
     def __init__(self, username):
@@ -15,13 +15,29 @@ class MessagingApp(ctk.CTk):
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
+        # Status
+        self.current_status = "online"
+        self.last_activity = time.time()
+        self.idle_timeout = 300 # 5 minutes
+        self.status_check_interval = 30
+        self.my_status_dot = None
+
         self.setup_sidebar()
+        self.setup_status_selector()
         self.setup_chat_window()
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing) # This tells use when the user hits the "X" to exit the program
 
         self._refresh_after_id = None
         self.refresh_sidebar()
+
+        # Start idle checker
+        self.check_idle_status()
+
+        # Bind events
+        self.bind_all("<Key>", self.on_activity)
+        self.bind_all("<Button>", self.on_activity)
+        self.bind_all("<Motion>", self.on_activity)
 
     def setup_sidebar(self):
         # Sidebar Frame
@@ -65,8 +81,15 @@ class MessagingApp(ctk.CTk):
         status_dot = ctk.CTkLabel(user_row, text="●", text_color=color, font=("Arial", 18))
         status_dot.pack(side="left", padx=5)
 
-        name_label = ctk.CTkLabel(user_row, text=username)
+        if username == self.username:
+            self.my_status_dot = status_dot
+            name_label = ctk.CTkLabel(user_row, text=username, font=("Arial", 18, "bold")) # Highlight own name
+        else:
+            name_label = ctk.CTkLabel(user_row, text=username, font=("Arial", 18))
+
         name_label.pack(side="left")
+
+
 
     def send_action(self):
         message = self.entry_message.get()
@@ -131,6 +154,76 @@ class MessagingApp(ctk.CTk):
         except:
             pass # Incase the server is down
         self.destroy()
+
+    def on_activity(self, event=None):
+        # Called whenever the user interacts with the app
+        self.last_activity = time.time()
+
+        # If the user was away and becomes active, set back to online
+        if self.current_status == "away":
+            self.update_status("online")
+
+    def check_idle_status(self):
+        # Check if the user has been idle and update the status to away if so
+        idle_time = time.time() - self.last_activity
+
+        if idle_time > self.idle_timeout and self.current_status == "online":
+            self.update_status("away")
+
+    def update_status(self, new_status):
+        # Update local status and notify server
+        if new_status == self.current_status:
+            return
+
+        self.current_status = new_status
+        print(f"Status changed to: {new_status}")
+        self.refresh_sidebar() # Force refresh
+
+        self.send_status_to_server(new_status)
+
+    def send_status_to_server(self, status):
+        # Send status change to server in the format --> /sc:username:status
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("localhost", 5000))
+
+            # Format --> /sc:username:status
+            command = f"/sc:{self.username}:{status}"
+            client.send(command.encode("utf-8"))
+
+            response = client.recv(1024).decode("utf-8")
+            client.close()
+
+            if response.startswith("SUCCESS"):
+                print(f"Status update successful: {response}")
+            else:
+                print(f"Status update failed: {response}")
+
+        except Exception as e:
+            print(f"Failed to send status update: {e}")
+
+    def setup_status_selector(self):
+        # A custom status selector dropdown
+        status_frame = ctk.CTkFrame(self.sidebar, fg_color="#1c1c1c")
+        status_frame.pack(side="bottom", fill="x", padx=10, pady=10)
+
+        status_label = ctk.CTkLabel(status_frame, text="Your Status", font=("Arial", 12, "bold"))
+        status_label.pack(anchor="w")
+
+        self.status_var = ctk.StringVar(value="online")
+        status_menu = ctk.CTkOptionMenu(status_frame,
+                                        values = ["online", "away", "offline"],
+                                        variable = self.status_var,
+                                        command = self.on_status_change
+                                        )
+
+        status_menu.pack(fill="x", pady=(5,0))
+
+    def on_status_change(self, choice):
+        # Handle status change from the drowndown menu
+        self.update_status(choice)
+        self.refresh_sidebar() # Force refresh
 
 if __name__ == "__main__":
     app = MessagingApp("TEST")
