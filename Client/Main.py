@@ -23,7 +23,6 @@ class MessagingApp(ctk.CTk):
         self.my_status_dot = None
 
         self.setup_sidebar()
-        self.setup_status_selector()
         self.setup_chat_window()
 
         self.protocol("WM_DELETE_WINDOW", self.on_closing) # This tells use when the user hits the "X" to exit the program
@@ -89,7 +88,13 @@ class MessagingApp(ctk.CTk):
 
         name_label.pack(side="left")
 
-
+        if username == self.username:
+            self.my_user_row = user_row
+            self.my_status_dot = status_dot
+            # Bind right click to the row and its children
+            user_row.bind("<Button-3>", self.show_status_menu)
+            status_dot.bind("<Button-3>", self.show_status_menu)
+            name_label.bind("<Button-3>", self.show_status_menu)
 
     def send_action(self):
         message = self.entry_message.get()
@@ -127,22 +132,38 @@ class MessagingApp(ctk.CTk):
 
                 # Parse "user1:online,user2:away,user3:offline,etc"
                 users = response.split(",")
+                users_list = []
                 for i in users:
                     if ":" in i:
                         name, status = i.split(":")
                         # Create a label for each user
                         self.add_user_to_sidebar(name, status)
+                        users_list.append(name, status)
+                # Sort so that the user always appears firt
+                yourself = None
+                others = []
+                for name, status in users_list:
+                    if name == self.username:
+                        yourself = (name, status)
+                    else:
+                        others.append((name, status))
+
+                sorted_users = []
+                if yourself:
+                    sorted_users.append(yourself)
+                sorted_users.extend(others)
+
+                for name, status in sorted_users:
+                    self.add_user_to_sidebar(name, status)
+
         except Exception as e:
-            # Printing traceback fro debugging
+            # Printing traceback for debugging
             import traceback
             traceback.print_exc()
             print(f"Sidebar sync failes: {e}")
         finally:
             # Schedule the next refresh only after this one is completed
             self._refresh_after_id = self.after(3000, self.refresh_sidebar)
-
-        # Sync every 3 seconds
-        self.after(3000, self.refresh_sidebar)
 
     def on_closing(self):
         # This tells the server to -1 from login_count (1 less device is on the account) before exiting
@@ -203,27 +224,13 @@ class MessagingApp(ctk.CTk):
         except Exception as e:
             print(f"Failed to send status update: {e}")
 
-    def setup_status_selector(self):
-        # A custom status selector dropdown
-        status_frame = ctk.CTkFrame(self.sidebar, fg_color="#1c1c1c")
-        status_frame.pack(side="bottom", fill="x", padx=10, pady=10)
-
-        status_label = ctk.CTkLabel(status_frame, text="Your Status", font=("Arial", 12, "bold"))
-        status_label.pack(anchor="w")
-
-        self.status_var = ctk.StringVar(value="online")
-        status_menu = ctk.CTkOptionMenu(status_frame,
-                                        values = ["online", "away", "offline"],
-                                        variable = self.status_var,
-                                        command = self.on_status_change
-                                        )
-
-        status_menu.pack(fill="x", pady=(5,0))
-
-    def on_status_change(self, choice):
-        # Handle status change from the drowndown menu
-        self.update_status(choice)
-        self.refresh_sidebar() # Force refresh
+    def show_status_menu(self, event):
+        # A popup menu to change status on right click
+        menu = ctk.CTkMenu(self, tearoff=0)
+        menu.add_command(label="Online", command=lambda: self.update_status("online"))
+        menu.add_command(label="Away", command=lambda: self.update_status("away"))
+        menu.add_command(label="Offline", command=lambda: self.update_status("offline"))
+        menu.tk_popup(event.x_root, event.y_root)
 
 if __name__ == "__main__":
     app = MessagingApp("TEST")
