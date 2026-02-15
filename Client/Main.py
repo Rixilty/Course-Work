@@ -302,8 +302,12 @@ class MessagingApp(ctk.CTk):
                             sender = parts[1]
                             message = parts[2]
                             timestamp = parts[3]
+                            if sender == self.username:
+                                sender = "You" # Display "You" when fetching your own messages instead of your username
+                            self.display_message(sender, message, timestamp)
+                            max_id = max(max_id, message_id)
                             if sender != self.username:
-                                self.display_message(sender, message, timestamp)
+                                self.display_message(sender, message, timestamp) # Display your own messages when you restart
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:
