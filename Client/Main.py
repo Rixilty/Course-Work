@@ -106,8 +106,8 @@ class MessagingApp(ctk.CTk):
         except Exception as e:
             print(f"Sidebar sync failes: {e}")
 
-        # Sync every 5 seconds
-        self.after(5000, self.refresh_sidebar)
+        # Sync every 3 seconds
+        self.after(3000, self.refresh_sidebar)
 
     def on_closing(self):
         # This tells the server to -1 from login_count (1 less device is on the account) before exiting

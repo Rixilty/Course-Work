@@ -51,7 +51,7 @@ class Server:
             elif action == "logout":
                 response = self.logout(part1)
             elif action == "status_change":
-                response = self.status_change(part1)
+                response = self.status_change(part1, part2) # forgot part2 for new_status
             elif action == "get_status":
                 response = self.get_list()
             else:
@@ -74,7 +74,7 @@ class Server:
             cursor = conn.cursor()
 
             # Insert into table
-            cursor.execute(f"INSERT INTO logins (username, password) VALUES (?, ?)", (username, password))
+            cursor.execute("INSERT INTO logins (username, password) VALUES (?, ?)", (username, password))
 
             # Save changes and close the database
             conn.commit()
@@ -94,16 +94,20 @@ class Server:
             cursor = conn.cursor()
 
             # Find a match from the table
-            cursor.execute(f"SELECT * FROM logins WHERE username = ? AND password = ?", (username, password))
+            cursor.execute("SELECT * FROM logins WHERE username = ? AND password = ?", (username, password))
 
             user = cursor.fetchone()
-            conn.close()
 
             # If the user is found
             if user:
+                # Increase login_count by 1 and set status to online
+                cursor.execute("UPDATE logins SET login_count = login_count + 1, status = 'online' WHERE username = ?", (username,))
+                conn.commit()
+                conn.close()
                 return f"SUCCESS: Login successful for {username}"
             # Else if user is not found
             else:
+                conn.close()
                 return f"ERROR: Invalid username or password"
         except Exception as e:
             return f"ERROR: {str(e)}"
@@ -149,12 +153,16 @@ class Server:
             rows = cursor.fetchall()
             conn.close()
 
-            # Making a string in this format user1:online,user2:offline
-            result = ""
-            for i in rows:
-                result += f"{i[0]}: {i[1]},"
+            if not rows:
+                return "ERROR: No users found"
 
-                return result.strip(",") # Remove the last comma
+            # Making a string in this format user1:online,user2:offline
+            user_list = []
+            for name, status in rows:
+                # Making sure there's no spaces in the format for better parsing
+                user_list.append(f"{name}:{status}")
+
+            return ",".join(user_list) # Better way to join with commas
         except Exception as e:
             return f"ERROR: {str(e)}"
 
