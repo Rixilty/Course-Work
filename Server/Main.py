@@ -220,12 +220,14 @@ class Server:
             cursor.execute("SELECT id, sender, message, timestamp FROM messages WHERE id > ? ORDER BY id",(last_id,))
             rows = cursor.fetchall()
             conn.close()
+
             if not rows:
                 return "SUCCESS: No messages found"
             # Format --> id:sender:message:timestamp
             message = []
             for i in rows:
                 message.append(f"{i[0]}:{i[1]}:{i[2]}:{i[3]}")
+            print(f"DEBUG: {",".join(message)}")
             return ",".join(message)
         except Exception as e:
             return f"ERROR: {str(e)}"

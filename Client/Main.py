@@ -283,8 +283,12 @@ class MessagingApp(ctk.CTk):
             response = client.recv(4096).decode("utf-8")
             client.close()
 
+            print(f"DEBUG Response:{response}")
+
             if response.startswith("SUCCESS"):
                 pass
+            elif response.startswith("ERROR"):
+                print(f"Server error: {response}")
             elif not response.startswith("ERROR"):
                 # Parse messages format --> id:sender:message:timestamp
                 messages = response.split(",")
