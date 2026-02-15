@@ -111,7 +111,8 @@ class MessagingApp(ctk.CTk):
         print("Sending...",message)
 
         # Display own message immediately
-        self.display_message("You", message)
+        time_string = time.strftime("%H:%M:%S")
+        self.display_message("You", message, time_string)
         self.entry_message.delete(0, "end")
 
         # Send to server
@@ -296,8 +297,9 @@ class MessagingApp(ctk.CTk):
                             message_id = int(parts[0])
                             sender = parts[1]
                             message = parts[2]
+                            timestamp = parts[3]
                             if sender != self.username:
-                                self.display_message(sender, message)
+                                self.display_message(sender, message, timestamp)
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:
@@ -305,10 +307,19 @@ class MessagingApp(ctk.CTk):
         finally:
             self._fetch_after_id = self.after(3000, self.fetch_messages)
 
-    def display_message(self, sender, message):
+    def display_message(self, sender, message, timestamp=None):
         # Insert a message into the chat display
+        time_string = ""
+        if timestamp:
+            # Extract HH:MM:SS from YYYY-MM-DD HH:MM:SS format
+            if " " in timestamp:
+                time_string = timestamp.split()[1]
+            else:
+                time_string = timestamp
+            time_string = f"[{time_string}]"
+
         self.message_display.configure(state="normal")
-        self.message_display.insert("end", f"{sender}:{message}\n")
+        self.message_display.insert("end", f"{time_string} {sender}:{message}\n")
         self.message_display.configure(state="disabled")
         self.message_display.see("end")
 
