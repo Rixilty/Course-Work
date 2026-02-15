@@ -191,6 +191,8 @@ class MessagingApp(ctk.CTk):
         if idle_time > self.idle_timeout and self.current_status == "online":
             self.update_status("away")
 
+        self.after(self.status_check_interval * 1000, self.check_idle_status)
+
     def update_status(self, new_status):
         # Update local status and notify server
         if new_status == self.current_status:
