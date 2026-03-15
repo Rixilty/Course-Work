@@ -402,8 +402,8 @@ class Authentication:
     # This handles communication with the server
 
     def __init__(self):
-        self.host = "localhost"
-        self.port = 5000
+        self.host = "86.13.224.23"
+        self.port = 19132
 
     def send_login(self, username, password):
         # This sends login request to the server
