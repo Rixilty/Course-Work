@@ -403,7 +403,7 @@ class Authentication:
 
     def __init__(self):
         self.host = "86.13.224.23"
-        self.port = 19132
+        self.port = 19134
 
     def send_login(self, username, password):
         # This sends login request to the server
