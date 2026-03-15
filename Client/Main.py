@@ -225,7 +225,8 @@ class MessagingApp(ctk.CTk):
         if idle_time > self.idle_timeout and self.current_status == "online":
             self.update_status("away")
 
-        self.after(self.status_check_interval * 1000, self.check_idle_status)
+
+
 
     def update_status(self, new_status):
         # Update local status and notify server
@@ -305,9 +306,6 @@ class MessagingApp(ctk.CTk):
                             if sender == self.username:
                                 sender = "You" # Display "You" when fetching your own messages instead of your username
                             self.display_message(sender, message, timestamp)
-                            max_id = max(max_id, message_id)
-                            if sender != self.username:
-                                self.display_message(sender, message, timestamp) # Display your own messages when you restart
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:

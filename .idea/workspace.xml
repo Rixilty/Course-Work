@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server/logins.db" beforeDir="false" afterPath="$PROJECT_DIR$/Server/logins.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/messages.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/temp.py" beforeDir="false" afterPath="$PROJECT_DIR$/temp.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +74,7 @@
       <recent name="C:\GitHub\Course-Work\Server" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\GitHub\Course-Work\Server" />
       <recent name="C:\GitHub\Course-Work" />
       <recent name="C:\GitHub\Course-Work\Client" />
     </key>
@@ -191,6 +195,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Updated_GUI (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Course-Work" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Client" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Client/Updated_GUI.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Updated_GUI" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Course-Work" />
       <option name="ENV_FILES" value="" />
@@ -239,6 +266,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Updated_GUI (1)" />
         <item itemvalue="Python.Main (1)" />
         <item itemvalue="Python.Updated_GUI" />
         <item itemvalue="Python.Main" />
@@ -330,7 +358,24 @@
       <workItem from="1771000798262" duration="1484000" />
       <workItem from="1771093755544" duration="3532000" />
       <workItem from="1771108450095" duration="5292000" />
-      <workItem from="1771114036604" duration="14967000" />
+      <workItem from="1771114036604" duration="15291000" />
+      <workItem from="1771161809762" duration="3732000" />
+      <workItem from="1771182678030" duration="10203000" />
+      <workItem from="1771194487550" duration="9000" />
+      <workItem from="1771851750100" duration="833000" />
+      <workItem from="1771852977482" duration="251000" />
+      <workItem from="1771942407817" duration="335000" />
+      <workItem from="1772011340828" duration="161000" />
+      <workItem from="1772102039399" duration="24000" />
+      <workItem from="1772102638236" duration="142000" />
+      <workItem from="1772103456654" duration="397000" />
+      <workItem from="1772220182139" duration="1368000" />
+      <workItem from="1772281329333" duration="3745000" />
+      <workItem from="1773182712243" duration="6476000" />
+      <workItem from="1773221412005" duration="1353000" />
+      <workItem from="1773313658868" duration="853000" />
+      <workItem from="1773443721095" duration="8282000" />
+      <workItem from="1773582880773" duration="3635000" />
     </task>
     <servers />
   </component>
@@ -338,16 +383,16 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Course_Work$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1771131802552" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1770904832465" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Course_Work$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1771136749940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1773191791044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1771161834663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1773586591234" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$test.coverage" NAME="test Coverage Results" MODIFIED="1763726807059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Course_Work$temp.coverage" NAME="temp Coverage Results" MODIFIED="1770577224472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1771108803416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1773188851660" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$temp.coverage" NAME="temp Coverage Results" MODIFIED="1773188858231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$tk.coverage" NAME="tk Coverage Results" MODIFIED="1759538321057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1771116459948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$database.coverage" NAME="database Coverage Results" MODIFIED="1771109205153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Course_Work$Main.coverage" NAME="Main Coverage Results" MODIFIED="1771136660976" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/Course_Work$Main.coverage" NAME="Main Coverage Results" MODIFIED="1773586646891" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Init.coverage" NAME="Init Coverage Results" MODIFIED="1763120706246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$servertemp.coverage" NAME="servertemp Coverage Results" MODIFIED="1770577221726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$testingsometing.coverage" NAME="testingsometing Coverage Results" MODIFIED="1767480025278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

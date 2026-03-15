@@ -1,455 +1,337 @@
-import customtkinter as ctk
 import socket
-import hashlib
+from tkinter import mainloop
+import customtkinter as ctk
+import time
+import tkinter as tk
 
-class ParentGUI:
+class MessagingApp(ctk.CTk):
+    def __init__(self, username):
+        super().__init__()
 
-    def close_window(self):
-        # Safely close the window
+        self.username = username # Getting the user's username
+        self.title("Messaging App")
+        self.geometry("1000x600")
+        self.configure(fg_color="#1c1c1c")
 
-        if self.root:
-            for after_id in self.root.tk.eval("after info").split():
-                self.root.after_cancel(after_id)
-            self.root.destroy()
+        self.grid_columnconfigure(0, weight=1)
+        self.grid_rowconfigure(0, weight=1)
 
-    # This is the base class from which the signup and login GUI will inherit from
+        # Status
+        self.current_status = "online"
+        self.last_activity = time.time()
+        self.idle_timeout = 300 # 5 minutes
+        self.status_check_interval = 30
+        self.my_status_dot = None
 
-    def __init__(self, title="title"):
-        self.root = None
-        self.main_frame = None
-        self.title_text = title
-        self.window_width = 550
-        self.window_height = 420
+        # Message tracking
+        self.last_message_id = 0
+        self.fetch_after_id = None
 
-    def window(self):
-        # This procedure sets up the configurations of the main window: position, geometry, colours etc.
-        self.root = ctk.CTk()
+        self.setup_sidebar()
+        self.setup_chat_window()
 
-        screen_width = self.root.winfo_screenwidth()
-        screen_height = self.root.winfo_screenheight()
-        x = int((screen_width - self.window_width) / 2)
-        y = int((screen_height - self.window_height) / 2)
+        self.protocol("WM_DELETE_WINDOW", self.on_closing) # This tells use when the user hits the "X" to exit the program
 
-        self.root.geometry(f"{self.window_width}x{self.window_height}+{x}+{y}")
-        self.root.resizable(False, False)
-        self.root.title(self.title_text)
-        self.root.configure(fg_color="#1c1c1c")
-        self.root.grid_rowconfigure(0, weight=1)
-        self.root.grid_columnconfigure(0, weight=1)
+        self._refresh_after_id = None
+        self.refresh_sidebar()
 
-    def frames(self):
-        # This procedure creates the frames for the GUI
-        self.main_frame = ctk.CTkFrame(self.root, fg_color="#1c1c1c")
-        self.main_frame.grid(row=0, column=0, sticky="nsew")
-        self.main_frame.grid_columnconfigure(0, weight=1)
-        self.main_frame.rowconfigure(0, weight=0) # Top frame
-        self.main_frame.rowconfigure(1, weight=1) # Content frame
-        self.main_frame.rowconfigure(2, weight=0) # Bottom frame
+        # Start fetching messages
+        self.fetch_messages()
 
-        # Top frame for the title
-        self.top_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")  # Fixed frame
-        self.top_frame.grid(row=0, column=0, columnspan=2, sticky="n", pady=(10, 5))
-        self.top_frame.grid_columnconfigure(0, weight=1)
+        # Start idle checker
+        self.check_idle_status()
 
-        # Content frame for main contents of the GUI
-        self.content_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
-        self.content_frame.grid(row=1, column=0, sticky="")
-        self.content_frame.grid_columnconfigure(0, weight=0)
-        self.content_frame.grid_columnconfigure(1, weight=0)
+        # Bind events
+        self.bind_all("<Key>", self.on_activity)
+        self.bind_all("<Button>", self.on_activity)
+        self.bind_all("<Motion>", self.on_activity)
 
-        # Bottom frame for buttons and links
-        self.bottom_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
-        self.bottom_frame.grid(row=2, column=0, columnspan=2, sticky="ew", pady=0)
-        self.bottom_frame.grid_columnconfigure(0, weight=1)
-        self.bottom_frame.grid_columnconfigure(1, weight=1)
+    def setup_sidebar(self):
+        # Sidebar Frame
+        self.sidebar = ctk.CTkFrame(self, width=200, corner_radius=0, fg_color="#1c1c1c")
+        self.sidebar.grid(row=0, column=1, sticky="nsew")
 
-    def create_title(self, title_text):
-        # This procedure creates the title label
-        self.Title = ctk.CTkLabel(self.top_frame, text=title_text, font=("Arial", 31, "bold"), text_color="white",fg_color="#1c1c1c")
-        self.Title.grid(row=0, column=0, columnspan=2, sticky="n", pady=10)
+        # Scrollable frame for user list
+        self.user_list_frame = ctk.CTkScrollableFrame(self.sidebar, width=200, label_text="Users", label_font=("Arial", 16, "bold"))
+        self.user_list_frame.pack(side="left", fill="y", padx=10, pady=(20,10))
 
-    def create_username_field(self):
-        # This procedure creates a username field with validation
+    def setup_chat_window(self):
+        # Main Chat Container
+        self.chat_container = ctk.CTkFrame(self, fg_color="#1c1c1c")
+        self.chat_container.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        self.chat_container.rowconfigure(0, weight=1)
+        self.chat_container.columnconfigure(0, weight=1)
 
-        # Username label
-        self.Username_label = ctk.CTkLabel(self.content_frame, text="Username:", font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
-        self.Username_label.grid(row=1, column=0, sticky="e", padx=(0, 10))
+        # Message display box
+        self.message_display = ctk.CTkTextbox(self.chat_container, corner_radius=10, font=("Arial", 14))
+        self.message_display.grid(row=0, column=0, sticky="nsew", padx=10, pady=(0,10))
+        self.message_display.configure(state="disabled")
 
-        # Username entry
-        self.Username_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12),placeholder_text="Username", fg_color="white", text_color="black",placeholder_text_color="grey")
-        self.Username_entry.grid(row=1, column=1, pady=5)
+        # Input Area
+        self.input_frame = ctk.CTkFrame(self.chat_container, fg_color="#1c1c1c")
+        self.input_frame.grid(row=1, column=0, sticky="ew")
+        self.input_frame.columnconfigure(0, weight=1)
 
-        # Username requirements frame (hidden by default)
-        self.username_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
-        self.username_requirements_frame.grid(row=2, column=1, sticky="w", pady=(5, 0))
-        self.username_length_requirement = ctk.CTkLabel(self.username_requirements_frame,text="● Username Length Must Be Between 3-16", text_color="red")
+        self.entry_message = ctk.CTkEntry(self.input_frame, placeholder_text="Send a message...", height=40)
+        self.entry_message.grid(row=0, column=0, sticky="ew", padx=(0, 10))
 
-        # Pack username requirement
-        self.username_length_requirement.pack(anchor="w")
+        self.send_button = ctk.CTkButton(self.input_frame, text="➤", width=50, height=40, command=self.send_action)
+        self.send_button.grid(row=0, column=1)
 
-        # Making it not visible by default
-        self.username_requirements_frame.grid_remove()
+    def add_user_to_sidebar(self, username, status):
+        colors = {"online": "green", "away": "yellow", "offline": "red"}
+        color = colors.get(status.lower(), "grey")
 
-        # Bind events for the username field
-        self.Username_entry.bind("<FocusIn>", lambda e: self.username_requirements_frame.grid())
-        self.Username_entry.bind("<FocusOut>", lambda e: self.username_requirements_frame.grid_remove())
-        self.Username_entry.bind("<KeyRelease>", self.check_username_requirements)
+        user_row = ctk.CTkFrame(self.user_list_frame, fg_color="#1c1c1c")
+        user_row.pack(fill="x", pady=2)
 
-    def create_password_field(self):
-        # This procedure creates a password field with validation
+        status_dot = ctk.CTkLabel(user_row, text="●", text_color=color, font=("Arial", 18))
+        status_dot.pack(side="left", padx=5)
 
-        # Password label
-        self.Password_label = ctk.CTkLabel(self.content_frame, text="Password:", font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
-        self.Password_label.grid(row=3, column=0, sticky="e", padx=(0, 10))
+        if username == self.username:
+            self.my_status_dot = status_dot
+            name_label = ctk.CTkLabel(user_row, text=username, font=("Arial", 18, "bold")) # Highlight own name
+        else:
+            name_label = ctk.CTkLabel(user_row, text=username, font=("Arial", 18))
 
-        # Password entry
-        self.Password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text="Password", fg_color="white", text_color="black",placeholder_text_color="grey")
-        self.Password_entry.grid(row=3, column=1, pady=5)
+        name_label.pack(side="left")
 
-        # Password requirements frame (hidden by default)
-        self.password_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
-        self.password_requirements_frame.grid(row=4, column=1, sticky="w", pady=(5, 0))
+        if username == self.username:
+            self.my_user_row = user_row
+            self.my_status_dot = status_dot
+            # Bind right click to the row and its children
+            user_row.bind("<Button-3>", self.show_status_menu)
+            status_dot.bind("<Button-3>", self.show_status_menu)
+            name_label.bind("<Button-3>", self.show_status_menu)
 
-        # Password requirements labels
-        self.uppercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● At least 1 Uppercase Letter", text_color="red")
-        self.lowercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● At least 1 Lowercase Letter", text_color="red")
-        self.digit_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Number",text_color="red")
-        self.symbol_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Symbol",text_color="red")
-        self.password_length_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● Password Length Must Be Between 8-16", text_color="red")
-
-        # Pack all password requirement labels
-        self.uppercase_requirement.pack(anchor="w")
-        self.lowercase_requirement.pack(anchor="w")
-        self.digit_requirement.pack(anchor="w")
-        self.symbol_requirement.pack(anchor="w")
-        self.password_length_requirement.pack(anchor="w")
-
-        # Making it not visible by default
-        self.password_requirements_frame.grid_remove()
-
-        # Bind events for password field
-        self.Password_entry.bind("<FocusIn>", lambda e: self.password_requirements_frame.grid())
-        self.Password_entry.bind("<FocusOut>", lambda e: self.password_requirements_frame.grid_remove())
-        self.Password_entry.bind("<KeyRelease>", self.check_password_requirements)
-
-    def create_error_label(self):
-        # This procedure creates error/success message labels
-
-        # Error label
-        self.error_label = ctk.CTkLabel(self.main_frame, text="", text_color="red", fg_color="#1c1c1c",font=("Arial", 14, "bold"))
-        self.error_label.grid(row=6, column=0, columnspan=2, pady=(10, 0))
-
-    def create_button(self, text, command):
-        # This procedure creates the Login/Signup button
-        self.Login_button = ctk.CTkButton(self.bottom_frame, text=text, fg_color="#1c1c1c", text_color="white",hover_color="#282828", border_width=1, border_color="#424242",font=("Arial", 14, "bold"), command=command)
-        self.Login_button.grid(row=5, column=0, columnspan=2, sticky="n", pady=(10, 0))
-
-    def create_link(self, prompt_text, link_text, command):
-        # This procedure creates links to switch between Login and Signup
-
-        # Prompt label
-        self.prompt_label = ctk.CTkLabel(self.bottom_frame, text=prompt_text,font=("Arial", 13, "bold"), text_color="white", fg_color="#1c1c1c")
-        self.prompt_label.grid(row=0, column=0, sticky="e")
-
-        # Link label
-        self.link = ctk.CTkLabel(self.bottom_frame, text=link_text, font=("Arial", 13, "bold", "underline"),text_color="#001eff", fg_color="#1c1c1c", cursor="hand2")
-        self.link.grid(row=0, column=1, padx=0, sticky="w")
-        self.link.bind("<Button-1>", command)
-
-    def check_username_requirements(self, event=None):
-        # This procedure checks if the username entered by the user meets the length requirement
-
-        # Get the username entered by the user
-        Username = self.Username_entry.get()
-
-        # Sets the label colour to red indicating the requirement not met
-        self.username_length_requirement.configure(text_color="red")
-
-        # If the requirement is met the label colour is set to green
-        if len(Username) > 2 and len(Username) < 16:
-            self.username_length_requirement.configure(text_color="green")
-
-    def check_password_requirements(self, event=None):
-        # This procedure checks if the password entered by the user meets all the requirements
-
-        # Get the passoword entered by the user
-        Password = self.Password_entry.get()
-
-        # Loops through every label and sets their colour to red
-        for i in [self.password_length_requirement, self.uppercase_requirement, self.lowercase_requirement, self.digit_requirement, self.symbol_requirement]:
-            i.configure(text_color="red")
-
-        # Checks if the password length is valid if so set the label colour to green
-        if len(Password) > 8 and len(Password) < 16:
-            self.password_length_requirement.configure(text_color="green")
-
-        # Loops through every character in the password and checks if a unique character from each set is used if so, the corresponding label colour is set to green
-        for i in Password:
-            if i.isupper():  # Checks for uppercase letters
-                self.uppercase_requirement.configure(text_color="green")
-            if i.islower():  # Checks for lowercase letters
-                self.lowercase_requirement.configure(text_color="green")
-            if i.isdigit():  # Checks for numbers
-                self.digit_requirement.configure(text_color="green")
-            if not i.isalnum():  # Checks for symbols
-                self.symbol_requirement.configure(text_color="green")
-
-    def validate_fields(self):
-
-        # This function validates all input fields and returns True/False and an error message
-
-        Username = self.Username_entry.get()
-        Password = self.Password_entry.get()
-
-        if Username == "" or Password == "":
-            return False, "Fill in all fields!"
-
-        if self.username_length_requirement.cget("text_color") == "red":
-            return False, "Username must be 3-16 characters!"
-
-        if self.uppercase_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one uppercase letter!"
-
-        if self.lowercase_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one lowercase letter!"
-
-        if self.digit_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one number!"
-
-        if self.symbol_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one symbol!"
-
-        if self.password_length_requirement.cget("text_color") == "red":
-            return False, "Password must be 8-16 characters!"
-
-        return True, "Login Successful!"
-
-class LoginGUI(ParentGUI):
-    # This is the Login GUI class which inherits from the Parent GUI class
-
-    def __init__(self):
-        super().__init__(title="Login")
-        self.auth = Authentication() # Creates the client
-        self.window()
-        self.frames()
-        self.create_title("Login")
-        self.create_username_field()
-        self.create_password_field()
-        self.create_error_label()
-        self.create_button("Login", self.login)
-        self.create_link("Don't have an account?", "Sign up.", self.on_signup_clicked)
-        self.root.mainloop()
-
-    def login(self):
-        # This runs when the login button is clicked
-
-        # Get credentials from the input fields
-        username = self.Username_entry.get()
-        password = self.Password_entry.get()
-
-        # This checks if the credentials entered are valid and returns a message (this runs locally)
-        is_valid, message = self.validate_fields()
-
-        # If the credentials aren't valid we return an error message
-        if not is_valid:
-            self.error_label.configure(text=message, text_color="red")
+    def send_action(self):
+        message = self.entry_message.get().strip()
+        if not message:
             return
+        print("Sending...",message)
 
-        # Show "Logging in..." message
-        self.error_label.configure(text="Logging in...", text_color="white")
-
-        self.root.update() # This forces the GUI to update to show the message
+        # Display own message immediately
+        time_string = time.strftime("%H:%M:%S")
+        self.display_message("You", message, time_string)
+        self.entry_message.delete(0, "end")
 
         # Send to server
-        print("Sending credentials...")
-        response = self.auth.send_login(username, password)
-
-        # Handle server respons
-        if response["status"] == "success":
-            self.error_label.configure(text="Login Successful!", text_color="green")
-            # Open main application window
-        else:
-            self.error_label.configure(text="Login Failed!", text_color="red")
-
-    def on_signup_clicked(self, event):
-        # This runs when the signup link is clicked and switches the GUI
-        # Closes the current window
-        self.close_window()
-        #open signup window
-        signup_gui = SignupGUI()
-
-class SignupGUI(ParentGUI):
-    # This is the Signup GUI class which inherits from the Parent GUI class}
-
-    def __init__(self):
-        super().__init__(title="Sign up")
-        self.auth = Authentication() # This creates the client
-        self.window_height = 450 # Slightly taller for confirm password field
-        self.window()
-        self.frames()
-        self.create_title("Sign Up")
-        self.create_username_field()
-        self.create_password_field()
-        self.create_confirm_password_field()
-        self.create_error_label()
-        self.create_button("Sign Up", self.signup)
-        self.create_link("Already have an account?", "Login.", self.on_login_clicked)
-        self.root.mainloop()
-
-    def create_confirm_password_field(self):
-        # This procedure creates a new confirm password field which is specific to the signup GUI
-
-        # Confirm password label
-        self.Confirm_password_label = ctk.CTkLabel(self.content_frame, text="Password:", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
-        self.Confirm_password_label.grid(row=5, column=0, sticky="e", padx=(0,10))
-
-        # Confirm password entry
-        self.Confirm_password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text="Password", fg_color="white", text_color="black",placeholder_text_color="grey")
-        self.Confirm_password_entry.grid(row=5, column=1, pady=5)
-
-        # Password match requirement
-        self.password_match_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
-        self.password_match_frame.grid(row=6, column=1, sticky="w", padx=(5,0))
-
-        self.password_match_requirement = ctk.CTkLabel(self.password_match_frame, text="● Passwords must match", text_color="red")
-        self.password_match_requirement.pack(anchor="w")
-
-        # Bind event to check that the passwords match
-        self.Confirm_password_entry.bind("<KeyRelease>", self.check_password_match)
-
-    def check_password_match(self, event=None):
-        # This procedure checks if the passwords match
-
-        password = self.Password_entry.get()
-        confirm_password = self.Confirm_password_entry.get()
-
-        # This checks if the passwords are the same and that password is not empty as that will trigger it to be true
-        if (confirm_password == password) and password !="":
-            self.password_match_requirement.configure(text_color="green")
-        else:
-            self.password_match_requirement.configure(text_color="red")
-
-    def validate_fields(self):
-        # Overriding to add confirm password validation
-
-        is_valid, message = super().validate_fields()
-
-        if not is_valid:
-            return False, message
-
-        # Check if passwords match
-        password = self.Password_entry.get()
-        confirm_password = self.Confirm_password_entry.get()
-
-        if password != confirm_password:
-            return False, "Passwords do not match!"
-
-        return True, ""
-
-    def signup(self):
-        # This runs when the signup button is clicked
-
-        # Get credentials
-        username = self.Username_entry.get()
-        password = self.Password_entry.get()
-        confirm_password = self.Confirm_password_entry.get()
-
-        # Validate locally
-        is_valid, message = self.validate_fields()
-
-        if not is_valid:
-            self.error_label.configure(text=message, text_color="red")
-            return
-
-        if password != confirm_password:
-            self.error_label.configure(text="Passwords do not match!", text_color="red")
-            return
-
-        # Show "Creating account..." message
-        self.error_label.configure(text="Creating account...", text_color="white")
-        self.root.update()
-
-        # Send to server
-        print("Sending credentials...")
-        response = self.auth.send_signup(username, password)
-
-        # Handle server response
-        if response["status"] == "success":
-            self.error_label.configure(text="Sign up Successful!", text_color="green")
-            self.root.after(2000, lambda: self.on_login_clicked(None))
-        else:
-            self.error_label.configure(text=response["message"], text_color="red")
-
-    def on_login_clicked(self, event):
-        # This runs when the login link is clicked and switches the GUI
-        # Closes the current window
-        self.close_window()
-
-        # open login window
-        login_gui = LoginGUI()
-
-class Authentication:
-    # This handles communication with the authentication server
-
-    def __init__(self, host="localhost", port=5000):
-        self.host = host
-        self.port = port
-
-    def send_login(self, username, password):
-        # This sends login request to the server
-        return self.send_request("/l", username, password) # /l is read by the server and interpreted as a login request
-
-    def send_signup(self, username, password):
-        # This sends signup requests to server
-        return self.send_request("/s", username, password) # /s is read by the server and interpreted as a signup request
-
-    def send_request(self, command, username, password):
-        # This sends requests in the format /command:username:password
         try:
-            # Hashing the password first
-            hashed_password = self.hash_password(password)
-
-            # Create a socket connection
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.settimeout(5) # 5 second timeout
-            client_socket.connect((self.host, self.port))
-
-            # Format the request --> /command:username:password
-            request = f"{command}:{username}:{hashed_password}"
-            print(f"Sending {request} to server...") # Here for debugging
-
-            # Send the request
-            client_socket.send(request.encode("utf-8"))
-
-            #Receive response
-            response = client_socket.recv(1024).decode("utf-8")
-            client_socket.close()
-
-            print(f"Server response: {response}")
-            return self.parse_response(response)
-
-        except socket.timeout:
-            return {"status": "error", "message": "Connection timed out - server not responding"}
-        except ConnectionRefusedError:
-            return {"status": "error", "message": "Cannot connect to server"}
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("127.0.0.1", 5000))
+            command = f"/m:{self.username}:{message}"
+            client.send(command.encode())
+            response = client.recv(1024).decode("utf-8")
+            client.close()
+            if response.startswith("SUCCESS"):
+                # Extract new message ID
+                try:
+                    new_id = int(response.split(":")[1].strip())
+                    if new_id > self.last_message_id:
+                        self.last_message_id = new_id
+                except:
+                    pass
+                print("Message sent successfully")
+            else:
+                print(f"Message sent failed: {response}")
         except Exception as e:
-            return {"status": "error", "message": str(e)}
+            print(f"Failed to send message: {e}")
 
-    def parse_response(self, response):
-        # Parse server response: SUCCESS: message or ERROR: message
-        response = response.strip()
+    def refresh_sidebar(self):
+        # Cancel any previously scheduled refresh
+        if self._refresh_after_id:
+            self.after_cancel(self._refresh_after_id)
+            self._refresh_after_id = None
+        # This sends the command /get to the server and updates the status for all users
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("localhost", 5000))
 
-        if response.startswith("SUCCESS:"):
-            return {"status": "success", "message": response[8:].strip()} # Removes SUCCESS: from the message
-        elif response.startswith("ERROR:"):
-            return {"status": "error", "message": response[6:].strip()} # Removes ERROR: from the message
-        else:
-            return {"status": "error", "message": f"Unexcpected error: {response}"}
+            # Send /get
+            client.send("/get".encode("utf-8"))
+            response = client.recv(1024).decode("utf-8")
+            print(f"DEBUG: refresh_side_bar received: {response}")
+            client.close()
 
-    def hash_password(self, password):
-        # This converts passwords from plain text into a SHA-256 hash
-        return hashlib.sha256(password.encode("utf-8")).hexdigest()
+            if not response.startswith("ERROR"):
+                # Clear current sidebar widgets
+                for i in self.user_list_frame.winfo_children():
+                    i.destroy()
 
-# Start the GUI
+                # Parse "user1:online,user2:away,user3:offline,etc"
+                users = response.split(",")
+                users_list = []
+                for i in users:
+                    if ":" in i:
+                        name, status = i.split(":")
+                        # Create a label for each user
+                        users_list.append((name, status))
+                # Sort so that the user always appears firt
+                yourself = None
+                others = []
+                for name, status in users_list:
+                    if name == self.username:
+                        yourself = (name, status)
+                    else:
+                        others.append((name, status))
+
+                sorted_users = []
+                if yourself:
+                    sorted_users.append(yourself)
+                sorted_users.extend(others)
+
+                for i in self.user_list_frame.winfo_children():
+                    i.destroy()
+
+                for name, status in sorted_users:
+                    self.add_user_to_sidebar(name, status)
+
+        except Exception as e:
+            # Printing traceback for debugging
+            import traceback
+            traceback.print_exc()
+            print(f"Sidebar sync failes: {e}")
+        finally:
+            # Schedule the next refresh only after this one is completed
+            self._refresh_after_id = self.after(3000, self.refresh_sidebar)
+
+    def on_closing(self):
+        # This tells the server to -1 from login_count (1 less device is on the account) before exiting
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.connect(("localhost", 5000))
+            client.send(f"/lo:{self.username}".encode("utf-8"))
+            client.close()
+        except:
+            pass # Incase the server is down
+        if self._fetch_after_id:
+            self.after_cancel(self._fetch_after_id)
+        self.destroy()
+
+    def on_activity(self, event=None):
+        # Called whenever the user interacts with the app
+        self.last_activity = time.time()
+
+        # If the user was away and becomes active, set back to online
+        if self.current_status == "away":
+            self.update_status("online")
+
+    def check_idle_status(self):
+        # Check if the user has been idle and update the status to away if so
+        idle_time = time.time() - self.last_activity
+
+        if idle_time > self.idle_timeout and self.current_status == "online":
+            self.update_status("away")
+
+        self.after(self.status_check_interval * 1000, self.check_idle_status)
+
+    def update_status(self, new_status):
+        # Update local status and notify server
+        if new_status == self.current_status:
+            return
+
+        self.current_status = new_status
+        print(f"Status changed to: {new_status}")
+
+        colors = {"online": "green", "away": "yellow", "offline": "red"}
+        if self.my_status_dot:
+            self.my_status_dot.configure(text_color=colors.get(new_status, "grey"))
+
+        self.send_status_to_server(new_status)
+
+    def send_status_to_server(self, status):
+        # Send status change to server in the format --> /sc:username:status
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("localhost", 5000))
+
+            # Format --> /sc:username:status
+            command = f"/sc:{self.username}:{status}"
+            client.send(command.encode("utf-8"))
+
+            response = client.recv(1024).decode("utf-8")
+            client.close()
+
+            if response.startswith("SUCCESS"):
+                print(f"Status update successful: {response}")
+            else:
+                print(f"Status update failed: {response}")
+
+        except Exception as e:
+            print(f"Failed to send status update: {e}")
+
+    def show_status_menu(self, event):
+        # A popup menu to change status on right click
+        menu = tk.Menu(self, tearoff=0)
+        menu.add_command(label="Online", command=lambda: self.update_status("online"))
+        menu.add_command(label="Away", command=lambda: self.update_status("away"))
+        menu.add_command(label="Offline", command=lambda: self.update_status("offline"))
+        menu.config(bg="#1c1c1c", fg="white", activebackground="#333333", activeforeground="white", font=("Arial", 12))
+        menu.tk_popup(event.x_root, event.y_root)
+
+    def fetch_messages(self):
+        # Fetch new messages from server and display them
+        try:
+            client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            client.settimeout(2)
+            client.connect(("localhost", 5000))
+            command = f"/fetch:{self.username}:{self.last_message_id}"
+            client.send(command.encode("utf-8"))
+            response = client.recv(4096).decode("utf-8")
+            client.close()
+
+            print(f"DEBUG Response:{response}")
+
+            if response.startswith("SUCCESS"):
+                pass
+            elif response.startswith("ERROR"):
+                print(f"Server error: {response}")
+            elif not response.startswith("ERROR"):
+                # Parse messages format --> id:sender:message:timestamp
+                messages = response.split(",")
+                max_id = self.last_message_id
+                for i in messages:
+                    if ":" in i:
+                        parts = i.split(":", 3) # split into 4 parts
+
+                        if len(parts) >= 4:
+                            message_id = int(parts[0])
+                            sender = parts[1]
+                            message = parts[2]
+                            timestamp = parts[3]
+                            if sender == self.username:
+                                sender = "You" # Display "You" when fetching your own messages instead of your username
+                            self.display_message(sender, message, timestamp)
+                            max_id = max(max_id, message_id)
+                            if sender != self.username:
+                                self.display_message(sender, message, timestamp) # Display your own messages when you restart
+                            max_id = max(max_id, message_id)
+                self.last_message_id = max_id
+        except Exception as e:
+            print(f"Fetch error: {e}")
+        finally:
+            self._fetch_after_id = self.after(3000, self.fetch_messages)
+
+    def display_message(self, sender, message, timestamp=None):
+        # Insert a message into the chat display
+        time_string = ""
+        if timestamp:
+            # Extract HH:MM:SS from YYYY-MM-DD HH:MM:SS format
+            if " " in timestamp:
+                time_string = timestamp.split()[1]
+            else:
+                time_string = timestamp
+            time_string = f"[{time_string}]"
+
+        self.message_display.configure(state="normal")
+        self.message_display.insert("end", f"{time_string} {sender}:{message}\n")
+        self.message_display.configure(state="disabled")
+        self.message_display.see("end")
+
 if __name__ == "__main__":
-    login_gui = LoginGUI()
+    app = MessagingApp("TEST")
+    # Removed users for testing
+    app.mainloop()
