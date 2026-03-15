@@ -119,7 +119,7 @@ class MessagingApp(ctk.CTk):
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(2)
-            client.connect(("127.0.0.1", 5000))
+            client.connect(("86.13.224.23", 19132))
             command = f"/m:{self.username}:{message}"
             client.send(command.encode())
             response = client.recv(1024).decode("utf-8")
@@ -147,7 +147,7 @@ class MessagingApp(ctk.CTk):
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(2)
-            client.connect(("localhost", 5000))
+            client.connect(("86.13.224.23", 19132))
 
             # Send /get
             client.send("/get".encode("utf-8"))
@@ -201,7 +201,7 @@ class MessagingApp(ctk.CTk):
         # This tells the server to -1 from login_count (1 less device is on the account) before exiting
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client.connect(("localhost", 5000))
+            client.connect(("86.13.224.23", 19132))
             client.send(f"/lo:{self.username}".encode("utf-8"))
             client.close()
         except:
@@ -247,7 +247,7 @@ class MessagingApp(ctk.CTk):
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(2)
-            client.connect(("localhost", 5000))
+            client.connect(("86.13.224.23", 19132))
 
             # Format --> /sc:username:status
             command = f"/sc:{self.username}:{status}"
@@ -278,7 +278,7 @@ class MessagingApp(ctk.CTk):
         try:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(2)
-            client.connect(("localhost", 5000))
+            client.connect(("86.13.224.23", 19132))
             command = f"/fetch:{self.username}:{self.last_message_id}"
             client.send(command.encode("utf-8"))
             response = client.recv(4096).decode("utf-8")

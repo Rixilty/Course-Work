@@ -5,8 +5,8 @@ import sqlite3
 class Server:
 
     def __init__(self):
-        self.host = "localhost"
-        self.port = 5000
+        self.host = "0.0.0.0" # Listen to anything
+        self.port = 19132 # On this port
         self.database = "logins.db"
         self.message_db = "messages.db"
 

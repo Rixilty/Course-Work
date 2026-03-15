@@ -1,5 +1,10 @@
 tk.py
 classes.py
+servertemp.py
+temp.py
+test.py
+logins.db
+README.md
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
