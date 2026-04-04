@@ -43,7 +43,7 @@ class Server:
                     last_id = int(parts[2])
                 except ValueError:
                     return None, None, None, None, "Invalid last_id"
-                return "fetch", username, last_id, None
+                return "fetch", username, last_id, None, None
             else:
                 return None, None, None, None, f"Unknown command: {command}"
 
