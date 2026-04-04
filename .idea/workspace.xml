@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -399,9 +400,10 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1775266215132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1773191791044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1775265811538" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Main.coverage" NAME="Main Coverage Results" MODIFIED="1775264413590" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1775271867757" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Main.coverage" NAME="Main Coverage Results" MODIFIED="1775269935662" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1771161834663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1773831931275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$test.coverage" NAME="test Coverage Results" MODIFIED="1763726807059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -21,42 +21,41 @@ class Server:
             command = parts[0]
 
             if command == "/s":
-                return "signup", parts[1], parts[2], None
+                return "signup", parts[1], parts[2], None, None
             elif command == "/l":
-                return "login", parts[1], parts[2], None
+                return "login", parts[1], parts[2], None, None
             elif command == "/lo":
-                return "logout", parts[1], None, None
+                return "logout", parts[1], None, None, None
             elif command == "/sc":
-                return "status_change", parts[1], parts[2], None
+                return "status_change", parts[1], parts[2], None, None
             elif command == "/get":
-                return "get_status", None, None, None
+                return "get_status", None, None, None, None
             elif command == "/m":
                 if len(parts) < 3:
-                    return None, None, None, "Invalid message format"
-                sender = parts[1]
-                message = ":".join(parts[2:]) # recombine message in case message has colons
-                return "message", sender, message, None
+                    return None, None, None, None, "Invalid message format"
+                parts = data.split(":", 3) # Split into 4 parts
+                return "message", parts[1], parts[3], parts[2], None # sender, message, length
             elif command == "/fetch":
                 if len(parts) < 3:
-                    return None, None, None, "Invalid fetch format"
+                    return None, None, None, None, "Invalid fetch format"
                 username = parts[1]
                 try:
                     last_id = int(parts[2])
                 except ValueError:
-                    return None, None, None, "Invalid last_id"
+                    return None, None, None, None, "Invalid last_id"
                 return "fetch", username, last_id, None
             else:
-                return None, None, None, f"Unknown command: {command}"
+                return None, None, None, None, f"Unknown command: {command}"
 
         except Exception as e:
-            return None, None, None, f"Parse error: {str(e)}"
+            return None, None, None, None, f"Parse error: {str(e)}"
 
     def handle_client(self, client_socket, address):
         try:
             data = client_socket.recv(1024).decode("utf-8").strip()
             print(f"Received from {address}: {data}")
 
-            action, part1, part2, error = self.parse_request(data)
+            action, part1, part2, part3, error = self.parse_request(data)
 
             if error:
                 response = f"ERROR: {error}"
@@ -71,7 +70,7 @@ class Server:
             elif action == "get_status":
                 response = self.get_list()
             elif action == "message":
-                response = self.store_message(part1, part2)
+                response = self.store_message(part1, part2, part3) # part1 = sender, part2 = message, part3 = length
             elif action == "fetch":
                 response = self.fetch_message(part1, part2)
             else:
@@ -199,12 +198,12 @@ class Server:
             client_thread = threading.Thread(target=self.handle_client, args=(client_socket, address))
             client_thread.start()
 
-    def store_message(self, sender, message):
+    def store_message(self, sender, message, length):
         # Store message in messages.db
         try:
             conn = sqlite3.connect(self.message_db)
             cursor = conn.cursor()
-            cursor.execute("INSERT INTO messages (sender, message) VALUES (?, ?)", (sender, message))
+            cursor.execute("INSERT INTO messages (sender, message, length) VALUES (?, ?, ?)" , (sender, message, length))
             conn.commit()
             new_id = cursor.lastrowid
             conn.close()
@@ -217,16 +216,17 @@ class Server:
         try:
             conn = sqlite3.connect(self.message_db)
             cursor = conn.cursor()
-            cursor.execute("SELECT id, sender, message, timestamp FROM messages WHERE id > ? ORDER BY id",(last_id,))
+            cursor.execute("SELECT id, sender, length, message, timestamp FROM messages WHERE id > ? ORDER BY id",(last_id,))
             rows = cursor.fetchall()
             conn.close()
 
             if not rows:
                 return "SUCCESS: No messages found"
-            # Format --> id:sender:message:timestamp
+            # Format --> id:sender:length:message:timestamp
             message = []
             for i in rows:
-                message.append(f"{i[0]}:{i[1]}:{i[2]}:{i[3]}")
+                # 0 = id, 1 = sender, 2 = length, 3 = message, 4 = timestamp
+                message.append(f"{i[0]}:{i[1]}:{i[2]}:{i[3]}:{i[4]}")
             print(f"DEBUG: {"||".join(message)}")
             return "||".join(message)
         except Exception as e:
