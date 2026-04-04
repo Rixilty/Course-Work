@@ -183,7 +183,7 @@ class Server:
                 # Making sure there's no spaces in the format for better parsing
                 user_list.append(f"{name}:{status}")
 
-            return ",".join(user_list) # Better way to join with commas
+            return "||".join(user_list) # using || instead of a comma
         except Exception as e:
             return f"ERROR: {str(e)}"
 
@@ -227,8 +227,8 @@ class Server:
             message = []
             for i in rows:
                 message.append(f"{i[0]}:{i[1]}:{i[2]}:{i[3]}")
-            print(f"DEBUG: {",".join(message)}")
-            return ",".join(message)
+            print(f"DEBUG: {"||".join(message)}")
+            return "||".join(message)
         except Exception as e:
             return f"ERROR: {str(e)}"
 

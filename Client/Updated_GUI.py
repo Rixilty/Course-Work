@@ -2,7 +2,7 @@ import customtkinter as ctk
 import socket
 import hashlib
 
-from Client.Main import MessagingApp
+from Main import MessagingApp
 
 
 class ParentGUI:

@@ -3,6 +3,10 @@ from tkinter import mainloop
 import customtkinter as ctk
 import time
 import tkinter as tk
+from cryptography.fernet import Fernet
+
+SECURITY_KEY = b'HbQ3dWJrZQ-mkWA65QPoebyExSqK6fy-dljZxbRDdE4='
+cipher_suite = Fernet(SECURITY_KEY)
 
 class MessagingApp(ctk.CTk):
     def __init__(self, username):
@@ -110,6 +114,11 @@ class MessagingApp(ctk.CTk):
             return
         print("Sending...",message)
 
+        # Fernet outputs bytes, so I decode to "utf-8" string to send over the socket
+        encrypted_bytes = cipher_suite.encrypt(message.encode("utf-8"))
+        encrypted_message = encrypted_bytes.decode("utf-8")
+        message_length = len(encrypted_message)
+
         # Display own message immediately
         time_string = time.strftime("%H:%M:%S")
         self.display_message("You", message, time_string)
@@ -120,7 +129,7 @@ class MessagingApp(ctk.CTk):
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             client.settimeout(2)
             client.connect(("86.13.224.23", 19134))
-            command = f"/m:{self.username}:{message}"
+            command = f"/m:{self.username}:{message_length}:{encrypted_message}"
             client.send(command.encode())
             response = client.recv(1024).decode("utf-8")
             client.close()
@@ -160,8 +169,8 @@ class MessagingApp(ctk.CTk):
                 for i in self.user_list_frame.winfo_children():
                     i.destroy()
 
-                # Parse "user1:online,user2:away,user3:offline,etc"
-                users = response.split(",")
+                # Parse "user1:online||user2:away||user3:offline||etc"
+                users = response.split("||")
                 users_list = []
                 for i in users:
                     if ":" in i:
@@ -224,9 +233,6 @@ class MessagingApp(ctk.CTk):
 
         if idle_time > self.idle_timeout and self.current_status == "online":
             self.update_status("away")
-
-
-
 
     def update_status(self, new_status):
         # Update local status and notify server
@@ -292,7 +298,7 @@ class MessagingApp(ctk.CTk):
                 print(f"Server error: {response}")
             elif not response.startswith("ERROR"):
                 # Parse messages format --> id:sender:message:timestamp
-                messages = response.split(",")
+                messages = response.split("||")
                 max_id = self.last_message_id
                 for i in messages:
                     if ":" in i:
@@ -301,11 +307,18 @@ class MessagingApp(ctk.CTk):
                         if len(parts) >= 4:
                             message_id = int(parts[0])
                             sender = parts[1]
-                            message = parts[2]
-                            timestamp = parts[3]
+                            message_length = int(parts[2])
+                            # The remainder includes the encrypted message + the timestamp
+                            remainder = parts[3]
+                            # Slice out exactly the number of characters the message_length told us
+                            encrypted_message = remainder[:message_length]
+                            # The timestamp is whatever left minus the colon seperating the encrypted message and the timestamp
+                            timestamp = remainder[message_length:].lstrip(":")
+                            decrypted_bytes = cipher_suite.decrypt(encrypted_message.encode("utf-8"))
+                            decrypted_message = decrypted_bytes.decode("utf-8")
                             if sender == self.username:
                                 sender = "You" # Display "You" when fetching your own messages instead of your username
-                            self.display_message(sender, message, timestamp)
+                            self.display_message(sender, decrypted_message, timestamp)
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:

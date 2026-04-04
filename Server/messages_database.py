@@ -12,6 +12,7 @@ def create_database():
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         sender TEXT NOT NULL,
         message TEXT NOT NULL,
+        length INTEGER NOT NULL,
         timestamp DATETIME DEFAULT CURRENT_TIMESTAMP
         )
         '''
