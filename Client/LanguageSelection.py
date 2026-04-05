@@ -4,6 +4,8 @@ import threading
 import asyncio
 from googletrans import Translator, LANGUAGES
 
+from Client.Updated_GUI import LoginGUI
+
 # Initializing the translator
 translator = Translator()
 
@@ -121,10 +123,20 @@ class LanguageSplashScreen(ctk.CTk):
 
     def finish_setup(self):
         print(lang_data.name, lang_data.code)
-        # call the Login screen
-        # self.destroy()
-        # LoginWindow().mainloop()
         self.confirm_button.configure(state="disabled", text="Setting up...")
+        with open("config.txt", "w") as f:
+            f.write(lang_data.code)
+            print(f"Saved language code: {lang_data.code} to config.txt")
+        self.after(1000, self.launch_login)
+
+    def launch_login(self):
+        # This hides the window so the user doesn't see it
+        self.withdraw()
+        # Starts the new window
+        app = LoginGUI()
+        # Destroys the old window
+        self.destroy()
+        app.mainloop()
 
 if __name__ == "__main__":
     app = LanguageSplashScreen()
