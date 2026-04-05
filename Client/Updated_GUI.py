@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import socket
 import hashlib
+from Translator import translate_text
 
 from Main import MessagingApp
 
@@ -75,17 +76,17 @@ class ParentGUI:
         # This procedure creates a username field with validation
 
         # Username label
-        self.Username_label = ctk.CTkLabel(self.content_frame, text="Username:", font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
+        self.Username_label = ctk.CTkLabel(self.content_frame, text=translate_text("Username:"), font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
         self.Username_label.grid(row=1, column=0, sticky="e", padx=(0, 10))
 
         # Username entry
-        self.Username_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12),placeholder_text="Username", fg_color="white", text_color="black",placeholder_text_color="grey")
+        self.Username_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12),placeholder_text=translate_text("Username"), fg_color="white", text_color="black",placeholder_text_color="grey")
         self.Username_entry.grid(row=1, column=1, pady=5)
 
         # Username requirements frame (hidden by default)
         self.username_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
         self.username_requirements_frame.grid(row=2, column=1, sticky="w", pady=(5, 0))
-        self.username_length_requirement = ctk.CTkLabel(self.username_requirements_frame,text="● Username Length Must Be Between 3-16", text_color="red")
+        self.username_length_requirement = ctk.CTkLabel(self.username_requirements_frame,text=translate_text("● Username Length Must Be Between 3-16"), text_color="red")
 
         # Pack username requirement
         self.username_length_requirement.pack(anchor="w")
@@ -102,11 +103,11 @@ class ParentGUI:
         # This procedure creates a password field with validation
 
         # Password label
-        self.Password_label = ctk.CTkLabel(self.content_frame, text="Password:", font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
+        self.Password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Password:"), font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
         self.Password_label.grid(row=3, column=0, sticky="e", padx=(0, 10))
 
         # Password entry
-        self.Password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text="Password", fg_color="white", text_color="black",placeholder_text_color="grey")
+        self.Password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text=translate_text("Password"), fg_color="white", text_color="black",placeholder_text_color="grey")
         self.Password_entry.grid(row=3, column=1, pady=5)
 
         # Password requirements frame (hidden by default)
@@ -114,11 +115,11 @@ class ParentGUI:
         self.password_requirements_frame.grid(row=4, column=1, sticky="w", pady=(5, 0))
 
         # Password requirements labels
-        self.uppercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● At least 1 Uppercase Letter", text_color="red")
-        self.lowercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● At least 1 Lowercase Letter", text_color="red")
-        self.digit_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Number",text_color="red")
-        self.symbol_requirement = ctk.CTkLabel(self.password_requirements_frame, text="● At least 1 Symbol",text_color="red")
-        self.password_length_requirement = ctk.CTkLabel(self.password_requirements_frame,text="● Password Length Must Be Between 8-16", text_color="red")
+        self.uppercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text=translate_text("● At least 1 Uppercase Letter"), text_color="red")
+        self.lowercase_requirement = ctk.CTkLabel(self.password_requirements_frame,text=translate_text("● At least 1 Lowercase Letter"), text_color="red")
+        self.digit_requirement = ctk.CTkLabel(self.password_requirements_frame, text=translate_text("● At least 1 Number"),text_color="red")
+        self.symbol_requirement = ctk.CTkLabel(self.password_requirements_frame, text=translate_text("● At least 1 Symbol"),text_color="red")
+        self.password_length_requirement = ctk.CTkLabel(self.password_requirements_frame,text=translate_text("● Password Length Must Be Between 8-16"), text_color="red")
 
         # Pack all password requirement labels
         self.uppercase_requirement.pack(anchor="w")
@@ -205,42 +206,42 @@ class ParentGUI:
         Password = self.Password_entry.get()
 
         if Username == "" or Password == "":
-            return False, "Fill in all fields!"
+            return False, translate_text("Fill in all fields!")
 
         if self.username_length_requirement.cget("text_color") == "red":
-            return False, "Username must be 3-16 characters!"
+            return False, translate_text("Username must be 3-16 characters!")
 
         if self.uppercase_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one uppercase letter!"
+            return False, translate_text("Password must contain at least one uppercase letter!")
 
         if self.lowercase_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one lowercase letter!"
+            return False, translate_text("Password must contain at least one lowercase letter!")
 
         if self.digit_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one number!"
+            return False, translate_text("Password must contain at least one number!")
 
         if self.symbol_requirement.cget("text_color") == "red":
-            return False, "Password must contain at least one symbol!"
+            return False, translate_text("Password must contain at least one symbol!")
 
         if self.password_length_requirement.cget("text_color") == "red":
-            return False, "Password must be 8-16 characters!"
+            return False, translate_text("Password must be 8-16 characters!")
 
-        return True, "Login Successful!"
+        return True, translate_text("Login Successful!")
 
 class LoginGUI(ParentGUI):
     # This is the Login GUI class which inherits from the Parent GUI class
 
     def __init__(self):
-        super().__init__(title="Login")
+        super().__init__(title=translate_text("Login"))
         self.auth = Authentication() # Creates the client
         self.window()
         self.frames()
-        self.create_title("Login")
+        self.create_title(translate_text("Login"))
         self.create_username_field()
         self.create_password_field()
         self.create_error_label()
-        self.create_button("Login", self.login)
-        self.create_link("Don't have an account?", "Sign up.", self.on_signup_clicked)
+        self.create_button(translate_text("Login"), self.login)
+        self.create_link(translate_text("Don't have an account?"), translate_text("Sign up."), self.on_signup_clicked)
         self.root.mainloop()
 
     def login(self):
@@ -255,11 +256,11 @@ class LoginGUI(ParentGUI):
 
         # If the credentials aren't valid we return an error message
         if not is_valid:
-            self.error_label.configure(text=message, text_color="red")
+            self.error_label.configure(text=translate_text(message), text_color="red")
             return
 
         # Show "Logging in..." message
-        self.error_label.configure(text="Logging in...", text_color="white")
+        self.error_label.configure(text=translate_text("Logging in..."), text_color="white")
 
         self.root.update() # This forces the GUI to update to show the message
 
@@ -269,11 +270,11 @@ class LoginGUI(ParentGUI):
 
         # Handle server response
         if response["status"] == "success":
-            self.error_label.configure(text="Login Successful!", text_color="green")
+            self.error_label.configure(text=translate_text("Login Successful!"), text_color="green")
             self.root.update()
             self.root.after(1000, self.open_messaging_app, username)
         else:
-            self.error_label.configure(text="Login Failed!", text_color="red")
+            self.error_label.configure(text=translate_text("Login Failed!"), text_color="red")
 
     def on_signup_clicked(self, event):
         # This runs when the signup link is clicked and switches the GUI
@@ -292,36 +293,36 @@ class SignupGUI(ParentGUI):
     # This is the Signup GUI class which inherits from the Parent GUI class}
 
     def __init__(self):
-        super().__init__(title="Sign up")
+        super().__init__(title=translate_text("Sign up"))
         self.auth = Authentication() # This creates the client
         self.window_height = 450 # Slightly taller for confirm password field
         self.window()
         self.frames()
-        self.create_title("Sign Up")
+        self.create_title(translate_text("Sign Up"))
         self.create_username_field()
         self.create_password_field()
         self.create_confirm_password_field()
         self.create_error_label()
-        self.create_button("Sign Up", self.signup)
-        self.create_link("Already have an account?", "Login.", self.on_login_clicked)
+        self.create_button(translate_text("Sign Up"), self.signup)
+        self.create_link(translate_text("Already have an account?"), translate_text("Login."), self.on_login_clicked)
         self.root.mainloop()
 
     def create_confirm_password_field(self):
         # This procedure creates a new confirm password field which is specific to the signup GUI
 
         # Confirm password label
-        self.Confirm_password_label = ctk.CTkLabel(self.content_frame, text="Password:", font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
+        self.Confirm_password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Password:"), font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
         self.Confirm_password_label.grid(row=5, column=0, sticky="e", padx=(0,10))
 
         # Confirm password entry
-        self.Confirm_password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text="Password", fg_color="white", text_color="black",placeholder_text_color="grey")
+        self.Confirm_password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text=translate_text("Password"), fg_color="white", text_color="black",placeholder_text_color="grey")
         self.Confirm_password_entry.grid(row=5, column=1, pady=5)
 
         # Password match requirement
         self.password_match_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
         self.password_match_frame.grid(row=6, column=1, sticky="w", padx=(5,0))
 
-        self.password_match_requirement = ctk.CTkLabel(self.password_match_frame, text="● Passwords must match", text_color="red")
+        self.password_match_requirement = ctk.CTkLabel(self.password_match_frame, text=translate_text("● Passwords must match"), text_color="red")
         self.password_match_requirement.pack(anchor="w")
 
         # Bind event to check that the passwords match
@@ -345,14 +346,14 @@ class SignupGUI(ParentGUI):
         is_valid, message = super().validate_fields()
 
         if not is_valid:
-            return False, message
+            return False, translate_text(message)
 
         # Check if passwords match
         password = self.Password_entry.get()
         confirm_password = self.Confirm_password_entry.get()
 
         if password != confirm_password:
-            return False, "Passwords do not match!"
+            return False, translate_text("Passwords do not match!")
 
         return True, ""
 
@@ -368,15 +369,15 @@ class SignupGUI(ParentGUI):
         is_valid, message = self.validate_fields()
 
         if not is_valid:
-            self.error_label.configure(text=message, text_color="red")
+            self.error_label.configure(text=translate_text(message), text_color="red")
             return
 
         if password != confirm_password:
-            self.error_label.configure(text="Passwords do not match!", text_color="red")
+            self.error_label.configure(text=translate_text("Passwords do not match!"), text_color="red")
             return
 
         # Show "Creating account..." message
-        self.error_label.configure(text="Creating account...", text_color="white")
+        self.error_label.configure(text=translate_text("Creating account..."), text_color="white")
         self.root.update()
 
         # Send to server
@@ -385,10 +386,10 @@ class SignupGUI(ParentGUI):
 
         # Handle server response
         if response["status"] == "success":
-            self.error_label.configure(text="Sign up Successful!", text_color="green")
+            self.error_label.configure(text=translate_text("Sign up Successful!"), text_color="green")
             self.root.after(2000, lambda: self.on_login_clicked(None))
         else:
-            self.error_label.configure(text=response["message"], text_color="red")
+            self.error_label.configure(text=translate_text(response["message"]), text_color="red")
 
     def on_login_clicked(self, event):
         # This runs when the login link is clicked and switches the GUI

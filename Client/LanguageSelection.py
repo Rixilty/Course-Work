@@ -5,6 +5,7 @@ import asyncio
 from googletrans import Translator, LANGUAGES
 
 from Client.Updated_GUI import LoginGUI
+from Translator import translate_text
 
 # Initializing the translator
 translator = Translator()
@@ -28,6 +29,10 @@ class LanguageManager:
         # Set the initial name based on the detected code
         self.name = LANGUAGES[self.code].title()
 
+        with open("config.txt", "w") as f:
+            f.write(self.code)
+            print(f"Saved language code: {self.code} to config.txt")
+
     def get_all_languages(self):
         # This returns a storted list of languages names for the dropdown menu
         languages_list = []
@@ -43,7 +48,7 @@ class LanguageManager:
         for code, lang_name in LANGUAGES.items():
             if lang_name.lower() == name.lower():
                 return code
-            return "en"
+        return "en"
 
 # Creating a global variable to track user's choice
 lang_data = LanguageManager()
@@ -59,29 +64,32 @@ class LanguageSplashScreen(ctk.CTk):
         # GUI
 
         # Header
-        ctk.CTkLabel(self, text="Language Detection", font=("Arial", 29, "bold")).pack(pady=(40,10))
+        self.header_label = ctk.CTkLabel(self, text=translate_text("Language Detection"), font=("Arial", 29, "bold"))
+        self.header_label.pack(pady=(40,10))
 
-        self.info_label = ctk.CTkLabel(self, text=f"We detected your language as: {lang_data.name}", font=("Arial", 20, "bold"))
+        self.info_label = ctk.CTkLabel(self, text=translate_text(f"We detected your language as: {lang_data.name}"), font=("Arial", 20, "bold"))
         self.info_label.pack(pady=10)
 
         # Dropdown Selection
-        ctk.CTkLabel(self, text="Not your preferred language?", text_color="grey").pack(pady=20)
+        self.sub_label = ctk.CTkLabel(self, text=translate_text("Not your preferred language?"), text_color="grey")
+        self.sub_label.pack(pady=20)
         self.lang_dropdown = ctk.CTkOptionMenu(self, values=lang_data.get_all_languages(), command=self.manual_change, width=200)
         self.lang_dropdown.set(lang_data.name)
         self.lang_dropdown.pack(pady=10)
 
         # Seperator
-        ctk.CTkLabel(self, text="--- OR ---", text_color="grey").pack(pady=10)
+        self.seperator = ctk.CTkLabel(self, text=translate_text("--- OR ---"), text_color="grey")
+        self.seperator.pack(pady=10)
 
         # Detect a language through a phrase instead
-        self.phrase_entry = ctk.CTkEntry(self, placeholder_text="Type a phrase in your language...", width=300)
+        self.phrase_entry = ctk.CTkEntry(self, placeholder_text=translate_text("Type a phrase in your language..."), width=300)
         self.phrase_entry.pack(pady=5)
 
-        self.detect_button = ctk.CTkButton(self, text="Detect from phrase", command=self.start_detection_thread)
+        self.detect_button = ctk.CTkButton(self, text=translate_text("Detect from phrase"), command=self.start_detection_thread)
         self.detect_button.pack(pady=5)
 
         # Confirmation button
-        self.confirm_button = ctk.CTkButton(self, text="Confirm & Continue", height=40, command=self.finish_setup)
+        self.confirm_button = ctk.CTkButton(self, text=translate_text("Confirm & Continue"), height=40, command=self.finish_setup)
         self.confirm_button.pack(side="bottom", pady=20)
 
     # Procedures and Functions
@@ -90,6 +98,11 @@ class LanguageSplashScreen(ctk.CTk):
         lang_data.name = choice
         lang_data.code = lang_data.get_code(choice)
         self.info_label.configure(text=f"Language set to: {choice}")
+        with open("config.txt", "w") as f:
+            f.write(lang_data.code)
+            print(f"Saved language code: {lang_data.code} to config.txt")
+
+        self.refresh_ui()
 
     def start_detection_thread(self):
         # Detection is ran in a thread so the UI doesn't freeze
@@ -97,7 +110,7 @@ class LanguageSplashScreen(ctk.CTk):
         if not phrase:
             return
 
-        self.detect_button.configure(state="disabled", text="Detecting...")
+        self.detect_button.configure(state="disabled", text=translate_text("Detecting..."))
         threading.Thread(target=self.detect_logic, args=(phrase,), daemon=True).start()
 
     def detect_logic(self, text):
@@ -113,20 +126,17 @@ class LanguageSplashScreen(ctk.CTk):
             # Updating the UI safely back on the main thread
             self.after(0, lambda: self.update_ui_after_detect(detected_name))
         except Exception as e:
-            self.after(0, lambda: self.detect_button.configure(state="normal", text="Detection failed!"))
+            self.after(0, lambda: self.detect_button.configure(state="normal", text=translate_text("Detection failed!")))
 
     def update_ui_after_detect(self, name):
         self.lang_dropdown.set(name)
         self.manual_change(name)
-        self.detect_button.configure(state="normal", text="Detect from phrase")
+        self.detect_button.configure(state="normal", text=translate_text("Detect from phrase"))
         self.info_label.configure(text=f"Detected: {name}")
 
     def finish_setup(self):
         print(lang_data.name, lang_data.code)
-        self.confirm_button.configure(state="disabled", text="Setting up...")
-        with open("config.txt", "w") as f:
-            f.write(lang_data.code)
-            print(f"Saved language code: {lang_data.code} to config.txt")
+        self.confirm_button.configure(state="disabled", text=translate_text("Setting up..."))
         self.after(1000, self.launch_login)
 
     def launch_login(self):
@@ -137,6 +147,15 @@ class LanguageSplashScreen(ctk.CTk):
         # Destroys the old window
         self.destroy()
         app.mainloop()
+
+    def refresh_ui(self):
+        self.header_label.configure(text=translate_text("Language Detection"))
+        self.info_label.configure(text=translate_text(f"We detected your language as: {lang_data.name}"))
+        self.sub_label.configure(text=translate_text("Not your preferred language?"))
+        self.seperator.configure(text=translate_text("--- OR ---"))
+        self.phrase_entry.configure(placeholder_text=translate_text("Type a phrase in your language..."))
+        self.detect_button.configure(text=translate_text("Detect from phrase"))
+        self.confirm_button.configure(text=translate_text("Confirm & Continue"))
 
 if __name__ == "__main__":
     app = LanguageSplashScreen()

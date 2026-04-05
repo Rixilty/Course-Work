@@ -4,6 +4,7 @@ import customtkinter as ctk
 import time
 import tkinter as tk
 from cryptography.fernet import Fernet
+from Translator import translate_text, translate_message
 
 SECURITY_KEY = b'HbQ3dWJrZQ-mkWA65QPoebyExSqK6fy-dljZxbRDdE4='
 cipher_suite = Fernet(SECURITY_KEY)
@@ -56,7 +57,7 @@ class MessagingApp(ctk.CTk):
         self.sidebar.grid(row=0, column=1, sticky="nsew")
 
         # Scrollable frame for user list
-        self.user_list_frame = ctk.CTkScrollableFrame(self.sidebar, width=200, label_text="Users", label_font=("Arial", 16, "bold"))
+        self.user_list_frame = ctk.CTkScrollableFrame(self.sidebar, width=200, label_text=translate_text("Users"), label_font=("Arial", 16, "bold"))
         self.user_list_frame.pack(side="left", fill="y", padx=10, pady=(20,10))
 
     def setup_chat_window(self):
@@ -76,7 +77,7 @@ class MessagingApp(ctk.CTk):
         self.input_frame.grid(row=1, column=0, sticky="ew")
         self.input_frame.columnconfigure(0, weight=1)
 
-        self.entry_message = ctk.CTkEntry(self.input_frame, placeholder_text="Send a message...", height=40)
+        self.entry_message = ctk.CTkEntry(self.input_frame, placeholder_text=translate_text("Send a message..."), height=40)
         self.entry_message.grid(row=0, column=0, sticky="ew", padx=(0, 10))
 
         self.send_button = ctk.CTkButton(self.input_frame, text="➤", width=50, height=40, command=self.send_action)
@@ -338,7 +339,10 @@ class MessagingApp(ctk.CTk):
             time_string = f"[{time_string}]"
 
         self.message_display.configure(state="normal")
-        self.message_display.insert("end", f"{time_string} {sender}:{message}\n")
+        if sender != "You":
+            self.message_display.insert("end", f"{time_string} {sender}:{translate_message(message)}\n")
+        else:
+            self.message_display.insert("end", f"{time_string} {sender}:{message}\n")
         self.message_display.configure(state="disabled")
         self.message_display.see("end")
 
