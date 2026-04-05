@@ -1,57 +1,63 @@
 import os
+import re
 import json
+import time
 import Translator
 from googletrans import LANGUAGES
 
-#importing my class
-from LanguageSelection import LanguageSplashScreen
-from Main import MessagingApp
-from Updated_GUI import ParentGUI
-from Updated_GUI import LoginGUI
-from Updated_GUI import SignupGUI
+# Defining the files to scrape
+FILES_TO_SCRAPE = ["LanguageSelection.py", "Main.py", "Updated_GUI.py"]
 
 def generate_json_files():
-    # Find all the English strings first
-    print("Finding strings...")
+    print("Scanning files for strings...")
     discovered_strings = set()
 
-    # Temporarily point config to English so we can get the base strings
-    with open("config.txt", "w") as f:
-        f.write("en")
+    # Looking for translate_text("TEXT")
+    pattern = re.compile(r'translate_text\("([^"]+)"\)')
 
-    original_translate = Translator.translate_text
-    Translator.translate_text = lambda text: (discovered_strings.add(text), text)[1]
+    for file in FILES_TO_SCRAPE:
+        if os.path.exists(file):
+            print(f"Scraping {file}...")
+            with open(file, "r", encoding="utf-8") as f:
+                content = f.read()
+                matches = pattern.findall(content)
+                for i in matches:
+                    discovered_strings.add(i)
+        else:
+            print(f"File {file} not found. Skipping...")
 
-    # Initializing the apps this triggers the __init__ and translate_text calls
-    LanguageSplashScreen()
-    MessagingApp("ScarpingBot")
-    ParentGUI()
-    LoginGUI()
-    SignupGUI()
+    print(f"Found {len(discovered_strings)} strings...")
 
-    # Restoring the original function for the actual translation loop
-    Translator.translate_text = original_translate
-    print(f"Found {len(discovered_strings)} strings to translate.")
-
-    # Looping through every language and rewrite config.txt
+    # Translation loop
     os.makedirs("languages", exist_ok=True)
 
     for code in LANGUAGES.keys():
-        print(f"Processing: {code} ({LANGUAGES[code]})")
+        if code == "en":
+            continue # skip english
+        print(f"Processing {code} ({LANGUAGES[code]})...")
 
-        # Change the code in the config file for each iteration
+        # Change the code in config.txt so the Translator knows its target
         with open("config.txt", "w") as f:
             f.write(code)
 
         cache = {}
-        for i in discovered_strings:
-            # This reads the code from config.txt and calls the API
-            cache[i] = Translator.translate_text(i)
+        for string in discovered_strings:
+            try:
+                # Calling translate_text
+                cache[string] = Translator.translate_text(string)
+                # 0.1s delay to be nice to google
+                time.sleep(0.1)
+            except Exception as e:
+                print(f"Failed to translate {string}: {e}")
 
-        # Save into a json file
-        with open(f"languages/{code}.json", "w", encoding="utf-8") as f:
+        # Save the json file
+        with open(f'languages/{code}.json', "w", encoding="utf-8") as f:
             json.dump(cache, f, ensure_ascii=False, indent=4)
+            print(f"{code} ({LANGUAGES[code]}) Completed!)")
+
+    print(f"{code} ({LANGUAGES[code]}) complete!")
 
 if __name__ == "__main__":
-    os.environ["SCRAPING"] = "true"
+    os.environ["SCRAPING"] = "true" # so Translator.py doesn't try to read its own cache
     generate_json_files()
+    print("CACHE GENERATION COMPLETE")

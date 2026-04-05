@@ -122,7 +122,7 @@ class MessagingApp(ctk.CTk):
 
         # Display own message immediately
         time_string = time.strftime("%H:%M:%S")
-        self.display_message("You", message, time_string)
+        self.display_message(translate_text("You"), message, time_string)
         self.entry_message.delete(0, "end")
 
         # Send to server
@@ -319,7 +319,7 @@ class MessagingApp(ctk.CTk):
                             decrypted_message = decrypted_bytes.decode("utf-8")
                             if sender == self.username:
                                 sender = "You" # Display "You" when fetching your own messages instead of your username
-                            self.display_message(sender, decrypted_message, timestamp)
+                            self.display_message(translate_text(sender), decrypted_message, timestamp)
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:

@@ -3,8 +3,6 @@ from googletrans import Translator
 import json
 import os
 
-from Client.Updated_GUI import LoginGUI
-
 CONFIG_FILE = "config.txt"
 
 def translate_text(target_text):
