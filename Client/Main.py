@@ -5,6 +5,8 @@ import time
 import tkinter as tk
 from cryptography.fernet import Fernet
 from Translator import translate_text, translate_message
+from googletrans import LANGUAGES
+from tkinter import messagebox
 
 SECURITY_KEY = b'HbQ3dWJrZQ-mkWA65QPoebyExSqK6fy-dljZxbRDdE4='
 cipher_suite = Fernet(SECURITY_KEY)
@@ -58,7 +60,34 @@ class MessagingApp(ctk.CTk):
 
         # Scrollable frame for user list
         self.user_list_frame = ctk.CTkScrollableFrame(self.sidebar, width=200, label_text=translate_text("Users"), label_font=("Arial", 16, "bold"))
-        self.user_list_frame.pack(side="left", fill="y", padx=10, pady=(20,10))
+        self.user_list_frame.pack(side="top", fill="both", expand=True, padx=10, pady=(20,10))
+
+        # Language selection
+        self.lang_map = {}
+
+        # Loop through every item in the LANGUAGES dictionary
+        for code, name in LANGUAGES.items():
+            # Capitalize the name
+            cap_name = name.title()
+            # Add it to lang_map
+            self.lang_map[cap_name] = code
+
+        lang_names = sorted(list(self.lang_map.keys()))
+
+        self.lang_label = ctk.CTkLabel(self.sidebar, text="Language", font=("Arial", 12))
+        self.lang_label.pack(side="top", pady=10)
+
+        self.lang_menu = ctk.CTkOptionMenu(self.sidebar, values=lang_names, command=self.change_language_event, fg_color="#333333", button_color="#444444")
+        self.lang_menu.pack(side="top", padx=10, pady=(5,20))
+
+        # Set the current language as default in the menu
+        try:
+            with open("config.txt", "r") as f:
+                current_code = f.read().strip().lower()
+                current_name = LANGUAGES.get(current_code, "english").title()
+                self.lang_menu.set(current_name)
+        except:
+            self.lang_menu.set("English")
 
     def setup_chat_window(self):
         # Main Chat Container
@@ -317,9 +346,7 @@ class MessagingApp(ctk.CTk):
                             timestamp = remainder[message_length:].lstrip(":")
                             decrypted_bytes = cipher_suite.decrypt(encrypted_message.encode("utf-8"))
                             decrypted_message = decrypted_bytes.decode("utf-8")
-                            if sender == self.username:
-                                sender = "You" # Display "You" when fetching your own messages instead of your username
-                            self.display_message(translate_text(sender), decrypted_message, timestamp)
+                            self.display_message(sender, decrypted_message, timestamp)
                             max_id = max(max_id, message_id)
                 self.last_message_id = max_id
         except Exception as e:
@@ -339,12 +366,24 @@ class MessagingApp(ctk.CTk):
             time_string = f"[{time_string}]"
 
         self.message_display.configure(state="normal")
-        if sender != "You":
+        if sender != self.username:
             self.message_display.insert("end", f"{time_string} {sender}:{translate_message(message)}\n")
         else:
-            self.message_display.insert("end", f"{time_string} {sender}:{message}\n")
+            self.message_display.insert("end", f"{time_string} {translate_text("You")}:{message}\n")
         self.message_display.configure(state="disabled")
         self.message_display.see("end")
+
+    def change_language_event(self, selected_name):
+        new_code = self.lang_menu.get()
+
+        if new_code:
+            try:
+                with open("config.txt", "w") as f:
+                    f.write(new_code)
+
+                    messagebox.showinfo(translate_text("Language Changed"), f"Language set to {selected_name}. Please restart the app to apply UI changes.")
+            except Exception as e:
+                print(f"Failed to change language: {e}")
 
 if __name__ == "__main__":
     app = MessagingApp("TEST")

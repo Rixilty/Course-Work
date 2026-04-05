@@ -53,9 +53,7 @@ def generate_json_files():
         # Save the json file
         with open(f'languages/{code}.json', "w", encoding="utf-8") as f:
             json.dump(cache, f, ensure_ascii=False, indent=4)
-            print(f"{code} ({LANGUAGES[code]}) Completed!)")
-
-    print(f"{code} ({LANGUAGES[code]}) complete!")
+            print(f"{code} ({LANGUAGES[code]}) Completed!")
 
 if __name__ == "__main__":
     os.environ["SCRAPING"] = "true" # so Translator.py doesn't try to read its own cache
