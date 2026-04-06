@@ -366,15 +366,15 @@ class MessagingApp(ctk.CTk):
             time_string = f"[{time_string}]"
 
         self.message_display.configure(state="normal")
-        if sender != self.username:
-            self.message_display.insert("end", f"{time_string} {sender}:{translate_message(message)}\n")
-        else:
+        if sender in [self.username, translate_text("You")]:
             self.message_display.insert("end", f"{time_string} {translate_text("You")}:{message}\n")
+        else:
+            self.message_display.insert("end", f"{time_string} {sender}:{translate_message(message)}\n")
         self.message_display.configure(state="disabled")
         self.message_display.see("end")
 
     def change_language_event(self, selected_name):
-        new_code = self.lang_menu.get()
+        new_code = self.lang_map.get(selected_name)
 
         if new_code:
             try:
