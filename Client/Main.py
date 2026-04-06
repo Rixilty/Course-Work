@@ -4,7 +4,7 @@ import customtkinter as ctk
 import time
 import tkinter as tk
 from cryptography.fernet import Fernet
-from Translator import translate_text, translate_message, translate_outgoing
+from Translator import translate_text, translate_message
 from googletrans import LANGUAGES
 from tkinter import messagebox
 
@@ -145,8 +145,7 @@ class MessagingApp(ctk.CTk):
         print("Sending...",message)
 
         # Fernet outputs bytes, so I decode to "utf-8" string to send over the socket
-        english_message = translate_outgoing(message)
-        encrypted_bytes = cipher_suite.encrypt(english_message.encode("utf-8"))
+        encrypted_bytes = cipher_suite.encrypt(message.encode("utf-8"))
         encrypted_message = encrypted_bytes.decode("utf-8")
         message_length = len(encrypted_message)
 
@@ -370,12 +369,12 @@ class MessagingApp(ctk.CTk):
         if sender != self.username:
             self.message_display.insert("end", f"{time_string} {sender}:{translate_message(message)}\n")
         else:
-            self.message_display.insert("end", f"{time_string} {translate_text("You")}:{translate_text(message)}\n")
+            self.message_display.insert("end", f"{time_string} {translate_text("You")}:{message}\n")
         self.message_display.configure(state="disabled")
         self.message_display.see("end")
 
     def change_language_event(self, selected_name):
-        new_code = self.lang_map.get(selected_name)
+        new_code = self.lang_menu.get()
 
         if new_code:
             try:
