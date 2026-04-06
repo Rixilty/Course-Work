@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/Translator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Translator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/config.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Client/config.txt" afterDir="false" />
-    </list>
+    <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -401,7 +396,7 @@
       <workItem from="1775313519949" duration="650000" />
       <workItem from="1775383375331" duration="33276000" />
       <workItem from="1775441100239" duration="2686000" />
-      <workItem from="1775489404983" duration="3367000" />
+      <workItem from="1775489404983" duration="4083000" />
     </task>
     <servers />
   </component>
@@ -426,7 +421,7 @@
     <SUITE FILE_PATH="coverage/Course_Work$database.coverage" NAME="database Coverage Results" MODIFIED="1771109205153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$Main.coverage" NAME="Main Coverage Results" MODIFIED="1773667403213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Updated_GUI_py$cache_scraper.coverage" NAME="cache_scraper Coverage Results" MODIFIED="1775421746074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Start.coverage" NAME="Start Coverage Results" MODIFIED="1775493745020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Start.coverage" NAME="Start Coverage Results" MODIFIED="1775493833594" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Init.coverage" NAME="Init Coverage Results" MODIFIED="1763120706246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$servertemp.coverage" NAME="servertemp Coverage Results" MODIFIED="1770577221726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$testingsometing.coverage" NAME="testingsometing Coverage Results" MODIFIED="1767480025278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
