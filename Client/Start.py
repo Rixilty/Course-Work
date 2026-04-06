@@ -1,6 +1,4 @@
 import os
-from Client.LanguageSelection import LanguageSplashScreen
-from Client.Updated_GUI import LoginGUI
 
 CONFIG_FILE = "config.txt"
 
@@ -14,12 +12,15 @@ def language_already_selected():
 
 def main():
     language = language_already_selected()
+    print(language)
     if not language:
         print("First launch detected. Opening splash program")
+        from Client.LanguageSelection import LanguageSplashScreen
         app = LanguageSplashScreen()
         app.mainloop()
     else:
         print(f"User preferred language is {language}. Opening Login program")
+        from Client.Updated_GUI import LoginGUI
         app = LoginGUI()
         app.mainloop()
 
