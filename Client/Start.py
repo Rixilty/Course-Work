@@ -15,12 +15,12 @@ def main():
     print(language)
     if not language:
         print("First launch detected. Opening splash program")
-        from Client.LanguageSelection import LanguageSplashScreen
+        from LanguageSelection import LanguageSplashScreen
         app = LanguageSplashScreen()
         app.mainloop()
     else:
         print(f"User preferred language is {language}. Opening Login program")
-        from Client.Updated_GUI import LoginGUI
+        from Updated_GUI import LoginGUI
         app = LoginGUI()
         app.mainloop()
 

@@ -2,9 +2,25 @@ import customtkinter as ctk
 import socket
 import hashlib
 from Translator import translate_text
+import os
 
-from Main import MessagingApp
+DARK_THEME = {
+    "bg": "#1c1c1c",
+    "text1": "white",
+    "text2": "black",
+    "hover": "#282828",
+    "border": "#424242"
+}
 
+LIGHT_THEME = {
+    "bg": "#f0f0f0",
+    "text1": "black",
+    "text2": "white",
+    "hover": "#e0e0e0",
+    "border": "#cccccc"
+}
+
+THEME = DARK_THEME
 
 class ParentGUI:
 
@@ -19,11 +35,30 @@ class ParentGUI:
     # This is the base class from which the signup and login GUI will inherit from
 
     def __init__(self, title="title"):
+        global THEME
+        THEME = self.load_theme_config()
         self.root = None
         self.main_frame = None
         self.title_text = title
         self.window_width = 550
         self.window_height = 420
+
+    def load_theme_config(self):
+        mode = "dark" #default
+        try:
+            if os.path.exists("theme_config.txt"):
+                with open("theme_config.txt", "r") as f:
+                    mode = f.read().strip().lower()
+                    if mode == "light":
+                        self.current_theme_mode = "light"
+                        ctk.set_appearance_mode("light")
+                        return LIGHT_THEME
+            self.current_theme_mode = "dark"
+            ctk.set_appearance_mode("dark")
+            return DARK_THEME
+        except:
+            self.current_theme_mode = "dark"
+            return DARK_THEME
 
     def window(self):
         # This procedure sets up the configurations of the main window: position, geometry, colours etc.
@@ -37,13 +72,13 @@ class ParentGUI:
         self.root.geometry(f"{self.window_width}x{self.window_height}+{x}+{y}")
         self.root.resizable(False, False)
         self.root.title(self.title_text)
-        self.root.configure(fg_color="#1c1c1c")
+        self.root.configure(fg_color=THEME["bg"])
         self.root.grid_rowconfigure(0, weight=1)
         self.root.grid_columnconfigure(0, weight=1)
 
     def frames(self):
         # This procedure creates the frames for the GUI
-        self.main_frame = ctk.CTkFrame(self.root, fg_color="#1c1c1c")
+        self.main_frame = ctk.CTkFrame(self.root, fg_color=THEME["bg"])
         self.main_frame.grid(row=0, column=0, sticky="nsew")
         self.main_frame.grid_columnconfigure(0, weight=1)
         self.main_frame.rowconfigure(0, weight=0) # Top frame
@@ -51,32 +86,32 @@ class ParentGUI:
         self.main_frame.rowconfigure(2, weight=0) # Bottom frame
 
         # Top frame for the title
-        self.top_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")  # Fixed frame
+        self.top_frame = ctk.CTkFrame(self.main_frame, fg_color=THEME["bg"])  # Fixed frame
         self.top_frame.grid(row=0, column=0, columnspan=2, sticky="n", pady=(10, 5))
         self.top_frame.grid_columnconfigure(0, weight=1)
 
         # Content frame for main contents of the GUI
-        self.content_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
+        self.content_frame = ctk.CTkFrame(self.main_frame, fg_color=THEME["bg"])
         self.content_frame.grid(row=1, column=0, sticky="")
         self.content_frame.grid_columnconfigure(0, weight=0)
         self.content_frame.grid_columnconfigure(1, weight=0)
 
         # Bottom frame for buttons and links
-        self.bottom_frame = ctk.CTkFrame(self.main_frame, fg_color="#1c1c1c")
+        self.bottom_frame = ctk.CTkFrame(self.main_frame, fg_color=THEME["bg"])
         self.bottom_frame.grid(row=2, column=0, columnspan=2, sticky="ew", pady=0)
         self.bottom_frame.grid_columnconfigure(0, weight=1)
         self.bottom_frame.grid_columnconfigure(1, weight=1)
 
     def create_title(self, title_text):
         # This procedure creates the title label
-        self.Title = ctk.CTkLabel(self.top_frame, text=title_text, font=("Arial", 31, "bold"), text_color="white",fg_color="#1c1c1c")
+        self.Title = ctk.CTkLabel(self.top_frame, text=title_text, font=("Arial", 31, "bold"), text_color=THEME["text1"],fg_color=THEME["bg"])
         self.Title.grid(row=0, column=0, columnspan=2, sticky="n", pady=10)
 
     def create_username_field(self):
         # This procedure creates a username field with validation
 
         # Username label
-        self.Username_label = ctk.CTkLabel(self.content_frame, text=translate_text("Username:"), font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
+        self.Username_label = ctk.CTkLabel(self.content_frame, text=translate_text("Username:"), font=("Arial", 13, "bold"),text_color=THEME["text1"], fg_color=THEME["bg"])
         self.Username_label.grid(row=1, column=0, sticky="e", padx=(0, 10))
 
         # Username entry
@@ -84,7 +119,7 @@ class ParentGUI:
         self.Username_entry.grid(row=1, column=1, pady=5)
 
         # Username requirements frame (hidden by default)
-        self.username_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
+        self.username_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color=THEME["bg"])
         self.username_requirements_frame.grid(row=2, column=1, sticky="w", pady=(5, 0))
         self.username_length_requirement = ctk.CTkLabel(self.username_requirements_frame,text=translate_text("● Username Length Must Be Between 3-16"), text_color="red")
 
@@ -103,15 +138,18 @@ class ParentGUI:
         # This procedure creates a password field with validation
 
         # Password label
-        self.Password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Password:"), font=("Arial", 13, "bold"),text_color="white", fg_color="#1c1c1c")
+        self.Password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Password:"), font=("Arial", 13, "bold"),text_color=THEME["text1"], fg_color=THEME["bg"])
         self.Password_label.grid(row=3, column=0, sticky="e", padx=(0, 10))
 
         # Password entry
         self.Password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text=translate_text("Password"), fg_color="white", text_color="black",placeholder_text_color="grey")
         self.Password_entry.grid(row=3, column=1, pady=5)
 
+        # Binding the enter key
+        self.Password_entry.bind("<Return>", lambda event: self.handle_enter_press())
+
         # Password requirements frame (hidden by default)
-        self.password_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
+        self.password_requirements_frame = ctk.CTkFrame(self.content_frame, fg_color=THEME["bg"])
         self.password_requirements_frame.grid(row=4, column=1, sticky="w", pady=(5, 0))
 
         # Password requirements labels
@@ -136,27 +174,33 @@ class ParentGUI:
         self.Password_entry.bind("<FocusOut>", lambda e: self.password_requirements_frame.grid_remove())
         self.Password_entry.bind("<KeyRelease>", self.check_password_requirements)
 
+    def handle_enter_press(self):
+        if isinstance(self, LoginGUI):
+            self.login()
+        elif isinstance(self, SignupGUI):
+            self.signup()
+
     def create_error_label(self):
         # This procedure creates error/success message labels
 
         # Error label
-        self.error_label = ctk.CTkLabel(self.main_frame, text="", text_color="red", fg_color="#1c1c1c",font=("Arial", 14, "bold"))
+        self.error_label = ctk.CTkLabel(self.main_frame, text="", text_color="red", fg_color=THEME["bg"],font=("Arial", 14, "bold"))
         self.error_label.grid(row=6, column=0, columnspan=2, pady=(10, 0))
 
     def create_button(self, text, command):
         # This procedure creates the Login/Signup button
-        self.Login_button = ctk.CTkButton(self.bottom_frame, text=text, fg_color="#1c1c1c", text_color="white",hover_color="#282828", border_width=1, border_color="#424242",font=("Arial", 14, "bold"), command=command)
+        self.Login_button = ctk.CTkButton(self.bottom_frame, text=text, fg_color=THEME["bg"], text_color=THEME["text1"],hover_color=THEME["hover"], border_width=1, border_color=THEME["border"],font=("Arial", 14, "bold"), command=command)
         self.Login_button.grid(row=5, column=0, columnspan=2, sticky="n", pady=(10, 0))
 
     def create_link(self, prompt_text, link_text, command):
         # This procedure creates links to switch between Login and Signup
 
         # Prompt label
-        self.prompt_label = ctk.CTkLabel(self.bottom_frame, text=prompt_text,font=("Arial", 13, "bold"), text_color="white", fg_color="#1c1c1c")
+        self.prompt_label = ctk.CTkLabel(self.bottom_frame, text=prompt_text,font=("Arial", 13, "bold"), text_color=THEME["text1"], fg_color=THEME["bg"])
         self.prompt_label.grid(row=0, column=0, sticky="e")
 
         # Link label
-        self.link = ctk.CTkLabel(self.bottom_frame, text=link_text, font=("Arial", 13, "bold", "underline"),text_color="#001eff", fg_color="#1c1c1c", cursor="hand2")
+        self.link = ctk.CTkLabel(self.bottom_frame, text=link_text, font=("Arial", 13, "bold", "underline"),text_color="#001eff", fg_color=THEME["bg"], cursor="hand2")
         self.link.grid(row=0, column=1, padx=0, sticky="w")
         self.link.bind("<Button-1>", command)
 
@@ -260,7 +304,7 @@ class LoginGUI(ParentGUI):
             return
 
         # Show "Logging in..." message
-        self.error_label.configure(text=translate_text("Logging in..."), text_color="white")
+        self.error_label.configure(text=translate_text("Logging in..."), text_color=THEME["text1"])
 
         self.root.update() # This forces the GUI to update to show the message
 
@@ -311,15 +355,17 @@ class SignupGUI(ParentGUI):
         # This procedure creates a new confirm password field which is specific to the signup GUI
 
         # Confirm password label
-        self.Confirm_password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Password:"), font=("Arial",13, "bold"), text_color="white", fg_color="#1c1c1c")
+        self.Confirm_password_label = ctk.CTkLabel(self.content_frame, text=translate_text("Confirm Password:"), font=("Arial",13, "bold"), text_color=THEME["text1"], fg_color=THEME["bg"])
         self.Confirm_password_label.grid(row=5, column=0, sticky="e", padx=(0,10))
 
         # Confirm password entry
-        self.Confirm_password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text=translate_text("Password"), fg_color="white", text_color="black",placeholder_text_color="grey")
+        self.Confirm_password_entry = ctk.CTkEntry(self.content_frame, width=250, font=("Arial", 12), show="*",placeholder_text=translate_text("Re-enter your Password"), fg_color="white", text_color="black",placeholder_text_color="grey")
         self.Confirm_password_entry.grid(row=5, column=1, pady=5)
 
+        self.Confirm_password_entry.bind("<Return>", lambda event: self.signup())
+
         # Password match requirement
-        self.password_match_frame = ctk.CTkFrame(self.content_frame, fg_color="#1c1c1c")
+        self.password_match_frame = ctk.CTkFrame(self.content_frame, fg_color=THEME["bg"])
         self.password_match_frame.grid(row=6, column=1, sticky="w", padx=(5,0))
 
         self.password_match_requirement = ctk.CTkLabel(self.password_match_frame, text=translate_text("● Passwords must match"), text_color="red")
@@ -377,7 +423,7 @@ class SignupGUI(ParentGUI):
             return
 
         # Show "Creating account..." message
-        self.error_label.configure(text=translate_text("Creating account..."), text_color="white")
+        self.error_label.configure(text=translate_text("Creating account..."), text_color=THEME["text1"])
         self.root.update()
 
         # Send to server
@@ -403,7 +449,7 @@ class Authentication:
     # This handles communication with the server
 
     def __init__(self):
-        self.host = "86.13.224.23"
+        self.host = "82.30.29.190"
         self.port = 19134
 
     def send_login(self, username, password):

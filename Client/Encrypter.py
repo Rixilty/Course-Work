@@ -1,12 +1,12 @@
 import random
 import time
 
-p = 0
-q = 0
-n = 0
+prime_p = 0
+prime_q = 0
+modulus_n = 0
 phi = 0
-e = []
-d = 0
+public_exponent = []
+private_exponent = 0
 
 phi_Factors = []
 
@@ -20,8 +20,8 @@ def ready():
 
     Generate_Prime_Numbers()
     Get_Factors()
-    Get_e()
-    Get_d()
+    Get_public_exponent()
+    Get_private_exponent()
     Message()
     Encrypt(Text)
     Decrypt(Text)
@@ -35,20 +35,20 @@ def ready():
     print(f"Execution Time: {execution_time:.6f} seconds")
 
 def Generate_Prime_Numbers():
-    global p, q, n, phi
+    global prime_p, prime_q, modulus_n, phi
     for i in range(2):
         num = random.randint(100, 1000)
         while is_prime(num) == False:
             num = random.randint(100, 1000)
-        if p == 0:
-            p = num
+        if prime_p == 0:
+            prime_p = num
         else:
-            while num == p:
+            while num == prime_p:
                 num = random.randint(100, 1000)
-            q = num
-    n = p * q
-    phi = (p - 1) * (q - 1)
-    print("p:",p, "q:",q, "n:",n, "phi:",phi)
+            prime_q = num
+    modulus_n = prime_p * prime_q
+    phi = (prime_p - 1) * (prime_q - 1)
+    print("p:",prime_p, "q:",prime_q, "n:",modulus_n, "phi:",phi)
 
 def is_prime(num):
     for i in range(2, (num//2)):
@@ -61,14 +61,14 @@ def Get_Factors():
         if phi % i == 0 and i != 1:
             phi_Factors.append(i)
 
-def Get_e():
-    global e, Lock
-    for i in range(2, n+1):
+def Get_public_exponent():
+    global public_exponent, Lock
+    for i in range(2, modulus_n+1):
         if not is_factor_of_phi(i):
-            e.append(i)
-            e = int(e[0])
-            print("e:",e)
-            Lock = [e, n]
+            public_exponent.append(i)
+            public_exponent = int(public_exponent[0])
+            print("public_exponent:",public_exponent)
+            Lock = [public_exponent, modulus_n]
             break
 
 def is_factor_of_phi(num):
@@ -77,12 +77,12 @@ def is_factor_of_phi(num):
             return True
     return False
 
-def Get_d():
-    global d, Key
-    for i in range(n):
-        if (i * e) % phi == 1:
-            d = i
-            Key = [d, n]
+def Get_private_exponent():
+    global private_exponent, Key
+    for i in range(modulus_n):
+        if (i * public_exponent) % phi == 1:
+            private_exponent = i
+            Key = [private_exponent, modulus_n]
             break
 
 def Message():
@@ -97,12 +97,12 @@ def message_to_unicode(Message):
 
 def Encrypt(Text):
     for i in range(len(Text)):
-        Text[i] = pow(Text[i], e, n)
+        Text[i] = pow(Text[i], public_exponent, modulus_n)
     print(Text)
 
 def Decrypt(Text):
     for i in range(len(Text)):
-        Text[i] = chr(pow(Text[i], d, n))
+        Text[i] = chr(pow(Text[i], private_exponent, modulus_n))
     Text = ''.join(Text)
     print(Text)
 

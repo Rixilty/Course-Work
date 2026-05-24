@@ -4,7 +4,261 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="" />
+    <list default="true" id="96cdf321-9854-4821-930a-246a90b621da" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Encrypter.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Encrypter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/LanguageSelection.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/LanguageSelection.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Start.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Start.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/Updated_GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/Client/Updated_GUI.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/config.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/aar.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/abk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ace.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ach.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/af.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ak.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/alz.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/am.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ar.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/as.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ava.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/awa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ay.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/az.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bak.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bal.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ban.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bbc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bci.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/be.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bem.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ber-atn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ber.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bew.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bho.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bik.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bm.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bod.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bre.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/btx.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/bua.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ca.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ceb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/cgg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/cha.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/che.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/chk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/chv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ckb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/cnh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/co.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/crh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/crs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/cs.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/cy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/da.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/de.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/din.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/doi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/dom.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/dv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/dyu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/dzo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/el.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/eo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/es.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/et.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/eu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fa-af.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fao.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fij.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fil.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fon.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ful.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/fy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ga.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gaa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gd.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/glv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gom.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/gu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ha.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/haw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/he.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hil.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hmn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hrx.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ht.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/hy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/iba.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/id.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ig.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ilo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/is.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/it.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/iw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ja.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/jam.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/jv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/jw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ka.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kac.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kal.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kau.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kek.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kha.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kik.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/km.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ko.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kom.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/kri.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ktu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ku.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ky.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/la.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lb.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lij.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lim.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lmo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ln.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ltg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/luo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lus.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/lv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mad.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mah.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mai.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mak.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mam.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mfe.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mhr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/min.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ml.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mni-mtei.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ms-arab.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ms.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/mwr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/my.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ndc-zw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/nde.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ne.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/new.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/nhe.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/nl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/no.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/nso.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/nus.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ny.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/oci.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/om.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/or.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/oss.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pa-arab.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pag.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pam.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/por.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ps.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/pt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/qu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ro.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/rom.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ru.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/run.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/rw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sa.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sag.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sah.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sat.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/scn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sd.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/shn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/si.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sm.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sme.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/so.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sq.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ssw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/st.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/su.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sus.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/sw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/szl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tah.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tcy.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/te.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tet.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tg.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/th.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ti.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tiv.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tl.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ton.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tpi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tr.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/trp.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ts.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tsn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tt.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tuk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/tum.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/udm.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ug.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/uk.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ur.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/uz.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/vec.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/ven.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/vi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/war.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/wol.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/xh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/yi.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/yo.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/yua.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/yue.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/zap.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/zh-cn.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/zh-tw.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/zh.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/languages/zu.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Course-Work.rar" beforeDir="false" afterPath="$PROJECT_DIR$/Course-Work.rar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Server/Main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,7 +296,9 @@
     &quot;Python.Main (1).executor&quot;: &quot;Run&quot;,
     &quot;Python.Main.executor&quot;: &quot;Run&quot;,
     &quot;Python.Start.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Test.executor&quot;: &quot;Run&quot;,
     &quot;Python.Translator.executor&quot;: &quot;Run&quot;,
+    &quot;Python.Updated_GUI (1).executor&quot;: &quot;Run&quot;,
     &quot;Python.Updated_GUI.executor&quot;: &quot;Run&quot;,
     &quot;Python.cache_scraper.executor&quot;: &quot;Run&quot;,
     &quot;Python.database.executor&quot;: &quot;Run&quot;,
@@ -197,6 +453,29 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Start" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Course-Work" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Client" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Client/Start.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Updated_GUI (1)" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="Course-Work" />
       <option name="ENV_FILES" value="" />
@@ -268,8 +547,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Updated_GUI (1)" />
+        <item itemvalue="Python.Start" />
         <item itemvalue="Python.Main (1)" />
+        <item itemvalue="Python.Updated_GUI (1)" />
         <item itemvalue="Python.Updated_GUI" />
         <item itemvalue="Python.Main" />
       </list>
@@ -397,6 +677,20 @@
       <workItem from="1775383375331" duration="33276000" />
       <workItem from="1775441100239" duration="2686000" />
       <workItem from="1775489404983" duration="4083000" />
+      <workItem from="1775565491133" duration="28257000" />
+      <workItem from="1776030829064" duration="146000" />
+      <workItem from="1776173868079" duration="756000" />
+      <workItem from="1776241246848" duration="706000" />
+      <workItem from="1776255081649" duration="20000" />
+      <workItem from="1776517869879" duration="534000" />
+      <workItem from="1776518512569" duration="5256000" />
+      <workItem from="1776597194524" duration="16043000" />
+      <workItem from="1776847868951" duration="247000" />
+      <workItem from="1777135700828" duration="6914000" />
+      <workItem from="1777144286614" duration="2155000" />
+      <workItem from="1777382623117" duration="32000" />
+      <workItem from="1777634232502" duration="122000" />
+      <workItem from="1777714977040" duration="12971000" />
     </task>
     <servers />
   </component>
@@ -404,27 +698,30 @@
     <option name="version" value="3" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1775266215132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1773191791044" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1775413724293" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Main.coverage" NAME="Main Coverage Results" MODIFIED="1775490121505" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1771161834663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1775441296868" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1777758827270" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Updated_GUI_py$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1775441940957" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1773831931275" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$test.coverage" NAME="test Coverage Results" MODIFIED="1763726807059" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/Course_Work$temp.coverage" NAME="temp Coverage Results" MODIFIED="1773188858231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$Encrypter.coverage" NAME="Encrypter Coverage Results" MODIFIED="1773654278806" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$tk.coverage" NAME="tk Coverage Results" MODIFIED="1759538321057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1771116459948" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$LanguageSelection.coverage" NAME="LanguageSelection Coverage Results" MODIFIED="1775442009675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$LanguageSelection.coverage" NAME="LanguageSelection Coverage Results" MODIFIED="1776619318335" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Main__1_.coverage" NAME="Main (1) Coverage Results" MODIFIED="1777139429875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$servertemp.coverage" NAME="servertemp Coverage Results" MODIFIED="1770577221726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$messages_database.coverage" NAME="messages_database Coverage Results" MODIFIED="1775266215132" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Updated_GUI.coverage" NAME="Updated_GUI Coverage Results" MODIFIED="1777142762127" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Main.coverage" NAME="Main Coverage Results" MODIFIED="1777140424753" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$Translator.coverage" NAME="Translator Coverage Results" MODIFIED="1771161834663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Course_Work$temp.coverage" NAME="temp Coverage Results" MODIFIED="1773188858231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$database.coverage" NAME="database Coverage Results" MODIFIED="1771109205153" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
     <SUITE FILE_PATH="coverage/Course_Work$Main.coverage" NAME="Main Coverage Results" MODIFIED="1773667403213" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$cache_scraper.coverage" NAME="cache_scraper Coverage Results" MODIFIED="1775421746074" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
-    <SUITE FILE_PATH="coverage/Updated_GUI_py$Start.coverage" NAME="Start Coverage Results" MODIFIED="1775493833594" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$cache_scraper.coverage" NAME="cache_scraper Coverage Results" MODIFIED="1775589056147" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Test.coverage" NAME="Test Coverage Results" MODIFIED="1775589801456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Start.coverage" NAME="Start Coverage Results" MODIFIED="1777143357543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Init.coverage" NAME="Init Coverage Results" MODIFIED="1763120706246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Server" />
-    <SUITE FILE_PATH="coverage/Course_Work$servertemp.coverage" NAME="servertemp Coverage Results" MODIFIED="1770577221726" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/Course_Work$testingsometing.coverage" NAME="testingsometing Coverage Results" MODIFIED="1767480025278" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Updated_GUI_py$Updated_GUI__1_.coverage" NAME="Updated_GUI (1) Coverage Results" MODIFIED="1776534830194" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
     <SUITE FILE_PATH="coverage/Course_Work$Login.coverage" NAME="Login Coverage Results" MODIFIED="1770470978939" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Client" />
   </component>
   <component name="github-copilot-workspace">

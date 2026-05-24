@@ -3,15 +3,29 @@ import locale
 import threading
 import asyncio
 from googletrans import Translator, LANGUAGES
-
-from Client.Updated_GUI import LoginGUI
+import os
+from Updated_GUI import LoginGUI
 from Translator import translate_text
 
 # Initializing the translator
 translator = Translator()
 
+TEXT_COLOR = "grey"
+
+DARK_THEME = {
+    "bg": "#1c1c1c"
+}
+
+LIGHT_THEME = {
+    "bg": "#f0f0f0"
+}
+
+THEME = DARK_THEME
+
 class LanguageManager:
     def __init__(self):
+        global THEME
+        THEME = self.load_theme_config()
         # Detecting the system language automatically
         try:
             # Gets something like "en_GB" or "fr_FR", so we need to take the first 2 characters, as that's the code that googletrans recognises
@@ -32,6 +46,24 @@ class LanguageManager:
         with open("config.txt", "w") as f:
             f.write(self.code)
             print(f"Saved language code: {self.code} to config.txt")
+
+
+    def load_theme_config(self):
+        mode = "dark" #default
+        try:
+            if os.path.exists("theme_config.txt"):
+                with open("theme_config.txt", "r") as f:
+                    mode = f.read().strip().lower()
+                    if mode == "light":
+                        self.current_theme_mode = "light"
+                        ctk.set_appearance_mode("light")
+                        return LIGHT_THEME
+            self.current_theme_mode = "dark"
+            ctk.set_appearance_mode("dark")
+            return DARK_THEME
+        except:
+            self.current_theme_mode = "dark"
+            return DARK_THEME
 
     def get_all_languages(self):
         # This returns a storted list of languages names for the dropdown menu
@@ -59,7 +91,7 @@ class LanguageSplashScreen(ctk.CTk):
 
         self.title("Language Selection")
         self.geometry("550x450")
-        self.configure(fg_color="#1c1c1c")
+        self.configure(fg_color=THEME["bg"])
 
         # GUI
 
@@ -71,14 +103,14 @@ class LanguageSplashScreen(ctk.CTk):
         self.info_label.pack(pady=10)
 
         # Dropdown Selection
-        self.sub_label = ctk.CTkLabel(self, text=translate_text("Not your preferred language?"), text_color="grey")
+        self.sub_label = ctk.CTkLabel(self, text=translate_text("Not your preferred language?"), text_color=TEXT_COLOR)
         self.sub_label.pack(pady=20)
         self.lang_dropdown = ctk.CTkOptionMenu(self, values=lang_data.get_all_languages(), command=self.manual_change, width=200)
         self.lang_dropdown.set(lang_data.name)
         self.lang_dropdown.pack(pady=10)
 
         # Seperator
-        self.seperator = ctk.CTkLabel(self, text=translate_text("--- OR ---"), text_color="grey")
+        self.seperator = ctk.CTkLabel(self, text=translate_text("--- OR ---"), text_color=TEXT_COLOR)
         self.seperator.pack(pady=10)
 
         # Detect a language through a phrase instead

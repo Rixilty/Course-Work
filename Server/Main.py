@@ -216,7 +216,7 @@ class Server:
         try:
             conn = sqlite3.connect(self.message_db)
             cursor = conn.cursor()
-            cursor.execute("SELECT id, sender, length, message, timestamp FROM messages WHERE id > ? ORDER BY id",(last_id,))
+            cursor.execute("SELECT id, sender, length, message, datetime(timestamp, 'localtime') FROM messages WHERE id > ? ORDER BY id",(last_id,))
             rows = cursor.fetchall()
             conn.close()
 
